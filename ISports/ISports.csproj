@@ -94,9 +94,16 @@
     <Content Include="Content\Home.css" />
     <Content Include="Content\Login.css" />
     <Content Include="Content\Register.css" />
+    <Content Include="Content\Search.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\_Layout.css" />
     <Content Include="Global.asax" />
+    <Content Include="Pictures\background.jpg" />
+    <Content Include="Pictures\basquete.jpg" />
+    <Content Include="Pictures\futebol.jpg" />
+    <Content Include="Pictures\search.jpg" />
+    <Content Include="Pictures\user_profile.jpg" />
+    <Content Include="Pictures\volei.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
@@ -122,8 +129,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CreateEventController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MyEventsController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -135,6 +145,9 @@
     <Content Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Register\Index.cshtml" />
+    <Content Include="Views\MyEvents\Index.cshtml" />
+    <Content Include="Views\Search\Index.cshtml" />
+    <Content Include="Views\CreateEvent\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

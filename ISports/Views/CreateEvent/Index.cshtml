@@ -1,0 +1,103 @@
+﻿
+@{
+    ViewBag.Title = "Create Event";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="@Url.Content("~/Content/Login.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Home.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Bootstrap.css")" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="col-md-9">
+        <div class="profile-content">
+            <div class="container">
+                <div class="row">
+                    <form class="form-horizontal">
+                        <fieldset>
+                            <!-- Form Name -->
+                            <legend>Create Event</legend>
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="requestName">Event Name</label>
+                                <div class="col-md-4">
+                                    <input id="eventName" name="eventName" placeholder="Event Name" class="form-control input-md" required="" type="text">
+
+                                </div>
+                            </div>
+                            <!-- Textarea -->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="description">Description</label>
+                                <div class="col-md-4">
+                                    <textarea class="form-control" id="description" name="description"></textarea>
+                                </div>
+                            </div>
+                            <legend>Sport info</legend>
+                            <!-- Select Basic -->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="sport">Sport</label>
+                                <div class="col-md-4">
+                                    <select id="sport" name="sport" class="form-control">
+                                        <option value="Footbol">Footbol</option>
+                                        <option value="Voleyball">Voleyball</option>
+                                        <option value="Baseball">Baseball</option>
+                                        <option value="Basketball">Basketball</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="maxP"> Max Player</label>
+                                <div class="col-md-2">
+                                    <input id="maxP" name="maxP" placeholder="max" class="form-control input-md" type="text">
+
+                                </div>
+                            </div>
+                            <legend>Local info</legend>
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="requestName">Local Name</label>
+                                <div class="col-md-4">
+                                    <input id="localName" name="localName" placeholder="Local Name" class="form-control input-md" required="" type="text">
+
+                                </div>
+                            </div>
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="address">Address</label>
+                                <div class="col-md-4">
+                                    <input id="address" name="address" placeholder="address" class="form-control input-md" type="text">
+
+                                </div>
+                            </div>
+                            <!-- Select Basic -->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="town">Town</label>
+                                <div class="col-md-4">
+                                    <select id="town" name="town" class="form-control">
+                                        <option value="São José do Rio Preto">São José do Rio Preto</option>
+                                        <option value="Catanduva">Catanduva</option>
+                                        <option value="Cedral">Cedral</option>
+                                        <option value="Onda Verde">Onda Verde</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- Button -->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="submit"></label>
+                                <div class="col-md-4">
+                                    <button id="submit" name="submit" class="btn btn-default">Create</button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+            </div>
+        </div>
+</body>
+</html>
+
