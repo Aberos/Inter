@@ -13,5 +13,9 @@ namespace ISports.Controllers
         {
             return View();
         }
+        public ActionResult IndexManager()
+        {
+            return View();
+        }
     }
 }
