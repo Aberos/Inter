@@ -1,0 +1,137 @@
+﻿
+@{
+    ViewBag.Title = "Home Event";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="@Url.Content("~/Content/Login.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Event.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Bootstrap.css")" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="col-md-9">
+        <div class="profile-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12" id="logout">
+                        <div class="page-header">
+                            <img src="~/Pictures/futebol.jpg" style="width: 150px;height:auto; border: 1px solid #bfbfbf; box-shadow: 0 0 4px #cfcfcf;"/>
+                            <h1 style="display: inline; position: relative; top: 50px;">Racha de Futebol <small>Mario</small></h1>
+                            <div class="unsubscribe" style="display: none;">
+                                <button class="btn btn-default btn-circle text-uppercase" type="button" onclick="$('.unsubscribe').hide(); $('.subscribe').show()">
+                                    <span class="glyphicon glyphicon-minus"></span> Unsubscribe
+                                </button>
+                            </div>
+                            <div class="subscribe">
+                                <button class="btn btn-default btn-circle text-uppercase" type="button" onclick="$('.subscribe').hide(); $('.unsubscribe').show()">
+                                    <span class="glyphicon glyphicon-plus"></span> Subscribe
+                                </button>
+                            </div>
+                        </div>
+                        <div class="comment-tabs">
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li class="active"><a href="#about" role="tab" data-toggle="tab"><h4 class="reviews text-capitalize">About</h4></a></li>
+                                <li><a href="#feed" role="tab" data-toggle="tab"><h4 class="reviews text-capitalize">Feed</h4></a></li>
+                                <li><a href="#members" role="tab" data-toggle="tab"><h4 class="reviews text-capitalize">Members</h4></a></li>
+                            </ul>
+                        </div>
+
+                        <div class="tab-content">
+                            <div id="about" class="tab-pane fade in active">
+                                te3
+                            </div>
+                            <div id="feed" class="tab-pane fade">
+                                <div class="panel panel-default" style="margin-bottom: 5px !important; margin-top: -20px !important;">
+                                    <div class="panel-body">
+                                        <h5>Vitoria time Masculino <small>20/04/2017 as 22:30</small></h5>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default" style="margin:0 !important">
+                                    <div class="panel-body">
+                                        <h5>Vitoria time Feminino <small>27/04/2017 as 22:30</small></h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="members" class="tab-pane fade">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Telephone</th>
+                                        <th>Age</th>
+                                        <th>Commands</th>   
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Mario</td>
+                                            <td>korea@hotmail.com</td>
+                                            <td>978945596</td>
+                                            <td>21</td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                        Commands
+                                                        <span class="caret"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                        <li><a href="#"><i class="fa fa-check" aria-hidden="true"></i> Presence</a></li>
+                                                        <li><a href="#"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a></li>
+                                                        <li><a href="#"><i class="fa fa-money" aria-hidden="true"></i> Paid</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mario</td>
+                                            <td>korea@hotmail.com</td>
+                                            <td>978945596</td>
+                                            <td>21</td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                        Commands
+                                                        <span class="caret"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                        <li><a href="#"><i class="fa fa-check" aria-hidden="true"></i> Presence</a></li>
+                                                        <li><a href="#"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a></li>
+                                                        <li><a href="#"><i class="fa fa-money" aria-hidden="true"></i> Paid</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mario</td>
+                                            <td>korea@hotmail.com</td>
+                                            <td>978945596</td>
+                                            <td>21</td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                        Commands
+                                                        <span class="caret"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                        <li><a href="#"><i class="fa fa-check" aria-hidden="true"></i> Presence</a></li>
+                                                        <li><a href="#"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a></li>
+                                                        <li><a href="#"><i class="fa fa-money" aria-hidden="true"></i> Paid</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

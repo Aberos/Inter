@@ -91,6 +91,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Event.css" />
     <Content Include="Content\Home.css" />
     <Content Include="Content\Login.css" />
     <Content Include="Content\Register.css" />
@@ -130,6 +131,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CreateEventController.cs" />
+    <Compile Include="Controllers\EventHomeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MyEventsController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
@@ -148,6 +150,7 @@
     <Content Include="Views\MyEvents\Index.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\CreateEvent\Index.cshtml" />
+    <Content Include="Views\EventHome\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
