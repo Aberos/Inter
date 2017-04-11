@@ -30,14 +30,8 @@
                             </div>
                             <div class="form-group">
                                 <div class="input-group">
-                                    <span class="input-group-addon"><span class="glyphicon glyphicon-font"></span></span>
-                                    <input type="text" class="form-control" placeholder="Username" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="input-group">
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                                    <input type="text" class="form-control" placeholder="Age" />
+                                    <input type="date" class="form-control" placeholder="Age" />
                                 </div>
                             </div>
                             <div class="form-group">
@@ -60,8 +54,38 @@
                                     <input type="password" class="form-control" placeholder="Confirm Password" />
                                 </div>
                             </div>
+
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button id="fake-file-button-browse" type="button" class="btn btn-default">
+                                            <span class="glyphicon glyphicon-file"></span>
+                                        </button>
+                                    </span>
+                                    <input type="file" id="files-input-upload" style="display:none">
+                                    <input type="text" id="fake-file-input-name" disabled="disabled" placeholder="File not selected" class="form-control">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" disabled="disabled" id="fake-file-button-upload">
+                                            <span class="glyphicon glyphicon-upload"></span>
+                                        </button>
+                                    </span>
+
+                                </div>
+                                <script type="text/javascript">
+                                // Fake file upload
+                                    document.getElementById('fake-file-button-browse').addEventListener('click', function() {
+	                                    document.getElementById('files-input-upload').click();
+                                    });
+
+                                    document.getElementById('files-input-upload').addEventListener('change', function() {
+	                                     document.getElementById('fake-file-input-name').value = this.value;
+
+	                                     document.getElementById('fake-file-button-upload').removeAttribute('disabled');
+                                    });
+                                </script>
+                            </div>
                     </div>
-                    <a href="#" class="btn btn-sm btn-primary btn-block" role="button">
+                    <a href="~/Login" class="btn btn-sm btn-primary btn-block" role="button">
                         SUBMIT
                     </a> </form>
                 </div>
