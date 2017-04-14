@@ -1,0 +1,122 @@
+﻿
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="@Url.Content("~/Content/Style.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Bootstrap.css")" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="col-md-9">
+        <div class="profile-content">
+            <div class="container">
+                <div class="row">
+                    <form class="form-horizontal">
+                        <fieldset>
+                            <!-- Form Name -->
+                            <legend>My Profile</legend>
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="requestName">Name</label>
+                                <div class="col-md-4">
+                                    <input id="eventName" name="eventName" placeholder="Name" class="form-control input-md" required="" type="text">
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="requestName">Date</label>
+                                <div class="col-md-4">
+                                    <input id="eventName" name="eventName" placeholder="Daate" class="form-control input-md" required="" type="date">
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="requestName">Email</label>
+                                <div class="col-md-4">
+                                    <input id="eventName" name="eventName" placeholder="Email" class="form-control input-md" required="" type="text">
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="requestName">Password</label>
+                                <div class="col-md-4">
+                                    <input id="eventName" name="eventName" placeholder="Password" class="form-control input-md" required="" type="text">
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="requestName">Confirm Password</label>
+                                <div class="col-md-4">
+                                    <input id="eventName" name="eventName" placeholder="Confirm Password" class="form-control input-md" required="" type="text">
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="requestName">Preview Image</label>
+                                &nbsp &nbsp
+                                <img src="~/Pictures/user_profile.jpg" class="img-thumbnail" alt="Cinque Terre" width="15%" height="15%">
+                            </div>
+
+                            <!-- Upload Image -->
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="requestName">Upload Picture</label>
+                                <div class="col-md-4 input-group">
+                                    <span class="input-group-btn">
+                                        <button id="fake-file-button-browse" type="button" class="btn btn-default">
+                                            <span class="glyphicon glyphicon-file"></span>
+                                        </button>
+                                    </span>
+                                    <input type="file" id="files-input-upload" style="display:none">
+                                    <input type="text" id="fake-file-input-name" disabled="disabled" placeholder="File not selected" class="form-control">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" disabled="disabled" id="fake-file-button-upload">
+                                            <span class="glyphicon glyphicon-upload"></span>
+                                        </button>
+                                    </span>
+
+                                </div>
+                                <script type="text/javascript">
+                                // Fake file upload
+                                    document.getElementById('fake-file-button-browse').addEventListener('click', function() {
+	                                    document.getElementById('files-input-upload').click();
+                                    });
+
+                                    document.getElementById('files-input-upload').addEventListener('change', function() {
+	                                     document.getElementById('fake-file-input-name').value = this.value;
+
+	                                     document.getElementById('fake-file-button-upload').removeAttribute('disabled');
+                                    });
+                                </script>
+                            </div>
+                </div>
+
+                <!-- Button -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="submit"></label>
+                    <div class="col-md-4">
+                        <center>
+                            <button id="submit" name="submit" class="btn btn-success" style="a">Edit</button>
+                        </center>
+                    </div>
+                </div>
+                </fieldset>
+                </form>
+            </div>
+            </div>
+         </div>
+     </div>
+
+</body>
+</html>
+
+

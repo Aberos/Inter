@@ -146,6 +146,7 @@
     <Content Include="Views\CreateEvent\Index.cshtml" />
     <Content Include="Views\EventHome\Index.cshtml" />
     <Content Include="Views\EventHome\IndexManager.cshtml" />
+    <Content Include="Views\Home\Profile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -10,6 +10,8 @@ body {
   background: url(/Pictures/background.jpg) no-repeat center center fixed; 
 }
 
+/*navbar*/
+
 /* Profile container */
 .profile {
   margin: 20px 0;
@@ -19,6 +21,8 @@ body {
 .profile-sidebar {
   padding: 20px 0 10px 0;
   background: #fff;
+  width:20%;
+    position: fixed;
 }
 
 .profile-userpic img {
@@ -112,6 +116,7 @@ body {
   padding: 20px;
   background: #fff;
   min-height: 460px;
+
 }
 
 /* Events */
@@ -390,3 +395,4 @@ select,
 textarea {
     max-width: 280px;
 }
+
