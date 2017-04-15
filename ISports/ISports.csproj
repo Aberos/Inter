@@ -119,34 +119,30 @@
     <None Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Login\Index.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\CreateEventController.cs" />
-    <Compile Include="Controllers\EventHomeController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\MyEventsController.cs" />
-    <Compile Include="Controllers\RegisterController.cs" />
-    <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\Register\Index.cshtml" />
-    <Content Include="Views\MyEvents\Index.cshtml" />
-    <Content Include="Views\Search\Index.cshtml" />
-    <Content Include="Views\CreateEvent\Index.cshtml" />
-    <Content Include="Views\EventHome\Index.cshtml" />
-    <Content Include="Views\EventHome\IndexManager.cshtml" />
-    <Content Include="Views\Home\Profile.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Create.cshtml" />
+    <Content Include="Views\Account\Recover.cshtml" />
+    <Content Include="Views\Event\Home.cshtml" />
+    <Content Include="Views\Event\Manager.cshtml" />
+    <Content Include="Views\Event\Search.cshtml" />
+    <Content Include="Views\Event\Create.cshtml" />
+    <Content Include="Views\Event\FeedEvents.cshtml" />
+    <Content Include="Views\Event\UserEvents.cshtml" />
+    <Content Include="Views\Account\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
