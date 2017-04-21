@@ -7,5 +7,8 @@ namespace ISports.Models
 {
     public class Noticia
     {
+        public int Id_Noticia { get; set; }
+        public int Id_Evento { get; set; }
+        public string Descricao_Noticia { get; set; }
     }
 }
