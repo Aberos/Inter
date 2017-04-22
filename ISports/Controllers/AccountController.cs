@@ -37,6 +37,25 @@ namespace ISports.Controllers
                 return View(c);
             }
         }
+        [HttpPost]
+        public ActionResult Login(Usuario l)
+        {
+            using (UsuarioModel model = new UsuarioModel())
+            {
+                Usuario user = model.Read(l.Email, l.Senha);
+
+                if(user == null)
+                {
+                    ViewBag.Erro = "E-mail ou Senha inválidas";
+                }
+                else
+                {
+                    Session["usuario"] = user;
+                    return RedirectToAction("Home", "Event");
+                }
+            }
+            return View();
+        }
 
         public ActionResult Edit()
         {

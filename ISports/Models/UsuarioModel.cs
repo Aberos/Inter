@@ -23,5 +23,28 @@ namespace ISports.Models
             
             cmd.ExecuteNonQuery();
         }
+
+        public Usuario Read(string email, string senha)
+        {
+            Usuario e = null;
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = connection;
+            cmd.CommandText = @"Exec Logar @email, @senha";
+
+            cmd.Parameters.AddWithValue("@email", email);
+            cmd.Parameters.AddWithValue("@senha", senha);
+
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            if (reader.Read())
+            {
+                e = new Usuario();
+                e.Id_usuario = (int)reader["id"];
+                e.Nome = (string)reader["nome"];
+                e.Email = (string)reader["email"];
+            }
+            return e;
+        }
     }
 }
