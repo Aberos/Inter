@@ -127,6 +127,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ConexaoBase.cs" />
     <Compile Include="Models\Esporte.cs" />
     <Compile Include="Models\Evento.cs" />
     <Compile Include="Models\Local.cs" />
@@ -134,6 +135,7 @@
     <Compile Include="Models\Organizador.cs" />
     <Compile Include="Models\Pagamento.cs" />
     <Compile Include="Models\Usuario.cs" />
+    <Compile Include="Models\UsuarioModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

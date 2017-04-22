@@ -20,6 +20,24 @@ namespace ISports.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult Create(Usuario c)
+        {
+            if(ModelState.IsValid)
+            {
+                using (UsuarioModel model = new UsuarioModel())
+                {
+                    model.Create(c);
+                }
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ViewBag.Mensagem("Erro");
+                return View(c);
+            }
+        }
+
         public ActionResult Edit()
         {
             return View();

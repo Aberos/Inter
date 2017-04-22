@@ -17,7 +17,7 @@ namespace ISports.Models
 
         public string Sobrenome { get; set; }
 
-        public string DataNasc { get; set; }
+        public DateTime DataNasc { get; set; }
 
         public string Cel { get; set; }
 
