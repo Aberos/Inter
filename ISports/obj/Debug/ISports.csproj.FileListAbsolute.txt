@@ -295,3 +295,36 @@ D:\Users\Windows\Verners\Documents\GitHub\Inter\ISports\bin\System.Web.Mvc.xml
 D:\Users\Windows\Verners\Documents\GitHub\Inter\ISports\obj\Debug\ISports.csprojResolveAssemblyReference.cache
 D:\Users\Windows\Verners\Documents\GitHub\Inter\ISports\obj\Debug\ISports.dll
 D:\Users\Windows\Verners\Documents\GitHub\Inter\ISports\obj\Debug\ISports.pdb
+C:\Users\iaron\Desktop\Faculdade Fatec\Inter\ISports\obj\Debug\ISports.csprojResolveAssemblyReference.cache
+C:\Users\iaron\Desktop\Faculdade Fatec\Inter\ISports\obj\Debug\ISports.dll
+C:\Users\iaron\Desktop\Faculdade Fatec\Inter\ISports\obj\Debug\ISports.pdb
+C:\Users\iaron\Desktop\Faculdade Fatec\Inter\ISports\bin\roslyn\csc.exe
+C:\Users\iaron\Desktop\Faculdade Fatec\Inter\ISports\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\iaron\Desktop\Faculdade Fatec\Inter\ISports\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\iaron\Desktop\Faculdade Fatec\Inter\ISports\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\iaron\Desktop\Faculdade Fatec\Inter\ISports\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\iaron\Desktop\Faculdade Fatec\Inter\ISports\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\iaron\Desktop\Faculdade Fatec\Inter\ISports\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\iaron\Desktop\Faculdade Fatec\Inter\ISports\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\iaron\Desktop\Faculdade Fatec\Inter\ISports\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\iaron\Desktop\Faculdade Fatec\Inter\ISports\bin\roslyn\vbc.exe
+C:\Users\iaron\Desktop\Faculdade Fatec\Inter\ISports\bin\roslyn\VBCSCompiler.exe
+C:\Users\iaron\Desktop\Faculdade Fatec\Inter\ISports\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\iaron\Desktop\Faculdade Fatec\Inter\ISports\bin\ISports.dll.config
+C:\Users\iaron\Desktop\Faculdade Fatec\Inter\ISports\bin\ISports.dll
+C:\Users\iaron\Desktop\Faculdade Fatec\Inter\ISports\bin\ISports.pdb
+C:\Users\iaron\Desktop\Faculdade Fatec\Inter\ISports\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\iaron\Desktop\Faculdade Fatec\Inter\ISports\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\iaron\Desktop\Faculdade Fatec\Inter\ISports\bin\System.Web.Helpers.dll
+C:\Users\iaron\Desktop\Faculdade Fatec\Inter\ISports\bin\System.Web.Mvc.dll
+C:\Users\iaron\Desktop\Faculdade Fatec\Inter\ISports\bin\System.Web.Razor.dll
+C:\Users\iaron\Desktop\Faculdade Fatec\Inter\ISports\bin\System.Web.Webpages.Deployment.dll
+C:\Users\iaron\Desktop\Faculdade Fatec\Inter\ISports\bin\System.Web.Webpages.dll
+C:\Users\iaron\Desktop\Faculdade Fatec\Inter\ISports\bin\System.Web.Webpages.Razor.dll
+C:\Users\iaron\Desktop\Faculdade Fatec\Inter\ISports\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\iaron\Desktop\Faculdade Fatec\Inter\ISports\bin\System.Web.Razor.xml
+C:\Users\iaron\Desktop\Faculdade Fatec\Inter\ISports\bin\System.Web.Webpages.xml
+C:\Users\iaron\Desktop\Faculdade Fatec\Inter\ISports\bin\System.Web.Webpages.Deployment.xml
+C:\Users\iaron\Desktop\Faculdade Fatec\Inter\ISports\bin\System.Web.Webpages.Razor.xml
+C:\Users\iaron\Desktop\Faculdade Fatec\Inter\ISports\bin\System.Web.Helpers.xml
+C:\Users\iaron\Desktop\Faculdade Fatec\Inter\ISports\bin\System.Web.Mvc.xml

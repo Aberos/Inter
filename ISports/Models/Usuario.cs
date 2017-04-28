@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -7,11 +8,14 @@ namespace ISports.Models
 {
     public class Usuario
     {
+        
         public int Id_usuario { get; set; }
 
         public int Estatus { get; set; }
 
         public string Email { get; set; }
+
+        [Required]
 
         public string Nome { get; set; }
 

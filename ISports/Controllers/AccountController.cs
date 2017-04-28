@@ -33,7 +33,7 @@ namespace ISports.Controllers
             }
             else
             {
-                ViewBag.Mensagem("Erro");
+                ViewBag.Mensagem = "Erro";
                 return View(c);
             }
         }
@@ -51,7 +51,7 @@ namespace ISports.Controllers
                 else
                 {
                     Session["usuario"] = user;
-                    return RedirectToAction("Home", "Event");
+                    return RedirectToAction("FeedEvents", "Event");
                 }
             }
             return View();
