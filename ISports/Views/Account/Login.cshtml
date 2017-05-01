@@ -33,12 +33,12 @@
                             <form id="loginForm" method="POST" action="/Account/Login" novalidate="novalidate">
                                 <div class="form-group">
                                     <label for="email" class="control-label">E-mail</label>
-                                    <input type="text" class="form-control" id="email" name="Email" value="" required="" title="Please enter you username" placeholder="example@gmail.com">
+                                    <input type="email" class="form-control" id="email" name="Email" value="" required="" title="Please enter you username" placeholder="user@email.com">
                                     <span class="help-block"></span>
                                 </div>
                                 <div class="form-group">
                                     <label for="password" class="control-label">Password</label>
-                                    <input type="password" class="form-control" id="password" name="Senha" value="" required="" title="Please enter your password">
+                                    <input type="password" class="form-control" id="password" placeholder="Password" name="Senha" value="" required="" title="Please enter your password">
                                     <span class="help-block"></span>
                                 </div>
                                 <div id="loginErrorMsg" class="alert alert-error hide">Wrong e-mail or password</div>
