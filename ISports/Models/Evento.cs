@@ -10,13 +10,11 @@ namespace ISports.Models
         private Esporte esporte;
         private Local local;
         private Organizador organizador;
-        private Cidade cidade;
         public Evento()
         {
             esporte = new Esporte();
             local = new Local();
             organizador = new Organizador();
-            cidade = new Cidade();
         }
 
         public string Nome { get; set; }
@@ -26,7 +24,7 @@ namespace ISports.Models
         public int MaxJogadores { get; set; }
 
         public int Horario { get; set; }
-        public int Data { get; set; }
+        public DateTime Data { get; set; }
 
         public byte[] Imagem { get; set; }
 
@@ -34,6 +32,5 @@ namespace ISports.Models
         public Local Local { get { return local; } set { this.local = value; } }
         public Organizador Organizador { get { return organizador; } set { this.organizador = value; } }
 
-        public Cidade Cidade { get { return cidade; } set { this.cidade = value; } }
     }
 }

@@ -8,13 +8,15 @@ namespace ISports.Models
 {
     public class CidadeModel : ConexaoBase
     {
-        public List<Cidade> Cidades()
+        public List<Cidade> Cidades(string uf)
         {
             List<Cidade> lista = new List<Cidade>();
 
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = connection;
-            cmd.CommandText = @"select * from Cidades";
+            cmd.CommandText = @"select * from cidades where uf = '@uf'";
+
+            cmd.Parameters.AddWithValue("@uf", uf);
 
             SqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())

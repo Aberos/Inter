@@ -25,7 +25,7 @@ namespace ISports.Models
             cmd.Parameters.AddWithValue("@dataEvento", e.Data);
             cmd.Parameters.AddWithValue("@Horario", e.Horario);
             cmd.Parameters.AddWithValue("@imagem", e.Imagem);
-            cmd.Parameters.AddWithValue("@idCidade", e.Cidade.codigo);
+            cmd.Parameters.AddWithValue("@idCidade", e.Local.Cidade.codigo);
 
             cmd.ExecuteNonQuery();
 
@@ -85,7 +85,7 @@ namespace ISports.Models
                 e.Estatus = (int)reader["Status"];
                 e.Nome = (string)reader["NomeEvento"];
                 e.Descricao = (string)reader["DescricaoEvento"];
-                e.Data = (int)reader["DataEvento"];
+                e.Data = (DateTime)reader["DataEvento"];
                 e.Horario = (int)reader["HoraEvento"];
                 e.MaxJogadores = (int)reader["MaxJogador"];
                 e.Imagem = (byte[])reader["FotoEvento"];
@@ -99,10 +99,10 @@ namespace ISports.Models
                 e.Local.Nome = (string)reader["NomeLocal"];
                 e.Local.Descricao_Local = (string)reader["NomeLocal"];
                 e.Local.Endereco = (string)reader["EnderecoLocal"];
-                e.Cidade.codigo = (int)reader["CodigoCidade"];
-                e.Cidade.Nome = (string)reader["Cidade"];
-                e.Cidade.Uf.Sigla = (string)reader["SiglaEstado"];
-                e.Cidade.Uf.Nome = (string)reader["Estado"];
+                e.Local.Cidade.codigo = (int)reader["CodigoCidade"];
+                e.Local.Cidade.Nome = (string)reader["Cidade"];
+                e.Local.Cidade.Uf.Sigla = (string)reader["SiglaEstado"];
+                e.Local.Cidade.Uf.Nome = (string)reader["Estado"];
             }
 
 

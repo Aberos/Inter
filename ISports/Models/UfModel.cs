@@ -15,7 +15,7 @@ namespace ISports.Models
 
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = connection;
-            cmd.CommandText = @"select * from UFs";
+            cmd.CommandText = @"select * from ufs";
 
             SqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
