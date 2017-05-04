@@ -15,7 +15,7 @@
         <div class="profile-content">
             <div class="container">
                 <div class="row">
-                    <form class="form-horizontal">
+                    <form class="form-horizontal" action="/Event/Create" method="post">
                         <fieldset>
                             <!-- Form Name -->
                             <legend>Create Event</legend>
@@ -23,62 +23,148 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="requestName">Event Name</label>
                                 <div class="col-md-4">
-                                    <input id="eventName" name="eventName" placeholder="Event Name" class="form-control input-md" required="" type="text">
+                                    <!--input id="eventName" name="eventName" placeholder="Event Name" class="form-control input-md" required="" type="text"-->
+                                    @Html.TextBoxFor(m => m.Nome, new { @class = "form-control input-md", @placeholder = "Event Name" })
                                 </div>
+                                @Html.ValidationMessageFor(m => m.Nome)
                             </div>
                             <!-- Textarea -->
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="description">Description</label>
                                 <div class="col-md-4">
-                                    <textarea class="form-control" id="description" name="description"></textarea>
+                                    <!--textarea class="form-control" id="description" name="description"></textarea-->
+                                    @Html.TextAreaFor(m => m.Descricao, new { @class = "form-control", @placeholder = "Event Description" })
                                 </div>
+                                @Html.ValidationMessageFor(m => m.Descricao)
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="requestName">Event Date</label>
+                                <div class="col-md-4">
+                                    <!--input id="eventName" name="eventName" placeholder="Event Name" class="form-control input-md" required="" type="text"-->
+                                    @Html.TextBoxFor(m => m.Data, new { @class = "form-control input-md", @placeholder = "Event Date" })
+                                </div>
+                                @Html.ValidationMessageFor(m => m.Data)
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="requestName">Event Hour</label>
+                                <div class="col-md-4">
+                                    <!--input id="eventName" name="eventName" placeholder="Event Name" class="form-control input-md" required="" type="text"-->
+                                    @Html.TextBoxFor(m => m.Horario, new { @class = "form-control input-md", @placeholder = "Event Hour" })
+                                </div>
+                                @Html.ValidationMessageFor(m => m.Horario)
                             </div>
                             <legend>Sport info</legend>
                             <!-- Select Basic -->
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="sport">Sport</label>
                                 <div class="col-md-4">
-                                    <select id="sport" name="sport" class="form-control">
+                                    <!--select id="sport" name="sport" class="form-control">
                                         <option value="Football">Football</option>
                                         <option value="Voleyball">Voleyball</option>
                                         <option value="Baseball">Baseball</option>
                                         <option value="Basketball">Basketball</option>
-                                    </select>
+                                    </select-->
+
+                                    @{ List<SelectListItem> listEsports = new List<SelectListItem>();
+
+                                        foreach (var p in ViewBag.Esportes)
+                                        {
+                                            listEsports.Add(new SelectListItem
+                                            {
+                                                Text = @p.Descricao_Esporte,
+                                                Value = @p.Id_Esporte.ToString()
+                                            });
+                                        }
+                                    }
+                                    @Html.DropDownListFor(m => m.Esporte.Id_Esporte, listEsports, "-- Select Sports --", new { @class = "form-control" })
                                 </div>
                             </div>
                             <!-- Text input-->
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="maxP"> Max Player</label>
                                 <div class="col-md-2">
-                                    <input id="maxP" name="maxP" placeholder="max" class="form-control input-md" type="text">
+                                    <!--input id="maxP" name="maxP" placeholder="max" class="form-control input-md" type="text"-->
+                                    @Html.TextBoxFor(m => m.MaxJogadores, new { @class = "form-control input-md", @placeholder = "max" })
                                 </div>
+                                @Html.ValidationMessageFor(m => m.MaxJogadores)
                             </div>
                             <legend>Local info</legend>
                             <!-- Text input-->
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="requestName">Local Name</label>
                                 <div class="col-md-4">
-                                    <input id="localName" name="localName" placeholder="Local Name" class="form-control input-md" required="" type="text">
-                                    @Html.TextBoxFor(m => m.Local.Nome)
+                                    <!--input id="localName" name="localName" placeholder="Local Name" class="form-control input-md" required="" type="text"-->
+                                    @Html.TextBoxFor(m => m.Local.Nome, new { @class = "form-control input-md", @placeholder = "Local Name" })
                                 </div>
+                                @Html.ValidationMessageFor(m => m.Local.Nome)
                             </div>
                             <!-- Text input-->
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="address">Address</label>
                                 <div class="col-md-4">
-                                    <input id="address" name="address" placeholder="address" class="form-control input-md" type="text">
+                                    <!--input id="address" name="address" placeholder="address" class="form-control input-md" type="text"-->
+                                    @Html.TextBoxFor(m => m.Local.Endereco, new { @class = "form-control input-md", @placeholder = "address" })
+                                </div>
+                                @Html.ValidationMessageFor(m => m.Local.Endereco)
+                            </div>
+                            <!-- Textarea -->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="description">Description Local</label>
+                                <div class="col-md-4">
+                                    <!--textarea class="form-control" id="description" name="description"></textarea-->
+                                    @Html.TextAreaFor(m => m.Local.Descricao_Local, new { @class = "form-control", @placeholder = "Local Description" })
+                                </div>
+                                @Html.ValidationMessageFor(m => m.Local.Descricao_Local)
+                            </div>
+
+                            <!--UF-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="uf">UF</label>
+                                <div class="col-md-4">
+                                    <!--select id="uf" name="uf" class="form-control">
+                                        <option value="SP">SP</option>
+                                        <option value="MG">MG</option>
+                                        <option value="RJ">RJ</option>
+                                        <option value="ES">ES</option>
+                                    </select-->
+
+                                    @{ List<SelectListItem> listEstados = new List<SelectListItem>();
+
+                                        foreach (var p in ViewBag.Estados)
+                                        {
+                                            listEstados.Add(new SelectListItem
+                                            {
+                                                Text = @p.Sigla,
+                                                Value = @p.Sigla
+                                            });
+                                        }
+                                    }
+                                    @Html.DropDownListFor(m => m.Local.Cidade.Uf.Sigla, listEstados, "-- Select UF --", new { @class = "form-control" })
                                 </div>
                             </div>
+
                             <!-- Select Basic -->
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="town">Town</label>
                                 <div class="col-md-4">
-                                    <select id="town" name="town" class="form-control">
+                                    <!--select id="town" name="town" class="form-control">
                                         <option value="São José do Rio Preto">São José do Rio Preto</option>
                                         <option value="Catanduva">Catanduva</option>
                                         <option value="Cedral">Cedral</option>
                                         <option value="Onda Verde">Onda Verde</option>
-                                    </select>
+                                    </select-->
+                                    @{ List<SelectListItem> listItems = new List<SelectListItem>();
+
+                                        foreach (var p in ViewBag.Cidades)
+                                        {
+                                            listItems.Add(new SelectListItem
+                                            {
+                                                Text = @p.Nome,
+                                                Value = @p.codigo.ToString()
+                                            });
+                                        }
+                                      }
+                                    @Html.DropDownListFor(m => m.Local.Cidade.codigo, listItems, "-- Select Town --", new { @class = "form-control" })
                                 </div>
                             </div>
                             <!-- Upload Image -->
@@ -121,6 +207,7 @@
 
                                 </div>
                             </div>
+                            @((Session["usuario"] as Usuario).Nome)
                             <!-- Button -->
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="submit"></label>

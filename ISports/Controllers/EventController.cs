@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ISports.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -39,11 +40,39 @@ namespace ISports.Controllers
 
         public ActionResult Create()
         {
-            /* if (Session["usuario"] == null)
+            
+            if (Session["usuario"] == null)
              {
                  return RedirectToAction("Login", "Account");
-             } */
-            return View();
+             }
+
+            CidadeModel cm = new CidadeModel();
+            UfModel uf = new UfModel();
+            EsporteModel em = new EsporteModel();
+            ViewBag.Esportes = em.Esportes();
+            ViewBag.Estados = uf.Ufs();
+            ViewBag.Cidades = cm.Cidades();
+
+         return View();
+
+        }
+
+        [HttpPost]
+        public ActionResult Create(Evento e)
+        {
+            if(ModelState.IsValid)
+            {
+                using (EventoModel model = new EventoModel())
+                {
+                    e.Organizador.Id_usuario = (Session["usuario"] as Usuario).Id_usuario;
+                    model.Create(e);
+                }
+                return RedirectToAction("UserEvents", "Event");
+            }
+            else
+            {
+                return View(e);
+            }
         }
 
         public ActionResult FeedEvents()
