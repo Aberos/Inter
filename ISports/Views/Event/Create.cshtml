@@ -78,6 +78,7 @@
                                     }
                                     @Html.DropDownListFor(m => m.Esporte.Id_Esporte, listEsports, "-- Select Sports --", new { @class = "form-control" })
                                 </div>
+                                @Html.ValidationMessageFor(m => m.Esporte.Id_Esporte)
                             </div>
                             <!-- Text input-->
                             <div class="form-group">
@@ -141,6 +142,7 @@
                                     }
                                     @Html.DropDownListFor(m => m.Local.Cidade.Uf.Sigla, listEstados, "-- Select UF --", new { @class = "form-control" })
                                 </div>
+                                @Html.ValidationMessageFor(m => m.Local.Cidade.Uf.Sigla)
                             </div>
 
                             <!-- Select Basic -->
@@ -166,6 +168,7 @@
                                       }
                                     @Html.DropDownListFor(m => m.Local.Cidade.codigo, listItems, "-- Select Town --", new { @class = "form-control" })
                                 </div>
+                                @Html.ValidationMessageFor(m => m.Local.Cidade.codigo)
                             </div>
                             <!-- Upload Image -->
                             <div class="container">
