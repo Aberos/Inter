@@ -16,3 +16,7 @@ insert into esportes values ('Football')
 insert into esportes values ('Tennis') 
 insert into esportes values ('Basktball') 
 insert into esportes values ('Volleyball') 
+
+
+
+insert into evento_usuario values (idEvento, IdUsuario, 2)

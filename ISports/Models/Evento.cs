@@ -23,8 +23,8 @@ namespace ISports.Models
         public int Estatus { get; set; }
         public int MaxJogadores { get; set; }
 
-        public int Horario { get; set; }
-        public DateTime Data { get; set; }
+        public string Horario { get; set; }
+        public string Data { get; set; }
 
         public byte[] Imagem { get; set; }
 

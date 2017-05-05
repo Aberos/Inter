@@ -1,4 +1,5 @@
-﻿
+﻿@using ISports.Models
+@model Evento
 @{
     ViewBag.Title = "Home Event";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -20,7 +21,7 @@
                     <div class="col-sm-12" id="logout">
                         <div class="page-header">
                             <img src="~/Pictures/futebol.jpg" style="width: 150px;height:auto; border: 1px solid #bfbfbf; box-shadow: 0 0 4px #cfcfcf;" />
-                            <h1 style="display: inline; position: relative; top: 50px;">Racha de Futebol <small>Mario</small></h1>
+                            <h1 style="display: inline; position: relative; top: 50px;">@Model.Nome <small>@Model.Organizador.Nome</small></h1>
                             <div class="unsubscribe" style="display: none;">
                                 <button class="btn btn-default btn-circle text-uppercase" type="button" onclick="$('.unsubscribe').hide(); $('.subscribe').show()">
                                     <span class="glyphicon glyphicon-minus"></span> Unsubscribe
@@ -52,20 +53,18 @@
 
                         <div class="tab-content">
                             <div id="about" class="tab-pane fade in active">
-                                <h3>Racha de Futebol</h3>
-                                <strong>Sport: </strong> Football
+                                <h3>@Model.Nome</h3>
+                                <strong>Sport: </strong> @Model.Esporte.Descricao_Esporte
                                 <br />
-                                <strong>Time: </strong> 22:00
+                                <strong>Time: </strong> @Model.Horario
                                 <br />
-                                <strong>Day: </strong> Tuersday
+                                <strong>Day: </strong> @Model.Data
                                 <br />
-                                <strong>Town: </strong> São José do Rio Preto
+                                <strong>Town: </strong> @Model.Local.Cidade.Nome - @Model.Local.Cidade.Uf.Sigla
                                 <br />
                                 <strong>Description: </strong>
                                 <br />
-                                Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-                                sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-                                sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+                                @Model.Descricao
                             </div>
                             <div id="feed" class="tab-pane fade">
                                 <div class="panel panel-default" style="margin-bottom: 5px !important; margin-top: -20px !important;">
@@ -89,63 +88,15 @@
                                     <!--th>Commands</th-->
                                     </thead>
                                     <tbody>
+                                    @foreach (var p in ViewBag.listSubs)
+                                    {
                                         <tr>
-                                            <td>Mario</td>
-                                            <td>korea@hotmail.com</td>
-                                            <td>978945596</td>
-                                            <td>21</td>
-                                            <!--td>
-                                                <div class="dropdown">
-                                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                        Commands
-                                                        <span class="caret"></span>
-                                                    </button>
-                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                                        <li><a href="#"><i class="fa fa-check" aria-hidden="true"></i> Presence</a></li>
-                                                        <li><a href="#"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a></li>
-                                                        <li><a href="#"><i class="fa fa-money" aria-hidden="true"></i> Paid</a></li>
-                                                    </ul>
-                                                </div>
-                                            </td-->
+                                            <td>@p.Nome</td>
+                                            <td>@p.Email</td>
+                                            <td>@p.Cel</td>
+                                            <td>@p.DataNasc</td>
                                         </tr>
-                                        <tr>
-                                            <td>Mario</td>
-                                            <td>korea@hotmail.com</td>
-                                            <td>978945596</td>
-                                            <td>21</td>
-                                            <!--td>
-                                                <div class="dropdown">
-                                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                        Commands
-                                                        <span class="caret"></span>
-                                                    </button>
-                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                                        <li><a href="#"><i class="fa fa-check" aria-hidden="true"></i> Presence</a></li>
-                                                        <li><a href="#"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a></li>
-                                                        <li><a href="#"><i class="fa fa-money" aria-hidden="true"></i> Paid</a></li>
-                                                    </ul>
-                                                </div>
-                                            </td-->
-                                        </tr>
-                                        <tr>
-                                            <td>Mario</td>
-                                            <td>korea@hotmail.com</td>
-                                            <td>978945596</td>
-                                            <td>21</td>
-                                            <!--td>
-                                                <div class="dropdown">
-                                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                        Commands
-                                                        <span class="caret"></span>
-                                                    </button>
-                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                                        <li><a href="#"><i class="fa fa-check" aria-hidden="true"></i> Presence</a></li>
-                                                        <li><a href="#"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a></li>
-                                                        <li><a href="#"><i class="fa fa-money" aria-hidden="true"></i> Paid</a></li>
-                                                    </ul>
-                                                </div>
-                                            </td-->
-                                        </tr>
+                                    }
                                     </tbody>
                                 </table>
                             </div>

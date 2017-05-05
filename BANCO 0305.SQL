@@ -69,8 +69,8 @@ create table eventos
 	id_organizador int not null references organizadores,
 	id_local       int not null references locais,
 	imagens_evento image   null,
-	horario_evento int not null,
-	data_evento    date not null,
+	horario_evento varchar(20) not null,	
+	data_evento    varchar(20) not null,
 	nome 		   varchar(50) not null,
 	descricao      varchar(300) not null
 )
@@ -118,14 +118,10 @@ Create Procedure CadUsuario
 )
 as
 begin
-	insert into usuarios values (1, @email, @nome, @sobreNome, @dataNasc, @cel, @senha, @foto_perfil)
+	insert into usuarios values (@estatus, @email, @nome, @sobreNome, @dataNasc, @cel, @senha, @foto_perfil)
 	insert into organizadores values(@@IDENTITY, 1, 0)
 end
 Go
-
-exec CadUsuario 1, 'iaron@iaron.com', 'iaron', 'aires', '23/08/1989', '91919191', '111111', ''
-go
-
 
 create procedure Logar
 (
@@ -148,8 +144,8 @@ Create Procedure CadEvento
 	@endereco			varchar(500),
 	@descricao_local	varchar(max),
 	@local_nome			varchar(200),
-	@dataEvento			date,
-	@Horario		    int,
+	@dataEvento			varchar(20),
+	@Horario		    varchar(20),
 	@imagem				image,
 	@idCidade			int
 )
@@ -256,8 +252,8 @@ Create Procedure UpdateEvento
 	@endereco			varchar(500),
 	@descricao_local	varchar(max),
 	@local_nome			varchar(200),
-	@dataEvento			date,
-	@Horario		    int,
+	@dataEvento			varchar(20),
+	@Horario		    varchar(20),
 	@imagem				image,
 	@idCidade			int
 )

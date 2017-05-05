@@ -1,4 +1,5 @@
-﻿
+﻿@using ISports.Models
+@model Evento
 @{
     ViewBag.Title = "Manager Event";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -20,17 +21,7 @@
                     <div class="col-sm-12" id="logout">
                         <div class="page-header">
                             <img src="~/Pictures/futebol.jpg" style="width: 150px;height:auto; border: 1px solid #bfbfbf; box-shadow: 0 0 4px #cfcfcf;" />
-                            <h1 style="display: inline; position: relative; top: 50px;">Racha de Futebol <small>Mario</small></h1>
-                            <div class="unsubscribe" style="display: none;">
-                                <button class="btn btn-default btn-circle text-uppercase" type="button" onclick="$('.unsubscribe').hide(); $('.subscribe').show()">
-                                    <span class="glyphicon glyphicon-minus"></span> Unsubscribe
-                                </button>
-                            </div>
-                            <div class="subscribe">
-                                <button class="btn btn-default btn-circle text-uppercase" type="button" onclick="$('.subscribe').hide(); $('.unsubscribe').show()">
-                                    <span class="glyphicon glyphicon-plus"></span> Subscribe
-                                </button>
-                            </div>
+                            <h1 style="display: inline; position: relative; top: 50px;">@Model.Nome <small>@Model.Organizador.Nome </small></h1>
                         </div>
                         <div class="comment-tabs">
                             <ul class="nav nav-tabs" role="tablist">
@@ -198,11 +189,13 @@
                                     <th>Commands</th>
                                     </thead>
                                     <tbody>
+                                    @foreach (var p in ViewBag.listSubs)
+                                    {
                                         <tr>
-                                            <td>Mario</td>
-                                            <td>korea@hotmail.com</td>
-                                            <td>978945596</td>
-                                            <td>21</td>
+                                            <td>@p.Nome</td>
+                                            <td>@p.Email</td>
+                                            <td>@p.Cel</td>
+                                            <td>@p.DataNasc</td>
                                             <td>
                                                 <div class="dropdown">
                                                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -217,44 +210,8 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td>Mario</td>
-                                            <td>korea@hotmail.com</td>
-                                            <td>978945596</td>
-                                            <td>21</td>
-                                            <td>
-                                                <div class="dropdown">
-                                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                        Commands
-                                                        <span class="caret"></span>
-                                                    </button>
-                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                                        <li><a href="#"><i class="fa fa-check" aria-hidden="true"></i> Presence</a></li>
-                                                        <li><a href="#"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a></li>
-                                                        <li><a href="#"><i class="fa fa-money" aria-hidden="true"></i> Paid</a></li>
-                                                    </ul>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Mario</td>
-                                            <td>korea@hotmail.com</td>
-                                            <td>978945596</td>
-                                            <td>21</td>
-                                            <td>
-                                                <div class="dropdown">
-                                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                        Commands
-                                                        <span class="caret"></span>
-                                                    </button>
-                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                                        <li><a href="#"><i class="fa fa-check" aria-hidden="true"></i> Presence</a></li>
-                                                        <li><a href="#"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a></li>
-                                                        <li><a href="#"><i class="fa fa-money" aria-hidden="true"></i> Paid</a></li>
-                                                    </ul>
-                                                </div>
-                                            </td>
-                                        </tr>
+
+                                    }
                                     </tbody>
                                 </table>
                             </div>

@@ -12,7 +12,7 @@ namespace ISports.Models
 
         public ConexaoBase()
         {
-            string strConn = "Data Source = DESKTOP-3BNB4EI\\SQLEXPRESS; Initial Catalog = isports; Integrated Security = true";
+            string strConn = "Data Source = localhost; Initial Catalog = isports; Integrated Security = true";
             connection = new SqlConnection(strConn);
 
             connection.Open();

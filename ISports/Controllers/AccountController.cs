@@ -29,7 +29,7 @@ namespace ISports.Controllers
                 {
                     model.Create(c);
                 }
-                return RedirectToAction("Index");
+                return RedirectToAction("Login");
             }
             else
             {

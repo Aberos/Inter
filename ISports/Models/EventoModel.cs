@@ -40,7 +40,6 @@ namespace ISports.Models
         public List<Evento> Search(int idCidade , string Uf, int IdEsporte)
         {
             List<Evento> lista = new List<Evento>();
-
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = connection;
             cmd.CommandText = @"select * from v_evento where CodigoCidade = @idCidade and SiglaEstado = '@Uf' and IdEsport = @IdEsporte";
@@ -70,7 +69,6 @@ namespace ISports.Models
         public Evento Read(int IdEvento)
         {
             Evento e = null;
-
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = connection;
             cmd.CommandText = @"select * from v_evento where Codigo = @IdEvento";
@@ -86,15 +84,15 @@ namespace ISports.Models
                 e.Estatus = (int)reader["Status"];
                 e.Nome = (string)reader["NomeEvento"];
                 e.Descricao = (string)reader["DescricaoEvento"];
-                e.Data = (DateTime)reader["DataEvento"];
-                e.Horario = (int)reader["HoraEvento"];
+                e.Data = (string)reader["DataEvento"];
+                e.Horario = (string)reader["HoraEvento"];
                 e.MaxJogadores = (int)reader["MaxJogador"];
                 e.Imagem = (byte[])reader["FotoEvento"];
                 e.Esporte.Id_Esporte = (int)reader["IdEsport"];
                 e.Esporte.Descricao_Esporte = (string)reader["NomeEsporte"];
                 e.Organizador.Id_usuario = (int)reader["IdOrganizador"];
                 e.Organizador.Nome = (string)reader["NomeOrganizador"];
-                e.Organizador.Sobrenome = (string)reader["SobrenomeOrganizador"];
+                e.Organizador.Sobrenome = (string)reader["SobrenoeOrganizador"];
                 e.Organizador.Foto_Perfil = (byte[])reader["FotoOrganizador"];
                 e.Local.Id_Local = (int)reader["IdLocal"];
                 e.Local.Nome = (string)reader["NomeLocal"];
@@ -105,8 +103,7 @@ namespace ISports.Models
                 e.Local.Cidade.Uf.Sigla = (string)reader["SiglaEstado"];
                 e.Local.Cidade.Uf.Nome = (string)reader["Estado"];
             }
-
-
+            connection.Close();
             return e;
         }
 
@@ -117,7 +114,6 @@ namespace ISports.Models
         public List<Evento> MyEvents(int IdOrganizador)
         {
             List<Evento> lista = new List<Evento>();
-
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = connection;
             cmd.CommandText = @"select * from v_evento where IdOrganizador = @idOrganizador";
@@ -136,7 +132,6 @@ namespace ISports.Models
 
                 lista.Add(e);
             }
-
             return lista;
         }
 
@@ -147,7 +142,6 @@ namespace ISports.Models
         public List<Evento> FeedEvents(int IdUsuario)
         {
             List<Evento> lista = new List<Evento>();
-
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = connection;
             cmd.CommandText = @"select * from v_usuario_evento where IdUsuario = @idUsuario";
@@ -163,7 +157,7 @@ namespace ISports.Models
                 e.Id_Evento = (int)reader["IdEvento"];
                 e.Nome = (string)reader["NomeEvento"];
                 e.Descricao = (string)reader["DescricaoEvento"];
-                e.Imagem = (byte[])reader["DescricaoEvento"];
+                //e.Imagem = (string)reader["DescricaoEvento"];
                 lista.Add(e);
             }
 
@@ -173,7 +167,7 @@ namespace ISports.Models
         public List<Usuario> InscritosEvento(int IdEvento)
         {
             List<Usuario> lista = new List<Usuario>();
-
+            connection.Open();
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = connection;
             cmd.CommandText = @"select * from v_usuario_evento where idEvento = @idEvento";
@@ -193,12 +187,13 @@ namespace ISports.Models
                 u.Foto_Perfil = (byte[])reader["FotoUsuario"];
                 lista.Add(u);
             }
-
+            connection.Close();
             return lista;
         }
 
         public List<Noticia> NoticiasEvento(int IdEvento)
         {
+
             List<Noticia> lista = new List<Noticia>();
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = connection;
@@ -252,7 +247,19 @@ namespace ISports.Models
             cmd.Parameters.AddWithValue("@idCidade", e.Local.Cidade.codigo);
 
             cmd.ExecuteNonQuery();
+        }
 
+        public void InscreverEvento(int idEvento, int idUsuario)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = connection;
+            cmd.CommandText = @"insert into evento_usuario values (@idEvento, @idUsuario, 2)";
+
+            cmd.Parameters.AddWithValue("@idEvento", idEvento);
+            cmd.Parameters.AddWithValue("@idUsuario", idUsuario);
+
+            cmd.ExecuteNonQuery();
+            connection.Close();
         }
     }
 }

@@ -12,21 +12,30 @@ namespace ISports.Controllers
         // GET: Evento
         public ActionResult Home()
         {
-           /* if (Session["usuario"] == null)
+            if (Session["usuario"] == null)
             {
                 return RedirectToAction("Login", "Account");
-            } */ 
+            }
 
-            return View();
+            int idEvento = int.Parse(Request.QueryString["EventoID"]);
+            EventoModel model = new EventoModel();
+            Evento e = model.Read(idEvento);
+            ViewBag.listSubs = model.InscritosEvento(e.Id_Evento);
+            return View(e);
         }
 
         public ActionResult Manager()
         {
-            /* if (Session["usuario"] == null)
+             if (Session["usuario"] == null)
              {
                  return RedirectToAction("Login", "Account");
-             } */
-            return View();
+             }
+
+            int idEvento = int.Parse(Request.QueryString["EventoID"]);
+            EventoModel model = new EventoModel();
+            Evento e = model.Read(idEvento);
+            ViewBag.listSubs = model.InscritosEvento(e.Id_Evento);
+            return View(e);
         }
 
         public ActionResult Search()
@@ -77,21 +86,25 @@ namespace ISports.Controllers
 
         public ActionResult FeedEvents()
         {
-            /* if (Session["usuario"] == null)
+             if (Session["usuario"] == null)
              {
                  return RedirectToAction("Login", "Account");
-             } */
-
+             }
+            EventoModel model = new EventoModel();
+            ViewBag.Feed = model.FeedEvents((Session["usuario"] as Usuario).Id_usuario);
             return View();
             
         }
 
         public ActionResult UserEvents()
         {
-            /* if (Session["usuario"] == null)
+             if (Session["usuario"] == null)
              {
                  return RedirectToAction("Login", "Account");
-             } */
+             }
+
+            EventoModel model = new EventoModel();
+            ViewBag.UserEvents = model.MyEvents((Session["usuario"] as Usuario).Id_usuario);
 
             return View();
         }
