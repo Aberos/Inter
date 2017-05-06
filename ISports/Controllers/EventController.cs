@@ -21,6 +21,8 @@ namespace ISports.Controllers
             EventoModel model = new EventoModel();
             Evento e = model.Read(idEvento);
             ViewBag.listSubs = model.InscritosEvento(e.Id_Evento);
+
+            ViewBag.Subscribed = model.UserSubscribed(idEvento, (Session["usuario"] as Usuario).Id_usuario);
             return View(e);
         }
 
@@ -107,6 +109,13 @@ namespace ISports.Controllers
             ViewBag.UserEvents = model.MyEvents((Session["usuario"] as Usuario).Id_usuario);
 
             return View();
+        }
+
+        public ActionResult Subscribe(int idEvento, int idUser)
+        {
+            EventoModel model = new EventoModel();
+            model.InscreverEvento(idEvento, idUser);
+            return RedirectToAction("Home", "Event", new { EventoID = idEvento });
         }
 
     }

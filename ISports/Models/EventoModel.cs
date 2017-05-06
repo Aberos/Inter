@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -253,13 +254,57 @@ namespace ISports.Models
         {
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = connection;
-            cmd.CommandText = @"insert into evento_usuario values (@idEvento, @idUsuario, 2)";
+            bool sub = UserSubscribed(idEvento, idUsuario);
+            if (sub == true)
+            {
+                cmd.CommandText = @"UPDATE evento_usuario set status = 2 where id_usuario = @idUsuario and id_evento";
+            }
+            else
+            {
+                cmd.CommandText = @"insert into evento_usuario values (@idEvento, @idUsuario, 2)";
+            }
 
             cmd.Parameters.AddWithValue("@idEvento", idEvento);
             cmd.Parameters.AddWithValue("@idUsuario", idUsuario);
 
             cmd.ExecuteNonQuery();
-            connection.Close();
+        }
+
+        public void DesinscreverEvento(int idEvento, int idUsuario)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = connection;
+            cmd.CommandText = @"UPDATE evento_usuario set status = 0 where id_usuario = @idUsuario and id_evento = @idEvento";
+
+            cmd.Parameters.AddWithValue("@idEvento", idEvento);
+            cmd.Parameters.AddWithValue("@idUsuario", idUsuario);
+
+            cmd.ExecuteNonQuery();
+        }
+
+        public bool UserSubscribed(int idEvento, int idUsuario)
+        {
+            bool sub = false;
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = connection;
+            cmd.CommandText = @"select * from evento_usuario where id_evento = @idEvento and id_usuario = @idUsuario and status = 2";
+
+            cmd.Parameters.AddWithValue("@idEvento", idEvento);
+            cmd.Parameters.AddWithValue("@idUsuario", idUsuario);
+
+            if(connection.State == ConnectionState.Closed)
+            {
+                connection.Open();
+            }
+
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            if (reader.Read())
+            {
+                sub = true;
+            }
+
+            return sub;
         }
     }
 }
