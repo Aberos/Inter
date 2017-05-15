@@ -38,7 +38,7 @@ namespace ISports.Models
         [DisplayName("Password")]
         public string Senha { get; set; }
 
-        public byte[] Foto_Perfil { get; set; }
+        public string Foto_Perfil { get; set; }
 
     }
 }

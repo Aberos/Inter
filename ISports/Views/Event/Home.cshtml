@@ -4,7 +4,7 @@
     ViewBag.Title = "Home Event";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -34,7 +34,7 @@
                             else
                             {
                             <div class="subscribe">
-                                <button class="btn btn-default btn-circle text-uppercase" type="button" onclick="location.href='@Url.Action("Subscribe", "Event", new { idEvento = 2, idUser= (Session["usuario"] as Usuario).Id_usuario })';return false;">
+                                <button class="btn btn-default btn-circle text-uppercase" type="button" onclick="location.href='@Url.Action("Subscribe", "Event", new { idEvento = Model.Id_Evento, idUser= (Session["usuario"] as Usuario).Id_usuario })';return false;">
                                     <span class="glyphicon glyphicon-plus"></span> Subscribe
                                 </button>
                             </div>
@@ -55,9 +55,16 @@
                                 <li class="active"><a href="#about" role="tab" data-toggle="tab"><h4 class="reviews text-capitalize">About</h4></a></li>
                                 @if (ViewBag.Subscribed == true)
                                 {
-                                     <li><a href="#feed"  role="tab" data-toggle="tab"><h4 class="reviews text-capitalize">Feed</h4></a></li>
+                                     <li><a href="#feed" role="tab" data-toggle="tab"><h4 class="reviews text-capitalize">Feeds</h4></a></li>
                                      <li><a href="#members" role="tab" data-toggle="tab"><h4 class="reviews text-capitalize">Members</h4></a></li>
                                 }
+                                else
+                                {
+                                    <li style="display:none"><a href="#feed" role="tab" data-toggle="tab"><h4 class="reviews text-capitalize">Feedssa</h4></a></li>
+                                    <li style="display:none"><a href="#members" role="tab" data-toggle="tab"><h4 class="reviews text-capitalize">Members</h4></a></li>
+                                }
+
+
                             </ul>
                         </div>
 

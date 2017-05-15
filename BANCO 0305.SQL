@@ -1,3 +1,4 @@
+
 create database isports
 go
 
@@ -14,7 +15,7 @@ create table usuarios
 	dataNasc  date         not null,
 	cel       varchar(20)  null,
 	senha 	  varchar(50)  not null,
-	foto_perfil  image,
+	foto_perfil  varchar(max),
 	check (estatus in (1,2,3,4))
 )
 go
@@ -68,7 +69,7 @@ create table eventos
 	id_esp         int not null references esportes,
 	id_organizador int not null references organizadores,
 	id_local       int not null references locais,
-	imagens_evento image   null,
+	imagens_evento varchar(max)   null,
 	horario_evento varchar(20) not null,	
 	data_evento    varchar(20) not null,
 	nome 		   varchar(50) not null,
@@ -114,7 +115,7 @@ Create Procedure CadUsuario
 	@dataNasc    date,
 	@cel         varchar(20),
 	@senha 	     varchar(50),
-	@foto_perfil image
+	@foto_perfil varchar(max)
 )
 as
 begin
@@ -146,7 +147,7 @@ Create Procedure CadEvento
 	@local_nome			varchar(200),
 	@dataEvento			varchar(20),
 	@Horario		    varchar(20),
-	@imagem				image,
+	@imagem				varchar(max),
 	@idCidade			int
 )
 as
@@ -254,7 +255,7 @@ Create Procedure UpdateEvento
 	@local_nome			varchar(200),
 	@dataEvento			varchar(20),
 	@Horario		    varchar(20),
-	@imagem				image,
+	@imagem				varchar(max),
 	@idCidade			int
 )
 as

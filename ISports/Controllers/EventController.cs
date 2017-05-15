@@ -1,4 +1,5 @@
-﻿using ISports.Models;
+﻿using ISports.Filtro;
+using ISports.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,65 +11,72 @@ namespace ISports.Controllers
     public class EventController : Controller
     {
         // GET: Evento
+        [UsuarioFiltro]
         public ActionResult Home()
         {
-            if (Session["usuario"] == null)
+
+            int idEvento = int.Parse(Request.QueryString["EventoID"]);
+            Evento e = new Evento();
+            using (EventoModel model = new EventoModel())
             {
-                return RedirectToAction("Login", "Account");
+                e = model.Read(idEvento);
             }
 
-            int idEvento = int.Parse(Request.QueryString["EventoID"]);
-            EventoModel model = new EventoModel();
-            Evento e = model.Read(idEvento);
-            ViewBag.listSubs = model.InscritosEvento(e.Id_Evento);
+            using (EventoModel model = new EventoModel())
+            {
+                ViewBag.listSubs = model.InscritosEvento(idEvento);
+                ViewBag.Subscribed = model.UserSubscribed(idEvento, (Session["usuario"] as Usuario).Id_usuario);
+            }
 
-            ViewBag.Subscribed = model.UserSubscribed(idEvento, (Session["usuario"] as Usuario).Id_usuario);
             return View(e);
         }
 
+        [UsuarioFiltro]
         public ActionResult Manager()
         {
-             if (Session["usuario"] == null)
-             {
-                 return RedirectToAction("Login", "Account");
-             }
 
             int idEvento = int.Parse(Request.QueryString["EventoID"]);
-            EventoModel model = new EventoModel();
-            Evento e = model.Read(idEvento);
-            ViewBag.listSubs = model.InscritosEvento(e.Id_Evento);
+            Evento e = new Evento();
+            using (EventoModel model = new EventoModel())
+            {
+                e = model.Read(idEvento);
+                ViewBag.listSubs = model.InscritosEvento(e.Id_Evento);
+            }
+            
             return View(e);
         }
 
+        [UsuarioFiltro]
         public ActionResult Search()
         {
-            /* if (Session["usuario"] == null)
-            {
-                return RedirectToAction("Login", "Account");
-            } */
             return View();
         }
 
+        [UsuarioFiltro]
         public ActionResult Create()
         {
-            
-            if (Session["usuario"] == null)
-             {
-                 return RedirectToAction("Login", "Account");
-             }
 
-            CidadeModel cm = new CidadeModel();
-            UfModel uf = new UfModel();
-            EsporteModel em = new EsporteModel();
-            ViewBag.Esportes = em.Esportes();
-            ViewBag.Estados = uf.Ufs();
-            ViewBag.Cidades = cm.Cidades();
+            using (CidadeModel cm = new CidadeModel())
+            {
+                ViewBag.Cidades = cm.Cidades();
+            }
+
+            using (UfModel uf = new UfModel())
+            {
+                ViewBag.Estados = uf.Ufs();
+            }
+
+            using (EsporteModel em = new EsporteModel())
+            {
+                ViewBag.Esportes = em.Esportes();
+            }
 
          return View();
 
         }
 
         [HttpPost]
+        [UsuarioFiltro]
         public ActionResult Create(Evento e)
         {
             if(ModelState.IsValid)
@@ -86,35 +94,40 @@ namespace ISports.Controllers
             }
         }
 
+        [UsuarioFiltro]
         public ActionResult FeedEvents()
         {
-             if (Session["usuario"] == null)
-             {
-                 return RedirectToAction("Login", "Account");
-             }
-            EventoModel model = new EventoModel();
-            ViewBag.Feed = model.FeedEvents((Session["usuario"] as Usuario).Id_usuario);
+
+            using (EventoModel model = new EventoModel())
+            {
+                ViewBag.Feed = model.FeedEvents((Session["usuario"] as Usuario).Id_usuario);
+            }
+                
             return View();
             
         }
 
+        [UsuarioFiltro]
         public ActionResult UserEvents()
         {
-             if (Session["usuario"] == null)
-             {
-                 return RedirectToAction("Login", "Account");
-             }
 
-            EventoModel model = new EventoModel();
-            ViewBag.UserEvents = model.MyEvents((Session["usuario"] as Usuario).Id_usuario);
+            using (EventoModel model = new EventoModel())
+            {
+                ViewBag.UserEvents = model.MyEvents((Session["usuario"] as Usuario).Id_usuario);
+            }
+                
 
             return View();
         }
 
+        [UsuarioFiltro]
         public ActionResult Subscribe(int idEvento, int idUser)
         {
-            EventoModel model = new EventoModel();
-            model.InscreverEvento(idEvento, idUser);
+            using (EventoModel model = new EventoModel())
+            {
+                model.InscreverEvento(idEvento, idUser);
+            }
+                
             return RedirectToAction("Home", "Event", new { EventoID = idEvento });
         }
 

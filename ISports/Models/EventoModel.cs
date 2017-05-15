@@ -57,7 +57,7 @@ namespace ISports.Models
                 e.Id_Evento = (int)reader["Codigo"];
                 e.Nome = (string)reader["NomeEvento"];
                 e.Descricao = (string)reader["DescricaoEvento"];
-                e.Imagem = (byte[])reader["FotoEvento"];
+                e.Imagem = (string)reader["FotoEvento"];
 
                 lista.Add(e);
             }
@@ -88,13 +88,13 @@ namespace ISports.Models
                 e.Data = (string)reader["DataEvento"];
                 e.Horario = (string)reader["HoraEvento"];
                 e.MaxJogadores = (int)reader["MaxJogador"];
-                e.Imagem = (byte[])reader["FotoEvento"];
+                e.Imagem = (string)reader["FotoEvento"];
                 e.Esporte.Id_Esporte = (int)reader["IdEsport"];
                 e.Esporte.Descricao_Esporte = (string)reader["NomeEsporte"];
                 e.Organizador.Id_usuario = (int)reader["IdOrganizador"];
                 e.Organizador.Nome = (string)reader["NomeOrganizador"];
                 e.Organizador.Sobrenome = (string)reader["SobrenoeOrganizador"];
-                e.Organizador.Foto_Perfil = (byte[])reader["FotoOrganizador"];
+                e.Organizador.Foto_Perfil = (string)reader["FotoOrganizador"];
                 e.Local.Id_Local = (int)reader["IdLocal"];
                 e.Local.Nome = (string)reader["NomeLocal"];
                 e.Local.Descricao_Local = (string)reader["NomeLocal"];
@@ -104,7 +104,7 @@ namespace ISports.Models
                 e.Local.Cidade.Uf.Sigla = (string)reader["SiglaEstado"];
                 e.Local.Cidade.Uf.Nome = (string)reader["Estado"];
             }
-            connection.Close();
+
             return e;
         }
 
@@ -129,7 +129,7 @@ namespace ISports.Models
                 e.Id_Evento = (int)reader["Codigo"];
                 e.Nome = (string)reader["NomeEvento"];
                 e.Descricao = (string)reader["DescricaoEvento"];
-                e.Imagem = (byte[])reader["FotoEvento"];
+                e.Imagem = (string)reader["FotoEvento"];
 
                 lista.Add(e);
             }
@@ -168,7 +168,6 @@ namespace ISports.Models
         public List<Usuario> InscritosEvento(int IdEvento)
         {
             List<Usuario> lista = new List<Usuario>();
-            connection.Open();
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = connection;
             cmd.CommandText = @"select * from v_usuario_evento where idEvento = @idEvento";
@@ -185,10 +184,10 @@ namespace ISports.Models
                 u.DataNasc = (DateTime)reader["DataNascUsuario"];
                 u.Cel = (string)reader["TelefoneUsuario"];
                 u.Email = (string)reader["EmailUsuario"];
-                u.Foto_Perfil = (byte[])reader["FotoUsuario"];
+                u.Foto_Perfil = (string)reader["FotoUsuario"];
                 lista.Add(u);
             }
-            connection.Close();
+
             return lista;
         }
 
@@ -291,11 +290,6 @@ namespace ISports.Models
 
             cmd.Parameters.AddWithValue("@idEvento", idEvento);
             cmd.Parameters.AddWithValue("@idUsuario", idUsuario);
-
-            if(connection.State == ConnectionState.Closed)
-            {
-                connection.Open();
-            }
 
             SqlDataReader reader = cmd.ExecuteReader();
 

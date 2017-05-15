@@ -26,7 +26,7 @@ namespace ISports.Models
         public string Horario { get; set; }
         public string Data { get; set; }
 
-        public byte[] Imagem { get; set; }
+        public string Imagem { get; set; }
 
         public Esporte Esporte { get { return esporte; } set { this.esporte = value; } }
         public Local Local { get { return local; } set { this.local = value; } }
