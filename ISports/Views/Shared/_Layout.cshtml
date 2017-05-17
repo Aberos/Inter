@@ -32,7 +32,14 @@
                 <div class="profile-sidebar">
                     <!-- SIDEBAR USERPIC -->
                     <div class="profile-userpic">
-                        <img src="~/Pictures/user_profile.jpg" class="img-responsive" alt="">
+                        @if ((Session["usuario"] as Usuario).Foto_Perfil != null)
+                        {
+                            <img src="(Session["usuario"] as Usuario).Foto_Perfil" class="img-responsive" alt="">
+                        }
+                        else
+                        {
+                            <img src="~/Pictures/user_profile.jpg" class="img-responsive" alt="">
+                        }
                     </div>
                     <!-- END SIDEBAR USERPIC -->
                     <!-- SIDEBAR USER TITLE -->

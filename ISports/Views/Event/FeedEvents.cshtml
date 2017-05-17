@@ -26,7 +26,14 @@
                             <!-- Wrapper for slides -->
                             <div class="carousel-inner">
                                 <div class="item active">
-                                    <img src="~/Pictures/futebol.jpg" alt="Image">
+                                    @if (@p.Imagem != null)
+                                    {
+                                        <img src="@p.Imagem" alt="Image">
+                                    }
+                                    else
+                                    {
+                                        <img src="~/Pictures/futebol.jpg" alt="Image">
+                                    }
                                 </div>
                             </div>
                         </div>

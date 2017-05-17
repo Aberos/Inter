@@ -20,7 +20,14 @@
                 <div class="row">
                     <div class="col-sm-12" id="logout">
                         <div class="page-header">
-                            <img src="~/Pictures/futebol.jpg" style="width: 150px;height:auto; border: 1px solid #bfbfbf; box-shadow: 0 0 4px #cfcfcf;" />
+                            @if (Model.Imagem != null)
+                            {
+                                <img src="Model.Imagem" style="width: 150px;height:auto; border: 1px solid #bfbfbf; box-shadow: 0 0 4px #cfcfcf;" />
+                            }
+                            else
+                            {
+                                <img src="~/Pictures/futebol.jpg" style="width: 150px;height:auto; border: 1px solid #bfbfbf; box-shadow: 0 0 4px #cfcfcf;" />
+                            }
                             <h1 style="display: inline; position: relative; top: 50px;">@Model.Nome <small>@Model.Organizador.Nome</small></h1>
                             @if (ViewBag.Subscribed == true)
                             {
