@@ -364,7 +364,7 @@ margin-top:30px;
    border-color: rgb(40, 94, 142);
     color: rgb(255, 255, 255);
 }*/
-.form-signup input[type="text"],.form-signup input[type="password"] { border: 1px solid rgb(50, 118, 177); }
+.form-signup input[type="text"],.form-signup input[type="password"], .form-signup input[type="email"], .form-signup input[type="date"] { border: 1px solid rgb(50, 118, 177); }
 
 /*SEARCH*/
 .sec{
