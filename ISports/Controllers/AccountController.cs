@@ -51,6 +51,7 @@ namespace ISports.Controllers
                 else
                 {
                     Session["usuario"] = user;
+                    ViewBag.Picture = (Session["usuario"] as Usuario).Foto_Perfil;
                     return RedirectToAction("FeedEvents", "Event");
                 }
             }
