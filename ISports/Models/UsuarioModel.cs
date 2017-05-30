@@ -12,7 +12,7 @@ namespace ISports.Models
         {
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = connection;
-            cmd.CommandText = @"Exec CadUsuario 1, @email, @nome, @sobreNome, @dataNasc, @cel, @senha, '~/Pictures/background.jpg'" ;
+            cmd.CommandText = @"Exec CadUsuario 1, @email, @nome, @sobreNome, @dataNasc, @cel, @senha, '/Pictures/user_profile.jpg'" ;
 
             cmd.Parameters.AddWithValue("@email", c.Email);
             cmd.Parameters.AddWithValue("@nome", c.Nome);
@@ -43,6 +43,7 @@ namespace ISports.Models
                 e.Id_usuario = (int)reader["id"];
                 e.Nome = (string)reader["nome"];
                 e.Email = (string)reader["email"];
+                e.Foto_Perfil = (string)reader["foto_perfil"];
             }
             return e;
         }

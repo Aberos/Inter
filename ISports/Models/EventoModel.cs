@@ -14,7 +14,7 @@ namespace ISports.Models
          {
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = connection;
-            cmd.CommandText = @"Exec CadEvento @nome, @descricao, @maxJogadores, @idSport, @idOrganizador, @endereco, @descricao_local, @local_nome, @dataEvento, @Horario, '~/ Pictures / background.jpg', @idCidade";
+            cmd.CommandText = @"Exec CadEvento @nome, @descricao, @maxJogadores, @idSport, @idOrganizador, @endereco, @descricao_local, @local_nome, @dataEvento, @Horario, '/Pictures/background.jpg', @idCidade";
 
             cmd.Parameters.AddWithValue("@nome", e.Nome);
             cmd.Parameters.AddWithValue("@descricao", e.Descricao);

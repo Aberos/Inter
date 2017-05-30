@@ -32,14 +32,7 @@
                 <div class="profile-sidebar">
                     <!-- SIDEBAR USERPIC -->
                     <div class="profile-userpic">
-                        @if ((Session["usuario"] as Usuario).Foto_Perfil != null)
-                        {
-                            <img src="ViewBag.Picture" class="img-responsive" alt="">
-                        }
-                        else
-                        {
-                            <img src="~/Pictures/user_profile.jpg" class="img-responsive" alt="">
-                        }
+                         <img src="@((Session["usuario"] as Usuario).Foto_Perfil)" class="img-responsive" alt="">
                     </div>
                     <!-- END SIDEBAR USERPIC -->
                     <!-- SIDEBAR USER TITLE -->
@@ -92,6 +85,8 @@
             @RenderBody()
         </div>
     </div>
+    <script src="~/Scripts/jquery-1.10.2.js" ></script>
+    <script src="~/Scripts/bootstrap.min.js" ></script>
 </body>
 </html>
 
