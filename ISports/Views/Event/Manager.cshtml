@@ -20,7 +20,7 @@
                 <div class="row">
                     <div class="col-sm-12" id="logout">
                         <div class="page-header">
-                            <img src="@Model.Imagem" style="width: 150px;height:auto; border: 1px solid #bfbfbf; box-shadow: 0 0 4px #cfcfcf;" />
+                            <img src="@Model.Imagem"  class="img-thumbnail" style="width: 150px;height:auto; border: 1px solid #bfbfbf; box-shadow: 0 0 4px #cfcfcf;" />
                             <h1 style="display: inline; position: relative; top: 50px;">@Model.Nome <small>@Model.Organizador.Nome </small></h1>
                         </div>
                         <div class="comment-tabs">
@@ -108,7 +108,8 @@
                                                 <!-- Button -->
                                                 <div class="form-group">
                                                     <label class="col-md-4 control-label" for="submit"></label>
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-6">
+                                                        <button id="edit" name="edit" class="btn btn-primary" data-toggle="modal" data-target="#modalPictureEvent" style="a">Change Picture</button>
                                                         <button id="submit" name="submit" class="btn btn-danger">Cancel</button>
                                                         <button id="submit" name="submit" class="btn btn-success">Edit</button>
                                                     </div>
@@ -173,6 +174,31 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalPictureEvent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Change Event Picutre</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>Please select a picture with dimensions equal to 256x256.</p>
+                            <p>Formats accepted .jpg, .png and .jpeg.</p>
+                            <p>Picture must have less than 2 MiB</p>
+                            @Html.TextBoxFor(m => m.Imagem, new { @class = "form-control", @type = "file", @placeholder = "Upload", @required = "required", @accept = ".png, .jpg, .jpeg" })
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>

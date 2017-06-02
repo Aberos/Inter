@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ISports.Models;
+using ISports.Filtro;
 
 namespace ISports.Controllers
 {
@@ -58,6 +59,7 @@ namespace ISports.Controllers
             return View();
         }
 
+        [UsuarioFiltro]
         public ActionResult Edit()
         {
             return View();
