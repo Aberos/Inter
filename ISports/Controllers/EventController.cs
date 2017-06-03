@@ -26,6 +26,15 @@ namespace ISports.Controllers
             {
                 ViewBag.listSubs = model.InscritosEvento(idEvento);
                 ViewBag.Subscribed = model.UserSubscribed(idEvento, (Session["usuario"] as Usuario).Id_usuario);
+
+                if(ViewBag.Subscribed == true)
+                {
+                    ViewBag.SubStatus = model.getSubscribeStatus((Session["usuario"] as Usuario).Id_usuario, idEvento);
+                }
+                else
+                {
+                    ViewBag.SubStatus = 0;
+                }
             }
 
             return View(e);
@@ -121,13 +130,26 @@ namespace ISports.Controllers
         }
 
         [UsuarioFiltro]
-        public ActionResult Subscribe(int idEvento, int idUser)
+        public ActionResult Subscribe(int idEvento)
         {
+            int idUser = (Session["usuario"] as Usuario).Id_usuario;
             using (EventoModel model = new EventoModel())
             {
                 model.InscreverEvento(idEvento, idUser);
             }
                 
+            return RedirectToAction("Home", "Event", new { EventoID = idEvento });
+        }
+
+        [UsuarioFiltro]
+        public ActionResult Unsubscribe(int idEvento)
+        {
+            int idUser = (Session["usuario"] as Usuario).Id_usuario;
+            using (EventoModel model = new EventoModel())
+            {
+                model.DesinscreverEvento(idEvento, idUser);
+            }
+
             return RedirectToAction("Home", "Event", new { EventoID = idEvento });
         }
 

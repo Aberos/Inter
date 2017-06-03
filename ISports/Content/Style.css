@@ -122,8 +122,9 @@ body {
 
 /* Events */
 .unsubscribe,
-.subscribe { 
-    position: absolute; 
+.pending,
+.subscribe {
+    position: absolute;
     top: -3px;
     right: 0;
 }

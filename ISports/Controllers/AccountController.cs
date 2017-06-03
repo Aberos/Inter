@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using ISports.Models;
 using ISports.Filtro;
+using System.Web.Hosting;
 
 namespace ISports.Controllers
 {
@@ -58,6 +59,52 @@ namespace ISports.Controllers
             }
             return View();
         }
+        [UsuarioFiltro]
+        [HttpPost]
+        public ActionResult EditImage(Usuario u)
+        {
+            int iduser = ((Usuario)Session["usuario"]).Id_usuario;
+            HttpPostedFileBase arquivo = Request.Files[0];                                         
+
+            using (System.Drawing.Image pic = System.Drawing.Image.FromStream(arquivo.InputStream)) 
+            {
+                /*if (pic.Height != 256 && pic.Width != 256)
+                {
+  
+                    return RedirectToAction("Edit");
+                }
+                else*/ if (arquivo.ContentType != "image/png" && arquivo.ContentType != "image/jpeg" && arquivo.ContentType != "image/jpg")           
+                {
+
+                    return RedirectToAction("Edit");
+                }
+                else if (arquivo.ContentLength > 2097152)                                             
+                {
+
+                    return RedirectToAction("Edit");
+                }
+            }
+
+            if (Request.Files.Count > 0)                                                          
+            {
+
+                if (arquivo.ContentLength > 0)                                               
+                {
+                    string img = "/Picutres/" + iduser.ToString() + System.IO.Path.GetExtension(arquivo.FileName);
+                    string path = HostingEnvironment.ApplicationPhysicalPath;                       
+
+                    string caminho = path + "\\Pictures\\" + iduser.ToString() + System.IO.Path.GetExtension(arquivo.FileName);
+                    arquivo.SaveAs(caminho);
+                    u.Foto_Perfil = img;
+                }
+            }
+            using (UsuarioModel model = new UsuarioModel())
+            {
+                model.UpdateImage(u);                              
+            }
+            return RedirectToAction("Edit");
+        }
+
 
         [UsuarioFiltro]
         public ActionResult Edit()

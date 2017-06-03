@@ -300,5 +300,39 @@ namespace ISports.Models
 
             return sub;
         }
+
+        public int getSubscribeStatus(int idUser, int idEvento)
+        {
+            int i = 0;
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = connection;
+            cmd.CommandText = @"select * from evento_usuario where id_evento = @IdEvento and id_usuario = @idUsuario";
+
+            cmd.Parameters.AddWithValue("@IdEvento", idEvento);
+            cmd.Parameters.AddWithValue("@idUsuario", idUser);
+
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            if (reader.Read())
+            {
+                i = (int)reader["status"];
+            }
+
+             return i;
+        }
+
+
+        public void UpdateImage(Evento e)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = connection;
+            cmd.CommandText = @"UPDATE eventos set imagens_evento = '@imagem' where id_evento = @idEvento";
+
+            cmd.Parameters.AddWithValue("@idEvento", e.Id_Evento);
+            cmd.Parameters.AddWithValue("@imagem", e.Imagem);
+
+            cmd.ExecuteNonQuery();
+        }
     }
 }

@@ -47,5 +47,17 @@ namespace ISports.Models
             }
             return e;
         }
+
+        public void UpdateImage(Usuario u)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = connection;
+            cmd.CommandText = @"UPDATE usuarios set foto_perfil = '@imagem' where id = @idUsuario";
+
+            cmd.Parameters.AddWithValue("@idUsuario", u.Id_usuario);
+            cmd.Parameters.AddWithValue("@imagem", u.Foto_Perfil);
+
+            cmd.ExecuteNonQuery();
+        }
     }
 }
