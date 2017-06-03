@@ -35,88 +35,163 @@
                             <div id="about" class="tab-pane fade in active">
                                 <div class="container">
                                     <div class="row">
-                                        <form class="form-horizontal">
+                                        <form class="form-horizontal" action="/Event/Manager" method="post">
                                             <fieldset>
                                                 <!-- Form Name -->
                                                 <legend>Event Info</legend>
                                                 <!-- Text input-->
+                                                <!-- Text input-->
+                                                @Html.Hidden("id", Model.Id_Evento);
                                                 <div class="form-group">
                                                     <label class="col-md-4 control-label" for="requestName">Event Name</label>
                                                     <div class="col-md-4">
-                                                        <input id="eventName" name="eventName" placeholder="Event Name" class="form-control input-md" required="" type="text">
-
+                                                        <!--input id="eventName" name="eventName" placeholder="Event Name" class="form-control input-md" required="" type="text"-->
+                                                        @Html.TextBoxFor(m => m.Nome, new { @class = "form-control input-md", @placeholder = "Event Name" })
                                                     </div>
+                                                    @Html.ValidationMessageFor(m => m.Nome)
                                                 </div>
-                                                <!-- Textarea -->
-                                                <div class="form-group">
-                                                    <label class="col-md-4 control-label" for="description">Description</label>
-                                                    <div class="col-md-4">
-                                                        <textarea class="form-control" id="description" name="description"></textarea>
-                                                    </div>
-                                                </div>
-                                                <legend>Sport info</legend>
-                                                <!-- Select Basic -->
-                                                <div class="form-group">
-                                                    <label class="col-md-4 control-label" for="sport">Sport</label>
-                                                    <div class="col-md-4">
-                                                        <select id="sport" name="sport" class="form-control">
-                                                            <option value="Footbol">Footbol</option>
-                                                            <option value="Voleyball">Voleyball</option>
-                                                            <option value="Baseball">Baseball</option>
-                                                            <option value="Basketball">Basketball</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <!-- Text input-->
-                                                <div class="form-group">
-                                                    <label class="col-md-4 control-label" for="maxP"> Max Player</label>
-                                                    <div class="col-md-2">
-                                                        <input id="maxP" name="maxP" placeholder="max" class="form-control input-md" type="text">
-
-                                                    </div>
-                                                </div>
-                                                <legend>Local info</legend>
-                                                <!-- Text input-->
-                                                <div class="form-group">
-                                                    <label class="col-md-4 control-label" for="requestName">Local Name</label>
-                                                    <div class="col-md-4">
-                                                        <input id="localName" name="localName" placeholder="Local Name" class="form-control input-md" required="" type="text">
-
-                                                    </div>
-                                                </div>
-                                                <!-- Text input-->
-                                                <div class="form-group">
-                                                    <label class="col-md-4 control-label" for="address">Address</label>
-                                                    <div class="col-md-4">
-                                                        <input id="address" name="address" placeholder="address" class="form-control input-md" type="text">
-
-                                                    </div>
-                                                </div>
-                                                <!-- Select Basic -->
-                                                <div class="form-group">
-                                                    <label class="col-md-4 control-label" for="town">Town</label>
-                                                    <div class="col-md-4">
-                                                        <select id="town" name="town" class="form-control">
-                                                            <option value="São José do Rio Preto">São José do Rio Preto</option>
-                                                            <option value="Catanduva">Catanduva</option>
-                                                            <option value="Cedral">Cedral</option>
-                                                            <option value="Onda Verde">Onda Verde</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Button -->
-                                                <div class="form-group">
-                                                    <label class="col-md-4 control-label" for="submit"></label>
-                                                    <div class="col-md-6">
-                                                        <button id="edit" name="edit" class="btn btn-primary" data-toggle="modal" data-target="#modalPictureEvent" style="a">Change Picture</button>
-                                                        <button id="submit" name="submit" class="btn btn-danger">Cancel</button>
-                                                        <button id="submit" name="submit" class="btn btn-success">Edit</button>
-                                                    </div>
-                                                </div>
-                                            </fieldset>
-                                        </form>
+                                    <!-- Textarea -->
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="description">Description</label>
+                                        <div class="col-md-4">
+                                            <!--textarea class="form-control" id="description" name="description"></textarea-->
+                                            @Html.TextAreaFor(m => m.Descricao, new { @class = "form-control", @placeholder = "Event Description" })
+                                        </div>
+                                        @Html.ValidationMessageFor(m => m.Descricao)
                                     </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="sport">Week Day</label>
+                                        <div class="col-md-4">
+                                            @Html.DropDownListFor(m => m.Data, new SelectListItem[]{
+                                            new SelectListItem() {Text = "Sunday", Value="Sunday"},
+                                            new SelectListItem() {Text = "Monday", Value="Monday"},
+                                            new SelectListItem() {Text = "Tuesday", Value="Tuesday"},
+                                            new SelectListItem() {Text = "Wednesday", Value="Wednesday"},
+                                            new SelectListItem() {Text = "Thursday", Value="Thursday"},
+                                            new SelectListItem() {Text = "Friday", Value="Friday"},
+                                            new SelectListItem() {Text = "Saturday", Value="Saturday"}}, new { @class = "form-control" })
+
+                                        </div>
+                                        @Html.ValidationMessageFor(m => m.Data)
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="requestName">Event Hour</label>
+                                        <div class="col-md-4">
+                                            <!--input id="eventName" name="eventName" placeholder="Event Name" class="form-control input-md" required="" type="text"-->
+                                            @Html.TextBoxFor(m => m.Horario, new { @class = "form-control input-md", @placeholder = "22:45" })
+                                        </div>
+                                        @Html.ValidationMessageFor(m => m.Horario)
+                                    </div>
+                                    <legend>Sport info</legend>
+                                    <!-- Select Basic -->
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="sport">Sport</label>
+                                        <div class="col-md-4">
+
+                                            @{ List<SelectListItem> listEsports = new List<SelectListItem>();
+
+                                                foreach (var p in ViewBag.Esportes)
+                                                {
+                                                    listEsports.Add(new SelectListItem
+                                                    {
+                                                        Text = @p.Descricao_Esporte,
+                                                        Value = @p.Id_Esporte.ToString()
+                                                    });
+                                                }
+                                            }
+                                            @Html.DropDownListFor(m => m.Esporte.Id_Esporte, listEsports, "-- Select Sports --", new { @class = "form-control" })
+                                        </div>
+                                        @Html.ValidationMessageFor(m => m.Esporte.Id_Esporte)
+                                    </div>
+                                    <!-- Text input-->
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="maxP"> Max Player</label>
+                                        <div class="col-md-2">
+                                            <!--input id="maxP" name="maxP" placeholder="max" class="form-control input-md" type="text"-->
+                                            @Html.TextBoxFor(m => m.MaxJogadores, new { @class = "form-control input-md", @placeholder = "max" })
+                                        </div>
+                                        @Html.ValidationMessageFor(m => m.MaxJogadores)
+                                    </div>
+                                    <legend>Local info</legend>
+                                    <!-- Text input-->
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="requestName">Local Name</label>
+                                        <div class="col-md-4">
+                                            <!--input id="localName" name="localName" placeholder="Local Name" class="form-control input-md" required="" type="text"-->
+                                            @Html.TextBoxFor(m => m.Local.Nome, new { @class = "form-control input-md", @placeholder = "Local Name" })
+                                        </div>
+                                        @Html.ValidationMessageFor(m => m.Local.Nome)
+                                    </div>
+                                    <!-- Text input-->
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="address">Address</label>
+                                        <div class="col-md-4">
+                                            <!--input id="address" name="address" placeholder="address" class="form-control input-md" type="text"-->
+                                            @Html.TextBoxFor(m => m.Local.Endereco, new { @class = "form-control input-md", @placeholder = "address" })
+                                        </div>
+                                        @Html.ValidationMessageFor(m => m.Local.Endereco)
+                                    </div>
+                                    <!-- Textarea -->
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="description">Description Local</label>
+                                        <div class="col-md-4">
+                                            <!--textarea class="form-control" id="description" name="description"></textarea-->
+                                            @Html.TextAreaFor(m => m.Local.Descricao_Local, new { @class = "form-control", @placeholder = "Local Description" })
+                                        </div>
+                                        @Html.ValidationMessageFor(m => m.Local.Descricao_Local)
+                                    </div>
+
+                                    <!--UF-->
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="uf">UF</label>
+                                        <div class="col-md-4">
+                                            @{ List<SelectListItem> listEstados = new List<SelectListItem>();
+
+                                                foreach (var p in ViewBag.Estados)
+                                                {
+                                                    listEstados.Add(new SelectListItem
+                                                    {
+                                                        Text = @p.Sigla,
+                                                        Value = @p.Sigla
+                                                    });
+                                                }
+                                            }
+                                            @Html.DropDownListFor(m => m.Local.Cidade.Uf.Sigla, listEstados, "-- Select UF --", new { @class = "form-control" })
+                                        </div>
+                                        @Html.ValidationMessageFor(m => m.Local.Cidade.Uf.Sigla)
+                                    </div>
+
+                                    <!-- Select Basic -->
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="town">Town</label>
+                                        <div class="col-md-4">
+                                            @{ List<SelectListItem> listItems = new List<SelectListItem>();
+
+                                                foreach (var p in ViewBag.Cidades)
+                                                {
+                                                    listItems.Add(new SelectListItem
+                                                    {
+                                                        Text = @p.Nome,
+                                                        Value = @p.codigo.ToString()
+                                                    });
+                                                }
+                                            }
+                                            @Html.DropDownListFor(m => m.Local.Cidade.codigo, listItems, "-- Select Town --", new { @class = "form-control" })
+                                        </div>
+                                        @Html.ValidationMessageFor(m => m.Local.Cidade.codigo)
+                                    </div>
+                                    <!-- Button -->
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="submit"></label>
+                                        <div class="col-md-6">
+                                            <button id="edit" name="edit" class="btn btn-primary" data-toggle="modal" data-target="#modalPictureEvent" style="a">Change Picture</button>
+                                            <button id="submit" name="submit" class="btn btn-danger">Cancel</button>
+                                            <button id="submit" name="submit" class="btn btn-success">Edit</button>
+                                        </div>
+                                    </div>
+                                    </fieldset>
+                                    </form>
+                                </div>
                                 </div>
                             </div>
                             <div id="feed" class="tab-pane fade">
@@ -182,6 +257,8 @@
     <div class="modal fade" id="modalPictureEvent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
+                <form action="~/Event/EditImageEvent" method="post" enctype="multipart/form-data">
+                    @Html.Hidden("id", Model.Id_Evento);
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel">Change Event Picutre</h4>
@@ -198,8 +275,9 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
                 </div>
+                </form>
             </div>
         </div>
     </div>

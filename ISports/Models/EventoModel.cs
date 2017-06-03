@@ -230,20 +230,19 @@ namespace ISports.Models
         {
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = connection;
-            cmd.CommandText = @"Exec UpdateEvento @idEvento, @nome, @descricao, @maxJogadores, @idSport, @idOrganizador, @idLocal, @endereco, @descricao_local, @local_nome, @dataEvento, @Horario, @imagem, @idCidade";
+            cmd.CommandText = @"Exec UpdateEvento @idEvento, @nome, @descricao, @maxJogadores, @idSport, @idLocal, @endereco, @descricao_local, @local_nome, @dataEvento, @Horario, @idCidade";
 
             cmd.Parameters.AddWithValue("@idEvento", e.Id_Evento);
             cmd.Parameters.AddWithValue("@nome", e.Nome);
             cmd.Parameters.AddWithValue("@descricao", e.Descricao);
             cmd.Parameters.AddWithValue("@maxJogadores", e.MaxJogadores);
             cmd.Parameters.AddWithValue("@idSport", e.Esporte.Id_Esporte);
-            cmd.Parameters.AddWithValue("@idOrganizador", e.Organizador.Id_usuario);
             cmd.Parameters.AddWithValue("@idLocal", e.Local.Id_Local);
             cmd.Parameters.AddWithValue("@descricao_local", e.Local.Descricao_Local);
+            cmd.Parameters.AddWithValue("@endereco", e.Local.Endereco);
             cmd.Parameters.AddWithValue("@local_nome", e.Local.Nome);
             cmd.Parameters.AddWithValue("@dataEvento", e.Data);
             cmd.Parameters.AddWithValue("@Horario", e.Horario);
-            cmd.Parameters.AddWithValue("@imagem", e.Imagem);
             cmd.Parameters.AddWithValue("@idCidade", e.Local.Cidade.codigo);
 
             cmd.ExecuteNonQuery();
@@ -323,14 +322,14 @@ namespace ISports.Models
         }
 
 
-        public void UpdateImage(Evento e)
+        public void UpdateImage(int idEvento, string Imagem)
         {
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = connection;
-            cmd.CommandText = @"UPDATE eventos set imagens_evento = '@imagem' where id_evento = @idEvento";
+            cmd.CommandText = @"UPDATE eventos set imagens_evento = @imagem where id = @idEvento";
 
-            cmd.Parameters.AddWithValue("@idEvento", e.Id_Evento);
-            cmd.Parameters.AddWithValue("@imagem", e.Imagem);
+            cmd.Parameters.AddWithValue("@idEvento", idEvento);
+            cmd.Parameters.AddWithValue("@imagem", Imagem);
 
             cmd.ExecuteNonQuery();
         }

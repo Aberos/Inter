@@ -38,9 +38,17 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for="requestName">Date</label>
+                                <label class="col-md-4 control-label" for="requestName">Date of birth</label>
                                 <div class="col-md-4">
-                                    @Html.TextBoxFor(m => m.DataNasc, new { @class = "form-control input-md", @type = "date", @placeholder = "Date of Birth" })
+                                    @Html.TextBoxFor(m => m.DataNasc, "{0:yyyy-MM-dd}", new { @class = "form-control input-md", @type = "date", @placeholder = "Date of Birth" })
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="requestName">Cell</label>
+                                <div class="col-md-4">
+                                    @Html.TextBoxFor(m => m.Cel, new { @class = "form-control input-md", @type = "text", @placeholder = "Cell" })
 
                                 </div>
                             </div>
@@ -48,29 +56,22 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="requestName">Email</label>
                                 <div class="col-md-4">
-                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control input-md", @type = "text", @placeholder = "Email" })
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control input-md", @type = "text", @placeholder = "Email" , @disabled = "disabled" })
 
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="requestName">Password</label>
-                                <div class="col-md-4">
-                                    @Html.TextBoxFor(m => m.Senha, new { @class = "form-control input-md", @type = "text", @placeholder = "Password" })
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="requestName">Preview Image</label>
                                 &nbsp &nbsp
-                                <img src="@((Session["usuario"] as Usuario).Foto_Perfil)" class="img-thumbnail" width="15%" height="15%" >
+                                <img src="@Model.Foto_Perfil" class="img-thumbnail" width="15%" height="15%" >
                             </div>
                             <!-- Button -->
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for="submit"></label>
-                                <div class="col-md-4">
+                                <label class="col-md-2 control-label" for="submit"></label>
+                                <div class="col-md-6">
                                     <center>
-
+                                        <button id="edit" name="edit" class="btn btn-warning" data-toggle="modal" data-target="#modalSenha" style="a">Change Password</button>
                                         <button id="edit" name="edit" class="btn btn-primary" data-toggle="modal" data-target="#modalPictureUser" style="a">Change Picture</button>
                                         <button id="submit" name="submit" class="btn btn-success" style="a">Edit</button>
                                         
@@ -85,30 +86,71 @@
                 <div class="modal fade" id="modalPictureUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
-                            <form class="form-horizontal" action="~/Account/EditImage" method="post" enctype="multipart/form-data">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel">Change your Picutre</h4>
-                            </div>
-                            <div class="modal-body">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <p>Please select a picture with dimensions equal to 256x256.</p>
-                                        <p>Formats accepted .jpg, .png and .jpeg.</p>
-                                        <p>Picture must have less than 2 MiB</p>
-                                        @Html.TextBoxFor(m => m.Foto_Perfil, new {@class="form-control" , @type = "file", @placeholder = "Upload", @required = "required", @accept = ".png, .jpg, .jpeg" })
-                                    </div>
+                            <form action="~/Account/EditImage" method="post" enctype="multipart/form-data">
+                                <div class="modal-header">
+                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                     <h4 class="modal-title" id="myModalLabel">Change your Picutre</h4>
                                 </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Save changes</button>
-                            </div>
-                                </form>
+                                 <div class="modal-body">
+                                     <div class="row">
+                                              <div class="col-md-6">
+                                                <p>Please select a picture with dimensions equal to 256x256.</p>
+                                                <p>Formats accepted .jpg, .png and .jpeg.</p>
+                                                <p>Picture must have less than 2 MiB</p>
+                                                 @Html.TextBoxFor(m => m.Foto_Perfil, new {@class="form-control" , @type = "file", @placeholder = "Upload", @required = "required", @accept = ".png, .jpg, .jpeg" })
+                                             </div>
+                                     </div>
+                                    </div>
+                                <div class="modal-footer">
+                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                     <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div>
+                           </form>
                         </div>
                     </div>
                 </div>
 
+
+                <div class="modal fade" id="modalSenha" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <form action="~/Account/ChangePassword" method="post" enctype="multipart/form-data">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">Change your Password</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="span12">
+                                                    <fieldset>
+                                                        <div class="control-group">
+                                                            <!-- Username -->
+                                                            <label class="control-label" for="password">Password</label>
+                                                            <div class="controls">
+                                                                <input type="password" id="password" name="password" placeholder="" class="form-control input-md">
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <!-- Password-->
+                                                            <label class="control-label" for="newpassword">New Password</label>
+                                                            <div class="controls">
+                                                                <input type="password" id="newpassword" name="newpassword" placeholder="" class="form-control input-md">
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
 
             </div>
         </div>

@@ -248,14 +248,12 @@ Create Procedure UpdateEvento
 	@descricao			varchar(300),
 	@maxJogadores		int,
 	@idSport			int,
-	@idOrganizador		int,
 	@idLocal			int,
 	@endereco			varchar(500),
 	@descricao_local	varchar(max),
 	@local_nome			varchar(200),
 	@dataEvento			varchar(20),
 	@Horario		    varchar(20),
-	@imagem				varchar(max),
 	@idCidade			int
 )
 as
@@ -263,8 +261,8 @@ begin
 	UPDATE locais SET endereco = @endereco, descricao = @descricao_local, nome = @local_nome, cod_cidade = @idCidade 
 					   WHERE id = @idLocal
 	
-	UPDATE eventos SET estatus = 1, maxJogadores = @maxJogadores, id_esp = @idSport, id_organizador = @idOrganizador, 
-					   id_local = @idLocal, imagens_evento = @imagem, horario_evento = @Horario, data_evento =  @dataEvento, nome = @nome, descricao = @descricao
+	UPDATE eventos SET estatus = 1, maxJogadores = @maxJogadores, id_esp = @idSport, 
+					   horario_evento = @Horario, data_evento =  @dataEvento, nome = @nome, descricao = @descricao
 					   WHERE id = @idEvento
 end
 go

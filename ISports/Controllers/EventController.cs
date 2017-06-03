@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Hosting;
 using System.Web.Mvc;
 
 namespace ISports.Controllers
@@ -46,6 +47,22 @@ namespace ISports.Controllers
 
             int idEvento = int.Parse(Request.QueryString["EventoID"]);
             Evento e = new Evento();
+
+            using (CidadeModel cm = new CidadeModel())
+            {
+                ViewBag.Cidades = cm.Cidades();
+            }
+
+            using (UfModel uf = new UfModel())
+            {
+                ViewBag.Estados = uf.Ufs();
+            }
+
+            using (EsporteModel em = new EsporteModel())
+            {
+                ViewBag.Esportes = em.Esportes();
+            }
+
             using (EventoModel model = new EventoModel())
             {
                 e = model.Read(idEvento);
@@ -53,6 +70,28 @@ namespace ISports.Controllers
             }
             
             return View(e);
+        }
+
+        [UsuarioFiltro]
+        [HttpPost]
+        public ActionResult Manager(Evento e, int id)
+        {
+            int idEvento = id;
+            if (ModelState.IsValid)
+            {
+                using (EventoModel model = new EventoModel())
+                {
+                    e.Id_Evento = idEvento;
+                    model.AlterarEvento(e);
+                }
+                return RedirectToAction("Manager", "Event", new { EventoID = idEvento });
+            }
+            else
+            {
+                ViewBag.Mensagem = "Erro";
+                return RedirectToAction("Manager", "Event", new { EventoID = idEvento });
+            }
+            
         }
 
         [UsuarioFiltro]
@@ -151,6 +190,62 @@ namespace ISports.Controllers
             }
 
             return RedirectToAction("Home", "Event", new { EventoID = idEvento });
+        }
+
+        [UsuarioFiltro]
+        [HttpPost]
+        public ActionResult EditImageEvent(FormCollection form, int id)
+        {
+            int idEvento = id;
+            HttpPostedFileBase arquivo = Request.Files[0];
+            if (ModelState.IsValid)
+            {
+                string Foto_Perfil = null;
+                using (System.Drawing.Image pic = System.Drawing.Image.FromStream(arquivo.InputStream))
+                {
+                    /*if (pic.Height != 256 && pic.Width != 256)
+                    {
+
+                        return RedirectToAction("Edit");
+                    }
+                    else*/
+                    if (arquivo.ContentType != "image/png" && arquivo.ContentType != "image/jpeg" && arquivo.ContentType != "image/jpg")
+                    {
+
+                        return RedirectToAction("Manager", "Event", new { EventoID = idEvento });
+                    }
+                    else if (arquivo.ContentLength > 2097152)
+                    {
+
+                        return RedirectToAction("Manager", "Event", new { EventoID = idEvento });
+                    }
+                }
+
+                if (Request.Files.Count > 0)
+                {
+
+                    if (arquivo.ContentLength > 0)
+                    {
+                        string img = "/Pictures/Event/" + idEvento.ToString() + System.IO.Path.GetExtension(arquivo.FileName);
+                        string path = HostingEnvironment.ApplicationPhysicalPath;
+
+                        string caminho = path + "\\Pictures\\Event\\" + idEvento.ToString() + System.IO.Path.GetExtension(arquivo.FileName);
+                        arquivo.SaveAs(caminho);
+                        Foto_Perfil = img;
+                    }
+                }
+                using (EventoModel model = new EventoModel())
+                {
+                    model.UpdateImage(idEvento, Foto_Perfil);
+                }
+
+                return RedirectToAction("Manager", "Event", new { EventoID = idEvento });
+            }
+            else
+            {
+
+                return RedirectToAction("Manager", "Event", new { EventoID = idEvento });
+            }
         }
 
     }

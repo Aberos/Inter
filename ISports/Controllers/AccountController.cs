@@ -61,60 +61,90 @@ namespace ISports.Controllers
         }
         [UsuarioFiltro]
         [HttpPost]
-        public ActionResult EditImage(Usuario u)
+        public ActionResult EditImage(FormCollection form)
         {
             int iduser = ((Usuario)Session["usuario"]).Id_usuario;
-            HttpPostedFileBase arquivo = Request.Files[0];                                         
-
-            using (System.Drawing.Image pic = System.Drawing.Image.FromStream(arquivo.InputStream)) 
+            HttpPostedFileBase arquivo = Request.Files[0];
+            if (ModelState.IsValid)
             {
-                /*if (pic.Height != 256 && pic.Width != 256)
+                string Foto_Perfil = null;
+                using (System.Drawing.Image pic = System.Drawing.Image.FromStream(arquivo.InputStream))
                 {
-  
-                    return RedirectToAction("Edit");
+                    /*if (pic.Height != 256 && pic.Width != 256)
+                    {
+
+                        return RedirectToAction("Edit");
+                    }
+                    else*/
+                    if (arquivo.ContentType != "image/png" && arquivo.ContentType != "image/jpeg" && arquivo.ContentType != "image/jpg")
+                    {
+
+                        return RedirectToAction("Edit", "Account");
+                    }
+                    else if (arquivo.ContentLength > 2097152)
+                    {
+
+                        return RedirectToAction("Edit", "Account");
+                    }
                 }
-                else*/ if (arquivo.ContentType != "image/png" && arquivo.ContentType != "image/jpeg" && arquivo.ContentType != "image/jpg")           
+
+                if (Request.Files.Count > 0)
                 {
 
-                    return RedirectToAction("Edit");
-                }
-                else if (arquivo.ContentLength > 2097152)                                             
-                {
+                    if (arquivo.ContentLength > 0)
+                    {
+                        string img = "/Pictures/User/" + iduser.ToString() + System.IO.Path.GetExtension(arquivo.FileName);
+                        string path = HostingEnvironment.ApplicationPhysicalPath;
 
-                    return RedirectToAction("Edit");
+                        string caminho = path + "\\Pictures\\User\\" + iduser.ToString() + System.IO.Path.GetExtension(arquivo.FileName);
+                        arquivo.SaveAs(caminho);
+                        Foto_Perfil = img;
+                    }
                 }
+                using (UsuarioModel model = new UsuarioModel())
+                {
+                    model.UpdateImage(iduser, Foto_Perfil);
+                }
+                return RedirectToAction("Edit", "Account");
             }
-
-            if (Request.Files.Count > 0)                                                          
-            {
-
-                if (arquivo.ContentLength > 0)                                               
-                {
-                    string img = "/Picutres/" + iduser.ToString() + System.IO.Path.GetExtension(arquivo.FileName);
-                    string path = HostingEnvironment.ApplicationPhysicalPath;                       
-
-                    string caminho = path + "\\Pictures\\" + iduser.ToString() + System.IO.Path.GetExtension(arquivo.FileName);
-                    arquivo.SaveAs(caminho);
-                    u.Foto_Perfil = img;
-                }
-            }
-            using (UsuarioModel model = new UsuarioModel())
-            {
-                model.UpdateImage(u);                              
-            }
-            return RedirectToAction("Edit");
-        }
+            else {
+            
+            return RedirectToAction("Edit", "Account");
+            }       
+       }
 
 
         [UsuarioFiltro]
         public ActionResult Edit()
         {
-            return View();
+            Usuario user = new Usuario();
+            using (UsuarioModel model = new UsuarioModel())
+            {
+                user = model.ReadId((Session["usuario"] as Usuario).Id_usuario);
+
+
+                Session["usuario"] = user;
+
+            }
+            return View(user);
         }
 
         public ActionResult Recover()
         {
             return View();
+        }
+
+        public ActionResult ChangePassword(FormCollection form)
+        {
+            string senha = form["password"];
+            string nova = form["newpassword"];
+            using (UsuarioModel model = new UsuarioModel())
+            {
+                int idUser = (Session["usuario"] as Usuario).Id_usuario;
+                model.ChangePassowrd(idUser, senha, nova);
+            }
+
+           return RedirectToAction("Edit", "Account");
         }
     }
 }

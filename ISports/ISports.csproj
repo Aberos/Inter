@@ -169,6 +169,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Pictures\Event\" />
+    <Folder Include="Pictures\User\" />
     <Folder Include="Views\image\" />
   </ItemGroup>
   <PropertyGroup>
