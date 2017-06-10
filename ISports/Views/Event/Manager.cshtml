@@ -156,7 +156,7 @@
                                                     });
                                                 }
                                             }
-                                            @Html.DropDownListFor(m => m.Local.Cidade.Uf.Sigla, listEstados, "-- Select UF --", new { @class = "form-control" })
+                                            @Html.DropDownListFor(m => m.Local.Cidade.Uf.Sigla, listEstados, (string)ViewBag.UF, new { @class = "form-control",  @onchange = "SelectionChanged()", id = "estate" })
                                         </div>
                                         @Html.ValidationMessageFor(m => m.Local.Cidade.Uf.Sigla)
                                     </div>
@@ -180,6 +180,18 @@
                                         </div>
                                         @Html.ValidationMessageFor(m => m.Local.Cidade.codigo)
                                     </div>
+
+                                     <script>
+                                     function SelectionChanged()
+                                     {
+                                         var estado = $("#estate").val();
+                                         var link = '@Url.Action("Manager", "Event", new { EventoID = Model.Id_Evento ,  estado = "SP" })';
+                                         link = link.replace("SP", estado);
+
+                                         window.location = link;
+                                     }
+                                    </script>
+
                                     <!-- Button -->
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="submit"></label>

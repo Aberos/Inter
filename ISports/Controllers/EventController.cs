@@ -46,12 +46,9 @@ namespace ISports.Controllers
         {
 
             int idEvento = int.Parse(Request.QueryString["EventoID"]);
+            string estado = Request.QueryString["estado"];
+            ViewBag.UF = "-- Select UF --";
             Evento e = new Evento();
-
-            using (CidadeModel cm = new CidadeModel())
-            {
-                ViewBag.Cidades = cm.Cidades();
-            }
 
             using (UfModel uf = new UfModel())
             {
@@ -68,7 +65,25 @@ namespace ISports.Controllers
                 e = model.Read(idEvento);
                 ViewBag.listSubs = model.InscritosEvento(e.Id_Evento);
             }
-            
+
+            using (CidadeModel cm = new CidadeModel())
+            {
+                if (estado.Length > 0)
+                {
+                    ViewBag.UF = estado;
+                    ViewBag.Cidades = cm.Cidades(estado);
+                    e.Local.Cidade.Uf.Sigla = estado;
+                    e.Local.Cidade.codigo = 0;
+                    e.Local.Cidade.Nome = null;
+
+                }
+                else
+                {
+                    ViewBag.Cidades = cm.Cidades(e.Local.Cidade.Uf.Sigla);
+                }
+                        
+            }
+
             return View(e);
         }
 
@@ -101,19 +116,23 @@ namespace ISports.Controllers
         }
 
         [UsuarioFiltro]
-        public ActionResult Create()
+        public ActionResult Create(string estado, FormCollection form)
         {
-
-            using (CidadeModel cm = new CidadeModel())
-            {
-                ViewBag.Cidades = cm.Cidades();
-            }
-
+            ViewBag.UF = "-- Select UF --";
             using (UfModel uf = new UfModel())
             {
                 ViewBag.Estados = uf.Ufs();
             }
 
+            using (CidadeModel cm = new CidadeModel())
+            {
+
+                if (estado != null)
+                {
+                    ViewBag.UF = estado;
+                    ViewBag.Cidades = cm.Cidades(estado);
+                }
+            }
             using (EsporteModel em = new EsporteModel())
             {
                 ViewBag.Esportes = em.Esportes();

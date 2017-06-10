@@ -74,13 +74,16 @@
 
                                     @{ List<SelectListItem> listEsports = new List<SelectListItem>();
 
-                                        foreach (var p in ViewBag.Esportes)
+                                        if (ViewBag.Esportes != null)
                                         {
-                                            listEsports.Add(new SelectListItem
+                                            foreach (var p in ViewBag.Esportes)
                                             {
-                                                Text = @p.Descricao_Esporte,
-                                                Value = @p.Id_Esporte.ToString()
-                                            });
+                                                listEsports.Add(new SelectListItem
+                                                {
+                                                    Text = @p.Descricao_Esporte,
+                                                    Value = @p.Id_Esporte.ToString()
+                                                });
+                                            }
                                         }
                                     }
                                     @Html.DropDownListFor(m => m.Esporte.Id_Esporte, listEsports, "-- Select Sports --", new { @class = "form-control" })
@@ -147,10 +150,21 @@
                                             });
                                         }
                                     }
-                                    @Html.DropDownListFor(m => m.Local.Cidade.Uf.Sigla, listEstados, "-- Select UF --", new { @class = "form-control" })
+                                    @Html.DropDownListFor(m => m.Local.Cidade.Uf.Sigla, listEstados, (string)ViewBag.UF, new { @class = "form-control", @onchange= "SelectionChanged()", id = "estate" })
                                 </div>
                                 @Html.ValidationMessageFor(m => m.Local.Cidade.Uf.Sigla)
                             </div>
+
+                             <script>
+                             function SelectionChanged()
+                             {
+                                 var estado = $("#estate").val();
+                                 var link = '@Url.Action("Create", "Event", new { estado = "SP" })';
+                                 link = link.replace("SP", estado);
+
+                                 window.location = link;
+                             }
+                            </script>
 
                             <!-- Select Basic -->
                             <div class="form-group">
@@ -164,15 +178,18 @@
                                     </select-->
                                     @{ List<SelectListItem> listItems = new List<SelectListItem>();
 
-                                        foreach (var p in ViewBag.Cidades)
+                                        if (ViewBag.Cidades != null)
                                         {
-                                            listItems.Add(new SelectListItem
+                                            foreach (var p in ViewBag.Cidades)
                                             {
-                                                Text = @p.Nome,
-                                                Value = @p.codigo.ToString()
-                                            });
+                                                listItems.Add(new SelectListItem
+                                                {
+                                                    Text = @p.Nome,
+                                                    Value = @p.codigo.ToString()
+                                                });
+                                            }
                                         }
-                                      }
+                                    }
                                     @Html.DropDownListFor(m => m.Local.Cidade.codigo, listItems, "-- Select Town --", new { @class = "form-control" })
                                 </div>
                                 @Html.ValidationMessageFor(m => m.Local.Cidade.codigo)
