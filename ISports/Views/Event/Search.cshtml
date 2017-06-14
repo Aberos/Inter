@@ -28,7 +28,7 @@
                                 <div class="col-md-0 col-sm-0 col-xs-0"></div>
 
                                 <div class="col-md-2 col-sm-2 col-xs-2 sec">
-                                    <select id="ufs" class="form-control" onchange="SelectionChanged()">
+                                    <select id="ufs" class="form-control">
                                         <option>@ViewBag.UF</option>
                                         @if (ViewBag.Estados != null)
                                         {
@@ -70,14 +70,14 @@
                                 </div>
 
                                  <script>
-                                 function SelectionChanged()
+                                 @*function SelectionChanged()
                                  {
                                      var estado = $("#ufs").val();
                                      var link = '@Url.Action("Search", "Event", new { estado = "SP" })';
                                      link = link.replace("SP", estado);
 
                                      window.location = link;
-                                 }
+                                 }*@
 
                                  function Search()
                                  {

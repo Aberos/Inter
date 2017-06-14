@@ -68,7 +68,7 @@ namespace ISports.Controllers
 
             using (CidadeModel cm = new CidadeModel())
             {
-               ViewBag.Cidades = cm.Cidades(e.Local.Cidade.Uf.Sigla);             
+               ViewBag.Cidades = cm.Cidades();             
             }
 
             return View(e);
@@ -107,12 +107,8 @@ namespace ISports.Controllers
 
             using (CidadeModel cm = new CidadeModel())
             {
+                ViewBag.Cidades = cm.Cidades();
 
-                if (estado != null)
-                {
-                    ViewBag.UF = estado;
-                    ViewBag.Cidades = cm.Cidades(estado);
-                }
             }
             using (EsporteModel em = new EsporteModel())
             {
@@ -129,23 +125,6 @@ namespace ISports.Controllers
             int cidade =  int.Parse(Request.QueryString["cidade"]);
             int esporte = int.Parse(Request.QueryString["esporte"]);
             string nome = Request.QueryString["nome"];
-            using (UfModel uf = new UfModel())
-            {
-                ViewBag.Estados = uf.Ufs();
-            }
-
-            using (CidadeModel cm = new CidadeModel())
-            {
-
-                if (estado != null)
-                {
-                    ViewBag.Cidades = cm.Cidades(estado);
-                }
-            }
-            using (EsporteModel em = new EsporteModel())
-            {
-                ViewBag.Esportes = em.Esportes();
-            }
 
             using (EventoModel ev = new EventoModel())
             {
@@ -169,12 +148,7 @@ namespace ISports.Controllers
 
             using (CidadeModel cm = new CidadeModel())
             {
-
-                if (estado != null)
-                {
-                    ViewBag.UF = estado;
-                    ViewBag.Cidades = cm.Cidades(estado);
-                }
+                 ViewBag.Cidades = cm.Cidades();
             }
             using (EsporteModel em = new EsporteModel())
             {

@@ -8,15 +8,13 @@ namespace ISports.Models
 {
     public class CidadeModel : ConexaoBase
     {
-        public List<Cidade> Cidades(string estado)
+        public List<Cidade> Cidades()
         {
             List<Cidade> lista = new List<Cidade>();
 
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = connection;
-            cmd.CommandText = @"select * from cidades where estado = @estado";
-
-            cmd.Parameters.AddWithValue("@estado", estado);
+            cmd.CommandText = @"select * from cidades";
 
             SqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())

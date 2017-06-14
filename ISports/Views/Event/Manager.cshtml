@@ -156,7 +156,7 @@
                                                     });
                                                 }
                                             }
-                                            @Html.DropDownListFor(m => m.Local.Cidade.Uf.Sigla, listEstados, (string)ViewBag.UF, new { @class = "form-control",  @onchange = "SelectionChanged()", id = "estate" })
+                                            @Html.DropDownListFor(m => m.Local.Cidade.Uf.Sigla, listEstados, (string)ViewBag.UF, new { @class = "form-control", id = "estate" })
                                         </div>
                                         @Html.ValidationMessageFor(m => m.Local.Cidade.Uf.Sigla)
                                     </div>
@@ -181,7 +181,7 @@
                                         @Html.ValidationMessageFor(m => m.Local.Cidade.codigo)
                                     </div>
 
-                                     <script>
+                                     @*<script>
                                      function SelectionChanged()
                                      {
                                          var estado = $("#estate").val();
@@ -190,7 +190,7 @@
 
                                          window.location = link;
                                      }
-                                    </script>
+                                    </script>*@
 
                                     <!-- Button -->
                                     <div class="form-group">
