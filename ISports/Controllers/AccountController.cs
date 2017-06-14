@@ -93,10 +93,11 @@ namespace ISports.Controllers
 
                     if (arquivo.ContentLength > 0)
                     {
-                        string img = "/Pictures/User/" + iduser.ToString() + System.IO.Path.GetExtension(arquivo.FileName);
+                        DateTime today = DateTime.Now;
+                        string img = "/Pictures/User/" + iduser.ToString() + today.ToString("yyyyMMddhhmmss") + System.IO.Path.GetExtension(arquivo.FileName);
                         string path = HostingEnvironment.ApplicationPhysicalPath;
 
-                        string caminho = path + "\\Pictures\\User\\" + iduser.ToString() + System.IO.Path.GetExtension(arquivo.FileName);
+                        string caminho = path + "\\Pictures\\User\\" + iduser.ToString() + today.ToString("yyyyMMddhhmmss") + System.IO.Path.GetExtension(arquivo.FileName);
                         arquivo.SaveAs(caminho);
                         Foto_Perfil = img;
                     }

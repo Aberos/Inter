@@ -38,23 +38,31 @@ namespace ISports.Models
         //Somente irei pegar as informações necessarias para a exibição do carousel-row
         //Quando for pra mostrar todas as informações devera ser usada o metodo Read()
         //Nesse metodo sera retornado apenas o Nome do Evento, A descricação, a foto e o Id do evento para ser utilizado no metodo Read()
-        public List<Evento> Search(int idCidade , string Uf, int IdEsporte)
+        public List<Evento> Search(int idCidade , string Uf, int IdEsporte, string Nome)
         {
             List<Evento> lista = new List<Evento>();
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = connection;
-            cmd.CommandText = @"select * from v_evento where CodigoCidade = @idCidade and SiglaEstado = '@Uf' and IdEsport = @IdEsporte";
+            cmd.CommandText = @"select 
+                                    Codigo IdEvento, NomeEvento, DescricaoEvento, FotoEvento
+                                from 
+                                    v_evento 
+                                where 
+	                                (IdEsport = @IdEsporte and SiglaEstado = @Uf and CodigoCidade = @idCidade and NomeEvento like '%@Nome%') or
+	                                (IdEsport = @IdEsporte and SiglaEstado = @Uf and CodigoCidade = @idCidade ) or 
+	                                (NomeEvento like '%@Nome%')";
 
             cmd.Parameters.AddWithValue("@idCidade", idCidade);
             cmd.Parameters.AddWithValue("@Uf", Uf);
             cmd.Parameters.AddWithValue("@IdEsporte", IdEsporte);
+            cmd.Parameters.AddWithValue("@Nome", Nome);
 
             SqlDataReader reader = cmd.ExecuteReader();
 
             while (reader.Read())
             {
                 Evento e = new Evento();
-                e.Id_Evento = (int)reader["Codigo"];
+                e.Id_Evento = (int)reader["IdEvento"];
                 e.Nome = (string)reader["NomeEvento"];
                 e.Descricao = (string)reader["DescricaoEvento"];
                 e.Imagem = (string)reader["FotoEvento"];
@@ -158,7 +166,7 @@ namespace ISports.Models
                 e.Id_Evento = (int)reader["IdEvento"];
                 e.Nome = (string)reader["NomeEvento"];
                 e.Descricao = (string)reader["DescricaoEvento"];
-                //e.Imagem = (string)reader["DescricaoEvento"];
+                e.Imagem = (string)reader["FotoEvento"];
                 lista.Add(e);
             }
 

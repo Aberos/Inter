@@ -160,6 +160,7 @@
     <Content Include="Views\Event\FeedEvents.cshtml" />
     <Content Include="Views\Event\UserEvents.cshtml" />
     <Content Include="Views\Account\Edit.cshtml" />
+    <Content Include="Views\Event\ResultSearch.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

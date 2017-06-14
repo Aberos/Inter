@@ -68,20 +68,7 @@ namespace ISports.Controllers
 
             using (CidadeModel cm = new CidadeModel())
             {
-                if (estado.Length > 0)
-                {
-                    ViewBag.UF = estado;
-                    ViewBag.Cidades = cm.Cidades(estado);
-                    e.Local.Cidade.Uf.Sigla = estado;
-                    e.Local.Cidade.codigo = 0;
-                    e.Local.Cidade.Nome = null;
-
-                }
-                else
-                {
-                    ViewBag.Cidades = cm.Cidades(e.Local.Cidade.Uf.Sigla);
-                }
-                        
+               ViewBag.Cidades = cm.Cidades(e.Local.Cidade.Uf.Sigla);             
             }
 
             return View(e);
@@ -110,8 +97,64 @@ namespace ISports.Controllers
         }
 
         [UsuarioFiltro]
-        public ActionResult Search()
+        public ActionResult Search(string estado)
         {
+            ViewBag.UF = "UF";
+            using (UfModel uf = new UfModel())
+            {
+                ViewBag.Estados = uf.Ufs();
+            }
+
+            using (CidadeModel cm = new CidadeModel())
+            {
+
+                if (estado != null)
+                {
+                    ViewBag.UF = estado;
+                    ViewBag.Cidades = cm.Cidades(estado);
+                }
+            }
+            using (EsporteModel em = new EsporteModel())
+            {
+                ViewBag.Esportes = em.Esportes();
+            }
+
+            return View();
+        }
+        
+        [UsuarioFiltro]
+        public ActionResult ResultSearch()
+        {
+            string estado = Request.QueryString["estado"];
+            int cidade =  int.Parse(Request.QueryString["cidade"]);
+            int esporte = int.Parse(Request.QueryString["esporte"]);
+            string nome = Request.QueryString["nome"];
+            using (UfModel uf = new UfModel())
+            {
+                ViewBag.Estados = uf.Ufs();
+            }
+
+            using (CidadeModel cm = new CidadeModel())
+            {
+
+                if (estado != null)
+                {
+                    ViewBag.Cidades = cm.Cidades(estado);
+                }
+            }
+            using (EsporteModel em = new EsporteModel())
+            {
+                ViewBag.Esportes = em.Esportes();
+            }
+
+            using (EventoModel ev = new EventoModel())
+            {
+                if(nome == null)
+                {
+                    nome = "";
+                }
+                ViewBag.ListEventos = ev.Search(cidade, estado, esporte, nome);
+            }
             return View();
         }
 
@@ -137,6 +180,7 @@ namespace ISports.Controllers
             {
                 ViewBag.Esportes = em.Esportes();
             }
+
 
          return View();
 
@@ -245,10 +289,11 @@ namespace ISports.Controllers
 
                     if (arquivo.ContentLength > 0)
                     {
-                        string img = "/Pictures/Event/" + idEvento.ToString() + System.IO.Path.GetExtension(arquivo.FileName);
+                        DateTime today = DateTime.Now;
+                        string img = "/Pictures/Event/" + idEvento.ToString() + today.ToString("yyyyMMddhhmmss") + System.IO.Path.GetExtension(arquivo.FileName);
                         string path = HostingEnvironment.ApplicationPhysicalPath;
 
-                        string caminho = path + "\\Pictures\\Event\\" + idEvento.ToString() + System.IO.Path.GetExtension(arquivo.FileName);
+                        string caminho = path + "\\Pictures\\Event\\" + idEvento.ToString() + today.ToString("yyyyMMddhhmmss") + System.IO.Path.GetExtension(arquivo.FileName);
                         arquivo.SaveAs(caminho);
                         Foto_Perfil = img;
                     }
