@@ -293,7 +293,7 @@ namespace ISports.Models
             bool sub = false;
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = connection;
-            cmd.CommandText = @"select * from evento_usuario where id_evento = @idEvento and id_usuario = @idUsuario and status = 2";
+            cmd.CommandText = @"select * from evento_usuario where id_evento = @idEvento and id_usuario = @idUsuario and status = 1";
 
             cmd.Parameters.AddWithValue("@idEvento", idEvento);
             cmd.Parameters.AddWithValue("@idUsuario", idUsuario);
