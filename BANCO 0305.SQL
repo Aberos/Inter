@@ -232,7 +232,8 @@ select u.id					IdUsuario,
 	   e.Codigo				IdEvento,
 	   e.NomeEvento			NomeEvento,
 	   e.DescricaoEvento	DescricaoEvento,
-	   e.FotoEvento         FotoEvento
+	   e.FotoEvento         FotoEvento,
+	   uv.status			Status
 
 
 from evento_usuario uv, v_evento e, usuarios u
@@ -264,6 +265,17 @@ begin
 	UPDATE eventos SET estatus = 1, maxJogadores = @maxJogadores, id_esp = @idSport, 
 					   horario_evento = @Horario, data_evento =  @dataEvento, nome = @nome, descricao = @descricao
 					   WHERE id = @idEvento
+end
+go
+
+Create Procedure CadNoticiaEvento
+(
+	@idEvento     int,
+	@Msg		  varchar(max)
+)
+as
+begin
+	insert into noticias values(@idEvento, @Msg, GETDATE ())
 end
 go
 

@@ -95,8 +95,11 @@
     <Content Include="Global.asax" />
     <Content Include="Pictures\background.jpg" />
     <Content Include="Pictures\basquete.jpg" />
+    <Content Include="Pictures\bronze medal.png" />
     <Content Include="Pictures\futebol.jpg" />
+    <Content Include="Pictures\gold medal.png" />
     <Content Include="Pictures\search.jpg" />
+    <Content Include="Pictures\silver medal.png" />
     <Content Include="Pictures\user_profile.jpg" />
     <Content Include="Pictures\volei.jpg" />
     <Content Include="Scripts\bootstrap.js" />

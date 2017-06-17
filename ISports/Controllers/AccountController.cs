@@ -147,5 +147,11 @@ namespace ISports.Controllers
 
            return RedirectToAction("Edit", "Account");
         }
+
+        public ActionResult Logout()
+        {
+            Session["usuario"] = null;
+            return RedirectToAction("Login");
+        }
     }
 }

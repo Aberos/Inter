@@ -10,8 +10,8 @@
     <meta name="viewport" content="width=device-width" />
     <link href="@Url.Content("~/Content/Style.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Bootstrap.css")" rel="stylesheet" type="text/css" />
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
+    @*<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>*@
 </head>
 <body>
     <div class="col-md-9">
@@ -181,17 +181,6 @@
                                         @Html.ValidationMessageFor(m => m.Local.Cidade.codigo)
                                     </div>
 
-                                     @*<script>
-                                     function SelectionChanged()
-                                     {
-                                         var estado = $("#estate").val();
-                                         var link = '@Url.Action("Manager", "Event", new { EventoID = Model.Id_Evento ,  estado = "SP" })';
-                                         link = link.replace("SP", estado);
-
-                                         window.location = link;
-                                     }
-                                    </script>*@
-
                                     <!-- Button -->
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="submit"></label>
@@ -211,18 +200,30 @@
                                     <label for="comment">Comment:</label>
                                     <textarea class="form-control" rows="5" id="comment" style="width:100%; resize: none; max-width: 100% !important;"></textarea>
                                 </div>
-                                <button class="btn btn-primary" style="margin-top:5px; float:right">Submit</button>
-                                <div class="panel panel-default" style="margin-bottom: 5px !important; margin-top: 80px !important">
-                                    <div class="panel-body">
-                                        <h5>Vitoria time Masculino <small>20/04/2017 as 22:30</small></h5>
+                                <button class="btn btn-primary" style="margin-top:5px; float:right" onclick="SendMsg()">Submit</button>
+
+                                @foreach (var m in ViewBag.Noticias)
+                                {
+                                    <div class="panel panel-default" style="margin-bottom: 5px !important; margin-top: 80px !important">
+                                        <div class="panel-body">
+                                            <h5>@m.Descricao_Noticia <small>@m.Data_Noticia </small></h5>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="panel panel-default" style="margin:0 !important">
-                                    <div class="panel-body">
-                                        <h5>Vitoria time Feminino <small>27/04/2017 as 22:30</small></h5>
-                                    </div>
-                                </div>
+                                }                                                              
                             </div>
+
+
+                            <script>
+                                     function SendMsg()
+                                     {
+                                         var id = @Model.Id_Evento;
+                                         var texto = $("#comment").val();
+                                         var link = '@Url.Action("CadNoticia", "Event")';
+
+                                         window.location = link + '?IdEvent='+id+'&msg='+texto;
+                                     }
+                            </script>
+
                             <div id="members" class="tab-pane fade">
                                 <table class="table table-striped">
                                     <thead>
@@ -235,23 +236,39 @@
                                     <tbody>
                                     @foreach (var p in ViewBag.listSubs)
                                     {
-                                        <tr>
+                                        <tr bgcolor="#FF0000">
                                             <td>@p.Nome</td>
                                             <td>@p.Email</td>
                                             <td>@p.Cel</td>
                                             <td>@p.DataNasc</td>
                                             <td>
-                                                <div class="dropdown">
-                                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                        Commands
-                                                        <span class="caret"></span>
-                                                    </button>
-                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                                        <li><a href="#"><i class="fa fa-check" aria-hidden="true"></i> Presence</a></li>
-                                                        <li><a href="#"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a></li>
-                                                        <li><a href="#"><i class="fa fa-money" aria-hidden="true"></i> Paid</a></li>
-                                                    </ul>
-                                                </div>
+
+                                                @if(p.InscricaoStatus == 1)
+                                                {
+                                                        <div class="btn-group">
+                                                            <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                Commands
+                                                                <span class="caret"></span>
+                                                            </button>
+                                                            <ul class="dropdown-menu" >
+                                                                <li><a href="@Url.Action("RemoveUserEvent", "Event", new { IdEvent = Model.Id_Evento, IdUser = p.Id_usuario })"><i class="fa fa-times" aria-hidden="true"></i> Delete</a></li>
+                                                            </ul>
+                                                        </div>
+  
+                                                }
+                                                else
+                                                {
+                                                    <div class="btn-group">
+                                                        <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            Pending
+                                                            <span class="caret"></span>
+                                                        </button>
+                                                        <ul class="dropdown-menu">
+                                                            <li><a href="@Url.Action("AcceptUserEvent", "Event", new { IdEvent = Model.Id_Evento, IdUser = p.Id_usuario })"><i class="fa fa-check" aria-hidden="true"></i> Accept</a></li>
+                                                            <li><a href="@Url.Action("RemoveUserEvent", "Event", new { IdEvent = Model.Id_Evento, IdUser = p.Id_usuario })"><i class="fa fa-times" aria-hidden="true"></i> Refuse</a></li>
+                                                        </ul>
+                                                    </div>
+                                                }
                                             </td>
                                         </tr>
 

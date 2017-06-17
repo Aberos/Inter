@@ -153,7 +153,7 @@ namespace ISports.Models
             List<Evento> lista = new List<Evento>();
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = connection;
-            cmd.CommandText = @"select * from v_usuario_evento where IdUsuario = @idUsuario";
+            cmd.CommandText = @"select * from v_usuario_evento where IdUsuario = @idUsuario and (Status = 1 or Status = 2)";
 
             cmd.Parameters.AddWithValue("@idUsuario", IdUsuario);
 
@@ -178,7 +178,7 @@ namespace ISports.Models
             List<Usuario> lista = new List<Usuario>();
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = connection;
-            cmd.CommandText = @"select * from v_usuario_evento where idEvento = @idEvento";
+            cmd.CommandText = @"select * from v_usuario_evento where idEvento = @idEvento and (Status = 1 or Status = 2)";
 
             cmd.Parameters.AddWithValue("@idEvento", IdEvento);
 
@@ -193,10 +193,23 @@ namespace ISports.Models
                 u.Cel = (string)reader["TelefoneUsuario"];
                 u.Email = (string)reader["EmailUsuario"];
                 u.Foto_Perfil = (string)reader["FotoUsuario"];
+                u.InscricaoStatus = (int)reader["Status"];
                 lista.Add(u);
             }
 
             return lista;
+        }
+
+        public void CadNoticia(int idEvento, string msg)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = connection;
+            cmd.CommandText = @"Exec CadNoticiaEvento @idEvento, @Msg";
+
+            cmd.Parameters.AddWithValue("@idEvento", idEvento);
+            cmd.Parameters.AddWithValue("@Msg", msg);
+
+            cmd.ExecuteNonQuery();
         }
 
         public List<Noticia> NoticiasEvento(int IdEvento)
@@ -216,6 +229,7 @@ namespace ISports.Models
                 n.Id_Noticia = (int)reader["id"];
                 n.Id_Evento = (int)reader["id_evento"];
                 n.Descricao_Noticia = (string)reader["descricao"];
+                n.Data_Noticia = (DateTime)reader["data_noticia"];
                 lista.Add(n);
 
             }
@@ -263,7 +277,7 @@ namespace ISports.Models
             bool sub = UserSubscribed(idEvento, idUsuario);
             if (sub == true)
             {
-                cmd.CommandText = @"UPDATE evento_usuario set status = 2 where id_usuario = @idUsuario and id_evento";
+                cmd.CommandText = @"UPDATE evento_usuario set status = 2 where id_usuario = @idUsuario and id_evento = @idEvento";
             }
             else
             {
@@ -293,7 +307,7 @@ namespace ISports.Models
             bool sub = false;
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = connection;
-            cmd.CommandText = @"select * from evento_usuario where id_evento = @idEvento and id_usuario = @idUsuario and status = 1";
+            cmd.CommandText = @"select * from evento_usuario where id_evento = @idEvento and id_usuario = @idUsuario";
 
             cmd.Parameters.AddWithValue("@idEvento", idEvento);
             cmd.Parameters.AddWithValue("@idUsuario", idUsuario);
@@ -340,6 +354,39 @@ namespace ISports.Models
             cmd.Parameters.AddWithValue("@imagem", Imagem);
 
             cmd.ExecuteNonQuery();
+        }
+
+        public void ChangeStatusSubscribe(int idEvento, int IdUser, int status)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = connection;
+            cmd.CommandText = @"UPDATE evento_usuario set status = @status where id_usuario = @idUsuario and id_evento = @idEvento";
+
+            cmd.Parameters.AddWithValue("@idEvento", idEvento);
+            cmd.Parameters.AddWithValue("@idUsuario", IdUser);
+            cmd.Parameters.AddWithValue("@status", status);
+
+            cmd.ExecuteNonQuery();
+        }
+
+        public bool isAdmin(int idEvento, int idUser)
+        {
+            bool admin = false;
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = connection;
+            cmd.CommandText = @"SELECT id_organizador FROM eventos WHERE id = @idEvento and id_organizador = @idUsuario ";
+
+            cmd.Parameters.AddWithValue("@idEvento", idEvento);
+            cmd.Parameters.AddWithValue("@idUsuario", idUser);
+
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            if (reader.Read())
+            {
+                admin = true;
+            }
+
+            return admin;
         }
     }
 }

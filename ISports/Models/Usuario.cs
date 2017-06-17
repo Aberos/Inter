@@ -41,5 +41,7 @@ namespace ISports.Models
 
         public string Foto_Perfil { get; set; }
 
+        public int InscricaoStatus { get; set; }
+
     }
 }

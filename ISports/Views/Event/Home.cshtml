@@ -10,8 +10,8 @@
     <meta name="viewport" content="width=device-width" />
     <link href="@Url.Content("~/Content/Style.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Bootstrap.css")" rel="stylesheet" type="text/css" />
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
+    @*<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>*@
 </head>
 <body>
     <div class="col-md-9">
@@ -20,8 +20,32 @@
                 <div class="row">
                     <div class="col-sm-12" id="logout">
                         <div class="page-header">
-                            <img src="@Model.Imagem" style="width: 150px;height:auto; border: 1px solid #bfbfbf; box-shadow: 0 0 4px #cfcfcf;" />
-                            <h1 style="display: inline; position: relative; top: 50px;">@Model.Nome <small>@Model.Organizador.Nome</small></h1>
+                            <img src="@Model.Imagem" class="img-thumbnail" style="width: 150px;height:auto; border: 1px solid #bfbfbf; box-shadow: 0 0 4px #cfcfcf;" />
+                            <h1 style="display: inline; position: relative; top: 50px;" data-toggle="popover" title="@Model.Organizador.Nome  @Model.Organizador.Sobrenome" >@Model.Nome <small>@Model.Organizador.Nome</small></h1>
+
+                            <script>
+                                $(function () {
+                                    var img;
+                                    var text;
+                                    if(@Model.Organizador.Qualificacao >= 8)
+                                    {
+                                        text = "Gold Medal";
+                                         img = "/Pictures/gold medal.png";
+
+                                    }else if(@Model.Organizador.Qualificacao >= 6 && Model.Organizador.Qualificacao < 8)
+                                    {
+                                        text = "Silver Medal";
+                                         img = "/Pictures/silver medal.png";
+                                    }else
+                                    {
+                                         text = "Bronze Medal";
+                                         img = "/Pictures/bronze medal.png";
+                                    }
+                                    var image = '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<img src="' + img + '" height="80px" width="80px"> <h3> '+ text +'</h3>';
+                                    $('[data-toggle="popover"]').popover({ placement: 'bottom', content: image, html: true })
+                                })
+                            </script>
+
                             @if (ViewBag.Subscribed == true)
                             {
                                 if (ViewBag.SubStatus == 1) //inscrito
@@ -40,6 +64,14 @@
                                         </button>
                                     </div>
                                 }
+                                else
+                                {
+                                    <div class="subscribe">
+                                        <button class="btn btn-default btn-circle text-uppercase" type="button" onclick="location.href='@Url.Action("Subscribe", "Event", new { idEvento = Model.Id_Evento })';return false;">
+                                            <span class="glyphicon glyphicon-plus"></span> Subscribe
+                                        </button>
+                                    </div>
+                                }
 
                             }
                             else
@@ -51,15 +83,14 @@
                             </div>
                             }
                         </div>
-                        <div style="float:right" class="dropdown">
-                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                <i class="fa fa-star" aria-hidden="true">&nbsp Presence</i>
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                <li><a href="#"><i class="fa fa-check" aria-hidden="true"></i> Yes</a></li>
-                                <li><a href="#"><i class="fa fa-times" aria-hidden="true"></i> No</a></li>
-                            </ul>
+                        <div style="float:right">
+                            @if (ViewBag.SubStatus == 1)
+                            {
+                                <button class="btn btn-primary " data-toggle="modal" data-target="#notaModal">
+                                    <i class="fa fa-star" aria-hidden="true">&nbsp Evaluate</i>
+                                </button>
+                            }
+                            
                         </div>
                         <div class="comment-tabs">
                             <ul class="nav nav-tabs" role="tablist">
@@ -95,16 +126,14 @@
                                 @Model.Descricao
                             </div>
                             <div id="feed" class="tab-pane fade">
-                                <div class="panel panel-default" style="margin-bottom: 5px !important; margin-top: -20px !important;">
-                                    <div class="panel-body">
-                                        <h5>Vitoria time Masculino <small>20/04/2017 as 22:30</small></h5>
+                                @foreach (var m in ViewBag.Noticias)
+                                {
+                                    <div class="panel panel-default" style="margin-bottom: 5px !important; margin-top: 80px !important">
+                                        <div class="panel-body">
+                                            <h5>@m.Descricao_Noticia <small>@m.Data_Noticia </small></h5>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="panel panel-default" style="margin:0 !important">
-                                    <div class="panel-body">
-                                        <h5>Vitoria time Feminino <small>27/04/2017 as 22:30</small></h5>
-                                    </div>
-                                </div>
+                                }   
                             </div>
                             <div id="members" class="tab-pane fade">
                                 <table class="table table-striped">
@@ -132,6 +161,40 @@
                     </div>
                 </div>
             </div>
+
+            <div class="modal fade" id="notaModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Choose a note </h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="col-md-offset-5">
+                                <form style="display:table-cell; vertical-align:middle;height:100%">
+                                    <h4>Note:</h4>
+                                    <select class="form-control" style="display:table-cell; vertical-align:middle">
+                                        <option value="10">10</option>
+                                        <option value="9">09</option>
+                                        <option value="8">08</option>
+                                        <option value="7">07</option>
+                                        <option value="6">06</option>
+                                        <option value="5">05</option>
+                                        <option value="4">04</option>
+                                        <option value="3">03</option>
+                                        <option value="2">02</option>
+                                        <option value="1">01</option>
+                                    </select>
+                                </form>
+                            </div>                   
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
         </div>
     </div>
 </body>

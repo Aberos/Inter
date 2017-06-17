@@ -27,8 +27,9 @@ namespace ISports.Controllers
             {
                 ViewBag.listSubs = model.InscritosEvento(idEvento);
                 ViewBag.Subscribed = model.UserSubscribed(idEvento, (Session["usuario"] as Usuario).Id_usuario);
+                ViewBag.Noticias = model.NoticiasEvento(idEvento);
 
-                if(ViewBag.Subscribed == true)
+                if (ViewBag.Subscribed == true)
                 {
                     ViewBag.SubStatus = model.getSubscribeStatus((Session["usuario"] as Usuario).Id_usuario, idEvento);
                 }
@@ -36,9 +37,24 @@ namespace ISports.Controllers
                 {
                     ViewBag.SubStatus = 0;
                 }
+                
+           }
+
+            using (EventoModel model = new EventoModel())
+            {
+                if (model.isAdmin(idEvento, (Session["usuario"] as Usuario).Id_usuario))
+                {
+                    return RedirectToAction("Manager", "Event", new { EventoID = idEvento });
+                }
+                else
+                {
+                    return View(e);
+                }
+
             }
 
-            return View(e);
+
+            
         }
 
         [UsuarioFiltro]
@@ -55,6 +71,11 @@ namespace ISports.Controllers
                 ViewBag.Estados = uf.Ufs();
             }
 
+            using (CidadeModel cm = new CidadeModel())
+            {
+                ViewBag.Cidades = cm.Cidades();
+            }
+
             using (EsporteModel em = new EsporteModel())
             {
                 ViewBag.Esportes = em.Esportes();
@@ -62,16 +83,19 @@ namespace ISports.Controllers
 
             using (EventoModel model = new EventoModel())
             {
-                e = model.Read(idEvento);
-                ViewBag.listSubs = model.InscritosEvento(e.Id_Evento);
-            }
+                if (model.isAdmin(idEvento, (Session["usuario"] as Usuario).Id_usuario))
+                {
+                    e = model.Read(idEvento);
+                    ViewBag.listSubs = model.InscritosEvento(e.Id_Evento);
+                    ViewBag.Noticias = model.NoticiasEvento(e.Id_Evento);
+                    return View(e);
+                }
+                else
+                {
+                    return RedirectToAction("FeedEvents", "Event");
+                }
 
-            using (CidadeModel cm = new CidadeModel())
-            {
-               ViewBag.Cidades = cm.Cidades();             
             }
-
-            return View(e);
         }
 
         [UsuarioFiltro]
@@ -121,20 +145,27 @@ namespace ISports.Controllers
         [UsuarioFiltro]
         public ActionResult ResultSearch()
         {
-            string estado = Request.QueryString["estado"];
-            int cidade =  int.Parse(Request.QueryString["cidade"]);
-            int esporte = int.Parse(Request.QueryString["esporte"]);
-            string nome = Request.QueryString["nome"];
-
-            using (EventoModel ev = new EventoModel())
+            try
             {
-                if(nome == null)
+                string estado = Request.QueryString["estado"];
+                int cidade = int.Parse(Request.QueryString["cidade"]);
+                int esporte = int.Parse(Request.QueryString["esporte"]);
+                string nome = Request.QueryString["nome"];
+
+                using (EventoModel ev = new EventoModel())
                 {
-                    nome = "";
+                    if (nome == null)
+                    {
+                        nome = "";
+                    }
+                    ViewBag.ListEventos = ev.Search(cidade, estado, esporte, nome);
                 }
-                ViewBag.ListEventos = ev.Search(cidade, estado, esporte, nome);
+                return View();
+            }catch
+            {
+               return RedirectToAction("Search", "Event");
             }
-            return View();
+            
         }
 
         [UsuarioFiltro]
@@ -283,6 +314,41 @@ namespace ISports.Controllers
             {
 
                 return RedirectToAction("Manager", "Event", new { EventoID = idEvento });
+            }
+        }
+
+        public ActionResult AcceptUserEvent(int IdEvent, int IdUser)
+        {
+            using (EventoModel model = new EventoModel())
+            {
+                model.ChangeStatusSubscribe(IdEvent, IdUser, 1);
+            }
+            return RedirectToAction("Manager", "Event", new { EventoID = IdEvent });
+        }
+
+        public ActionResult RemoveUserEvent(int IdEvent, int IdUser)
+        {
+            using (EventoModel model = new EventoModel())
+            {
+                model.ChangeStatusSubscribe(IdEvent, IdUser, 3);
+            }
+            return RedirectToAction("Manager", "Event", new { EventoID = IdEvent });
+        }
+
+        public ActionResult CadNoticia(int IdEvent, string msg)
+        {
+            using (EventoModel model = new EventoModel())
+            {
+                if(model.isAdmin(IdEvent, (Session["usuario"] as Usuario).Id_usuario))
+                {
+                    model.CadNoticia(IdEvent, msg);
+                    return RedirectToAction("Manager", "Event", new { EventoID = IdEvent });
+                }
+                else
+                {
+                    return RedirectToAction("FeedEvents", "Event");
+                }
+                
             }
         }
 
