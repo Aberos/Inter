@@ -281,7 +281,7 @@ namespace ISports.Models
             }
             else
             {
-                cmd.CommandText = @"insert into evento_usuario values (@idEvento, @idUsuario, 2)";
+                cmd.CommandText = @"insert into evento_usuario values (@idEvento, @idUsuario, 2, 0)";
             }
 
             cmd.Parameters.AddWithValue("@idEvento", idEvento);

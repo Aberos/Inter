@@ -86,22 +86,12 @@ create table noticias
 )
 go
 
-create table pagamentos
-(
-	id_evento  int           not null references eventos,
-	id_usuario int           not null references usuarios,
-	data       date          not null,
-	valor      decimal(10,2) not null,
-	tipo       int           not null
-	primary key(id_evento, id_usuario)
-)
-go
-
 create table evento_usuario
 (
-	id_evento  int not null,
-	id_usuario int not null,
-	status     int not null,
+	id_evento  	int not null,
+	id_usuario 	int not null,
+	status     	int not null,
+	nota_evento	int null,
 	primary key(id_evento, id_usuario)
 )
 go
@@ -156,6 +146,24 @@ begin
 	insert into eventos values (1, @maxJogadores, @idSport, @idOrganizador, @@IDENTITY, @imagem, @Horario, @dataEvento, @nome, @descricao)
 end
 Go
+
+create view v_esporte
+as
+select e.id			 codigoEsporte,
+	   e.descricao   ESPORTE
+
+from esportes e
+go
+
+create view v_noticia
+as
+select n.id				codigoNoticia,
+	   n.id_evento		codigoEvento,
+	   n.descricao		noticia,
+	   n.data_noticia	dataPostagem
+
+from noticias n
+go
 
 create view v_cidade
 as
@@ -233,7 +241,8 @@ select u.id					IdUsuario,
 	   e.NomeEvento			NomeEvento,
 	   e.DescricaoEvento	DescricaoEvento,
 	   e.FotoEvento         FotoEvento,
-	   uv.status			Status
+	   uv.status			Status,
+	   uv.nota_evento		Nota
 
 
 from evento_usuario uv, v_evento e, usuarios u
