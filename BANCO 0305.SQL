@@ -88,8 +88,8 @@ go
 
 create table evento_usuario
 (
-	id_evento  	int not null,
-	id_usuario 	int not null,
+	id_evento  	int not null references eventos,
+	id_usuario 	int not null references usuarios,
 	status     	int not null,
 	nota_evento	int null,
 	primary key(id_evento, id_usuario)
