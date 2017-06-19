@@ -46,7 +46,7 @@ go
 create table locais
 (
 	id        	int          not null primary key identity,
-	endereco  	varchar(500) not null unique,
+	endereco  	varchar(500) not null ,
 	descricao	varchar(max),
 	nome      	varchar(200) not null unique,	
 	cod_cidade  int          not null references cidades
