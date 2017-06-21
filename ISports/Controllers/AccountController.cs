@@ -42,22 +42,29 @@ namespace ISports.Controllers
         [HttpPost]
         public ActionResult Login(Usuario l)
         {
-            using (UsuarioModel model = new UsuarioModel())
+            try
             {
-                Usuario user = model.Read(l.Email, l.Senha);
+                using (UsuarioModel model = new UsuarioModel())
+                {
+                    Usuario user = model.Read(l.Email, l.Senha);
 
-                if(user == null)
-                {
-                    ViewBag.Erro = "E-mail ou Senha inválidas";
+                    if (user == null)
+                    {
+                        ViewBag.Erro = "E-mail ou Senha inválidas";
+                        return View();
+                    }
+                    else
+                    {
+                        Session["usuario"] = user;
+                        ViewBag.Picture = (Session["usuario"] as Usuario).Foto_Perfil;
+                        return RedirectToAction("FeedEvents", "Event");
+                    }
                 }
-                else
-                {
-                    Session["usuario"] = user;
-                    ViewBag.Picture = (Session["usuario"] as Usuario).Foto_Perfil;
-                    return RedirectToAction("FeedEvents", "Event");
-                }
-            }
-            return View();
+            }catch
+            {
+                ViewBag.Erro = "E-mail ou Senha inválidas";
+                return View();
+            }       
         }
         [UsuarioFiltro]
         [HttpPost]
@@ -150,7 +157,7 @@ namespace ISports.Controllers
 
         public ActionResult Logout()
         {
-            Session["usuario"] = null;
+            Session.Abandon();
             return RedirectToAction("Login");
         }
     }

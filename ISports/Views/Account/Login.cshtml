@@ -41,6 +41,13 @@
                                     <input type="password" class="form-control" id="password" placeholder="Password" name="Senha" value="" required="" title="Please enter your password">
                                     <span class="help-block"></span>
                                 </div>
+                                @if (ViewBag.Erro != null)
+                                {
+                                    <div class="alert alert-danger">
+                                        <strong>Error!</strong>Enter correct email and password.
+                                    </div>
+                                }
+
                                 <div id="loginErrorMsg" class="alert alert-error hide">Wrong e-mail or password</div>
                                 <div class="checkbox">
                                     <label>

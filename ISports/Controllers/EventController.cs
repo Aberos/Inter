@@ -195,19 +195,27 @@ namespace ISports.Controllers
         [UsuarioFiltro]
         public ActionResult Create(Evento e)
         {
-            if(ModelState.IsValid)
+            try
             {
-                using (EventoModel model = new EventoModel())
+                if (ModelState.IsValid)
                 {
-                    e.Organizador.Id_usuario = (Session["usuario"] as Usuario).Id_usuario;
-                    model.Create(e);
+                    using (EventoModel model = new EventoModel())
+                    {
+                        e.Organizador.Id_usuario = (Session["usuario"] as Usuario).Id_usuario;
+                        model.Create(e);
+                    }
+                    return RedirectToAction("UserEvents", "Event");
                 }
+                else
+                {
+                    return RedirectToAction("UserEvents", "Event");
+                }
+            }
+            catch
+            {
                 return RedirectToAction("UserEvents", "Event");
             }
-            else
-            {
-                return View(e);
-            }
+
         }
 
         [UsuarioFiltro]
@@ -352,5 +360,22 @@ namespace ISports.Controllers
             }
         }
 
+
+        public ActionResult DeleteEvento(int IdEvent)
+        {
+            using (EventoModel model = new EventoModel())
+            {
+                if (model.isAdmin(IdEvent, (Session["usuario"] as Usuario).Id_usuario))
+                {
+                    model.DeleteEvento(IdEvent);
+                    model.removeInscritoEvento(IdEvent);
+                    return RedirectToAction("UserEvents", "Event");
+                }
+                else
+                {
+                    return RedirectToAction("UserEvents", "Event");
+                }
+            }
+        }
     }
 }

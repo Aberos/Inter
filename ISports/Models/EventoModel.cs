@@ -48,9 +48,10 @@ namespace ISports.Models
                                 from 
                                     v_evento 
                                 where 
+                                    Status = 1 and (
 	                                (IdEsport = @IdEsporte and SiglaEstado = @Uf and CodigoCidade = @idCidade and NomeEvento like '%@Nome%') or
 	                                (IdEsport = @IdEsporte and SiglaEstado = @Uf and CodigoCidade = @idCidade ) or 
-	                                (NomeEvento like '%@Nome%')";
+	                                (NomeEvento like '%@Nome%'))";
 
             cmd.Parameters.AddWithValue("@idCidade", idCidade);
             cmd.Parameters.AddWithValue("@Uf", Uf);
@@ -125,7 +126,7 @@ namespace ISports.Models
             List<Evento> lista = new List<Evento>();
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = connection;
-            cmd.CommandText = @"select * from v_evento where IdOrganizador = @idOrganizador";
+            cmd.CommandText = @"select * from v_evento where IdOrganizador = @idOrganizador and Status = 1";
 
             cmd.Parameters.AddWithValue("@idOrganizador", IdOrganizador);
 
@@ -246,6 +247,18 @@ namespace ISports.Models
             cmd.Parameters.AddWithValue("@idEvento", idEvento);
 
             cmd.ExecuteNonQuery();
+        }
+
+        public void removeInscritoEvento(int idEvento)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = connection;
+            cmd.CommandText = @"UPDATE evento_usuario set status = 3 where id_evento = @idEvento";
+
+            cmd.Parameters.AddWithValue("@idEvento", idEvento);
+
+            cmd.ExecuteNonQuery();
+
         }
 
         public void AlterarEvento(Evento e)

@@ -141,14 +141,18 @@
 
                                     @{ List<SelectListItem> listEstados = new List<SelectListItem>();
 
-                                        foreach (var p in ViewBag.Estados)
+                                        if(ViewBag.Estados != null)
                                         {
-                                            listEstados.Add(new SelectListItem
+                                            foreach (var p in ViewBag.Estados)
                                             {
-                                                Text = @p.Sigla,
-                                                Value = @p.Sigla
-                                            });
+                                                listEstados.Add(new SelectListItem
+                                                {
+                                                    Text = @p.Sigla,
+                                                    Value = @p.Sigla
+                                                });
+                                            }
                                         }
+
                                     }
                                     @Html.DropDownListFor(m => m.Local.Cidade.Uf.Sigla, listEstados, (string)ViewBag.UF, new { @class = "form-control", id = "estate" })
                                 </div>

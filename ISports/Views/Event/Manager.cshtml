@@ -22,6 +22,12 @@
                         <div class="page-header">
                             <img src="@Model.Imagem"  class="img-thumbnail" style="width: 150px;height:auto; border: 1px solid #bfbfbf; box-shadow: 0 0 4px #cfcfcf;" />
                             <h1 style="display: inline; position: relative; top: 50px;">@Model.Nome <small>@Model.Organizador.Nome </small></h1>
+
+                            <div class="unsubscribe">
+                                <button class="btn btn-danger" type="button" onclick="location.href='@Url.Action("DeleteEvento", "Event", new { idEvent = Model.Id_Evento })';return false;">
+                                    <span class="glyphicon glyphicon-minus"></span> Delete Event
+                                </button>
+                            </div>
                         </div>
                         <div class="comment-tabs">
                             <ul class="nav nav-tabs" role="tablist">
