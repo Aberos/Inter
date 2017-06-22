@@ -202,15 +202,16 @@
                                 </div>
                             </div>
                             <div id="feed" class="tab-pane fade">
-                                <div class="form-group" style="margin-top: -20px !important">
+                                <div class="form-group" style="margin-top: -20px !important;  margin-bottom: 80px !important">
                                     <label for="comment">Comment:</label>
                                     <textarea class="form-control" rows="5" id="comment" style="width:100%; resize: none; max-width: 100% !important;"></textarea>
+                                    <button class="btn btn-primary" style="margin-top:5px; float:right" onclick="SendMsg()">Submit</button>
                                 </div>
-                                <button class="btn btn-primary" style="margin-top:5px; float:right" onclick="SendMsg()">Submit</button>
+                                
 
                                 @foreach (var m in ViewBag.Noticias)
                                 {
-                                    <div class="panel panel-default" style="margin-bottom: 5px !important; margin-top: 80px !important">
+                                    <div class="panel panel-default" style="margin-bottom: 5px !important;">
                                         <div class="panel-body">
                                             <h5>@m.Descricao_Noticia <small>@m.Data_Noticia </small></h5>
                                         </div>
@@ -242,7 +243,7 @@
                                     <tbody>
                                     @foreach (var p in ViewBag.listSubs)
                                     {
-                                        <tr bgcolor="#FF0000">
+                                        <tr>
                                             <td>@p.Nome</td>
                                             <td>@p.Email</td>
                                             <td>@p.Cel</td>

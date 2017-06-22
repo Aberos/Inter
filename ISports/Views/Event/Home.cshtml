@@ -10,8 +10,8 @@
     <meta name="viewport" content="width=device-width" />
     <link href="@Url.Content("~/Content/Style.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Bootstrap.css")" rel="stylesheet" type="text/css" />
-    @*<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>*@
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
 </head>
 <body>
     <div class="col-md-9">
@@ -148,7 +148,7 @@
                                     @foreach (var p in ViewBag.listSubs)
                                     {
                                         <tr>
-                                            <td>@p.Nome</td>
+                                            <td>@p.Nome @p.Sobrenome</td>
                                             <td>@p.Email</td>
                                             <td>@p.Cel</td>
                                             <td>@p.DataNasc</td>
