@@ -48,7 +48,7 @@ create table locais
 	id        	int          not null primary key identity,
 	endereco  	varchar(500) not null ,
 	descricao	varchar(max),
-	nome      	varchar(200) not null unique,	
+	nome      	varchar(200) not null,	
 	cod_cidade  int          not null references cidades
 )
 go
@@ -210,6 +210,8 @@ select e.id						Codigo,
 	   o.NomeOrganizador		NomeOrganizador,
 	   o.SobrenomeOrganizador	SobrenoeOrganizador,
 	   o.FotoOrganizador		FotoOrganizador,
+	   o.CelularOrganizador     Celular,
+	   o.QualificacaoOrg        Qualificacao,
 	   l.id						IdLocal,
 	   l.nome					NomeLocal,
 	   l.descricao				DescricaoLocal,
@@ -227,6 +229,7 @@ where p.id = e.id_esp and
 	  o.IdOrganizador= e.id_organizador and
 	  o.StatusOrganizador = 1
 go
+
 
 create view v_usuario_evento
 as

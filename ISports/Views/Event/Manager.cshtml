@@ -111,7 +111,7 @@
                                     </div>
                                     <!-- Text input-->
                                     <div class="form-group">
-                                        <label class="col-md-4 control-label" for="maxP"> Max Player</label>
+                                        <label class="col-md-4 control-label" for="maxP"> Number Max Player</label>
                                         <div class="col-md-2">
                                             <!--input id="maxP" name="maxP" placeholder="max" class="form-control input-md" type="text"-->
                                             @Html.TextBoxFor(m => m.MaxJogadores, new { @class = "form-control input-md", @placeholder = "max" })
@@ -119,6 +119,7 @@
                                         @Html.ValidationMessageFor(m => m.MaxJogadores)
                                     </div>
                                     <legend>Local info</legend>
+                                                @Html.HiddenFor(m => m.Local.Id_Local, new { Value = @Model.Local.Id_Local })
                                     <!-- Text input-->
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="requestName">Local Name</label>
@@ -139,7 +140,7 @@
                                     </div>
                                     <!-- Textarea -->
                                     <div class="form-group">
-                                        <label class="col-md-4 control-label" for="description">Description Local</label>
+                                        <label class="col-md-4 control-label" for="description">Description Place</label>
                                         <div class="col-md-4">
                                             <!--textarea class="form-control" id="description" name="description"></textarea-->
                                             @Html.TextAreaFor(m => m.Local.Descricao_Local, new { @class = "form-control", @placeholder = "Local Description" })
@@ -192,7 +193,7 @@
                                         <label class="col-md-4 control-label" for="submit"></label>
                                         <div class="col-md-6">
                                             <button id="edit" name="edit" class="btn btn-primary" data-toggle="modal" data-target="#modalPictureEvent" style="a">Change Picture</button>
-                                            <button id="submit" name="submit" class="btn btn-danger">Cancel</button>
+                                            <button id="cancel" name="cancel" class="btn btn-danger">Cancel</button>
                                             <button id="submit" name="submit" class="btn btn-success">Edit</button>
                                         </div>
                                     </div>
@@ -252,14 +253,10 @@
 
                                                 @if(p.InscricaoStatus == 1)
                                                 {
-                                                        <div class="btn-group">
-                                                            <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                Commands
-                                                                <span class="caret"></span>
+                                                        <div>
+                                                            <button class="btn btn-danger " type="button" id="deleButton" onclick="location.href='@Url.Action("RemoveUserEvent", "Event", new { IdEvent = Model.Id_Evento, IdUser = p.Id_usuario })';return false;">
+                                                                Delete
                                                             </button>
-                                                            <ul class="dropdown-menu" >
-                                                                <li><a href="@Url.Action("RemoveUserEvent", "Event", new { IdEvent = Model.Id_Evento, IdUser = p.Id_usuario })"><i class="fa fa-times" aria-hidden="true"></i> Delete</a></li>
-                                                            </ul>
                                                         </div>
   
                                                 }

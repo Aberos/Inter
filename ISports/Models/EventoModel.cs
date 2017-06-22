@@ -104,9 +104,11 @@ namespace ISports.Models
                 e.Organizador.Nome = (string)reader["NomeOrganizador"];
                 e.Organizador.Sobrenome = (string)reader["SobrenoeOrganizador"];
                 e.Organizador.Foto_Perfil = (string)reader["FotoOrganizador"];
+                e.Organizador.Cel = (string)reader["Celular"];
+                e.Organizador.Qualificacao = (decimal)reader["Qualificacao"];
                 e.Local.Id_Local = (int)reader["IdLocal"];
                 e.Local.Nome = (string)reader["NomeLocal"];
-                e.Local.Descricao_Local = (string)reader["NomeLocal"];
+                e.Local.Descricao_Local = (string)reader["DescricaoLocal"];
                 e.Local.Endereco = (string)reader["EnderecoLocal"];
                 e.Local.Cidade.codigo = (int)reader["CodigoCidade"];
                 e.Local.Cidade.Nome = (string)reader["Cidade"];
@@ -273,7 +275,7 @@ namespace ISports.Models
             cmd.Parameters.AddWithValue("@maxJogadores", e.MaxJogadores);
             cmd.Parameters.AddWithValue("@idSport", e.Esporte.Id_Esporte);
             cmd.Parameters.AddWithValue("@idLocal", e.Local.Id_Local);
-            cmd.Parameters.AddWithValue("@descricao_local", e.Local.Descricao_Local);
+            cmd.Parameters.AddWithValue("@descricao_local", e.Local.Id_Local);
             cmd.Parameters.AddWithValue("@endereco", e.Local.Endereco);
             cmd.Parameters.AddWithValue("@local_nome", e.Local.Nome);
             cmd.Parameters.AddWithValue("@dataEvento", e.Data);
@@ -400,6 +402,40 @@ namespace ISports.Models
             }
 
             return admin;
+        }
+
+
+        public void AvaliarEvento(int idEvento, int IdUser, int Nota)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = connection;
+            cmd.CommandText = @"UPDATE evento_usuario set nota_evento = @nota where id_usuario = @idUsuario and id_evento = @idEvento";
+
+            cmd.Parameters.AddWithValue("@idEvento", idEvento);
+            cmd.Parameters.AddWithValue("@idUsuario", IdUser);
+            cmd.Parameters.AddWithValue("@nota", Nota);
+
+            cmd.ExecuteNonQuery();
+        }
+
+        public int getNotaUserEvento(int idEvento, int idUser)
+        {
+            int nota = 0;
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = connection;
+            cmd.CommandText = @"select v.Nota from v_usuario_evento v where IdUsuario = @idUsuario AND IdEvento = @idEvento";
+
+            cmd.Parameters.AddWithValue("@idEvento", idEvento);
+            cmd.Parameters.AddWithValue("@idUsuario", idUser);
+
+            SqlDataReader reader = cmd.ExecuteReader();
+            if (reader.Read())
+            {
+                nota = (int)reader["Nota"];
+            }
+
+            return nota;
         }
     }
 }

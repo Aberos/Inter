@@ -101,5 +101,20 @@ namespace ISports.Models
 
             cmd.ExecuteNonQuery();
         }
+
+        public void EditUser(Usuario u)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = connection;
+            cmd.CommandText = @"UPDATE usuarios set nome = @nome, sobrenome = @sobrenome, dataNasc = @data, cel = @cel where id = @idUsuario";
+
+            cmd.Parameters.AddWithValue("@idUsuario", u.Id_usuario);
+            cmd.Parameters.AddWithValue("@nome", u.Nome);
+            cmd.Parameters.AddWithValue("@sobrenome", u.Sobrenome);
+            cmd.Parameters.AddWithValue("@data", u.DataNasc);
+            cmd.Parameters.AddWithValue("@cel", u.Cel);
+
+            cmd.ExecuteNonQuery();
+        }
     }
 }

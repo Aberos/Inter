@@ -28,6 +28,7 @@ namespace ISports.Controllers
                 ViewBag.listSubs = model.InscritosEvento(idEvento);
                 ViewBag.Subscribed = model.UserSubscribed(idEvento, (Session["usuario"] as Usuario).Id_usuario);
                 ViewBag.Noticias = model.NoticiasEvento(idEvento);
+                ViewBag.NotaUser = model.getNotaUserEvento(idEvento, (Session["usuario"] as Usuario).Id_usuario);
 
                 if (ViewBag.Subscribed == true)
                 {
@@ -37,8 +38,8 @@ namespace ISports.Controllers
                 {
                     ViewBag.SubStatus = 0;
                 }
-                
-           }
+
+            }
 
             using (EventoModel model = new EventoModel())
             {
@@ -360,7 +361,6 @@ namespace ISports.Controllers
             }
         }
 
-
         public ActionResult DeleteEvento(int IdEvent)
         {
             using (EventoModel model = new EventoModel())
@@ -375,6 +375,27 @@ namespace ISports.Controllers
                 {
                     return RedirectToAction("UserEvents", "Event");
                 }
+            }
+        }
+
+        public ActionResult AvaliarEvento(int IdEvent, int Nota, int idOrg)
+        {
+            try
+            {
+                using (EventoModel model = new EventoModel())
+                {
+                      model.AvaliarEvento(IdEvent, (Session["usuario"] as Usuario).Id_usuario, Nota);
+                }
+
+                using (OrganizadorModel model = new OrganizadorModel())
+                {
+                    model.UpdateQualificacaoOrg(idOrg);
+                }
+                return RedirectToAction("Home", "Event", new { EventoID = IdEvent });
+            }
+            catch
+            {
+                return RedirectToAction("Home", "Event", new { EventoID = IdEvent });
             }
         }
     }

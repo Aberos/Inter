@@ -21,7 +21,7 @@
                     <div class="col-sm-12" id="logout">
                         <div class="page-header">
                             <img src="@Model.Imagem" class="img-thumbnail" style="width: 150px;height:auto; border: 1px solid #bfbfbf; box-shadow: 0 0 4px #cfcfcf;" />
-                            <h1 style="display: inline; position: relative; top: 50px;" data-toggle="popover" title="@Model.Organizador.Nome  @Model.Organizador.Sobrenome" >@Model.Nome <small>@Model.Organizador.Nome</small></h1>
+                            <h1 style="display: inline; position: relative; top: 50px;" data-toggle="popover" title="@Model.Organizador.Nome @Model.Organizador.Sobrenome @Model.Organizador.Cel" >@Model.Nome <small>#@Model.Organizador.Nome @Model.Organizador.Sobrenome</small></h1>
 
                             <script>
                                 $(function () {
@@ -32,7 +32,7 @@
                                         text = "Gold Medal";
                                          img = "/Pictures/gold medal.png";
 
-                                    }else if(@Model.Organizador.Qualificacao >= 6 && Model.Organizador.Qualificacao < 8)
+                                    }else if(@Model.Organizador.Qualificacao >= 6 && @Model.Organizador.Qualificacao < 8)
                                     {
                                         text = "Silver Medal";
                                          img = "/Pictures/silver medal.png";
@@ -41,7 +41,7 @@
                                          text = "Bronze Medal";
                                          img = "/Pictures/bronze medal.png";
                                     }
-                                    var image = '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<img src="' + img + '" height="80px" width="80px"> <h3> '+ text +'</h3>';
+                                    var image = '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<img src="' + img + '" style="width:80px; height:80px; position:absolute; top:50%; left:50%;  margin-top:-40px; margin-left:-40px;" ></br></br></br></br> <h3 style="margin-left: 10%;"> '+ text +'</h3>';
                                     $('[data-toggle="popover"]').popover({ placement: 'bottom', content: image, html: true })
                                 })
                             </script>
@@ -86,9 +86,12 @@
                         <div style="float:right">
                             @if (ViewBag.SubStatus == 1)
                             {
-                                <button class="btn btn-primary " data-toggle="modal" data-target="#notaModal">
-                                    <i class="fa fa-star" aria-hidden="true">&nbsp Evaluate</i>
-                                </button>
+                                if (ViewBag.NotaUser < 1)
+                                {
+                                    <button class="btn btn-primary " data-toggle="modal" data-target="#notaModal">
+                                        <i class="fa fa-star" aria-hidden="true">&nbsp Evaluate</i>
+                                    </button>
+                                }
                             }
                             
                         </div>
@@ -113,17 +116,26 @@
                         <div class="tab-content">
                             <div id="about" class="tab-pane fade in active">
                                 <h3>@Model.Nome</h3>
+                                <strong>Description: </strong>
+                                <br />
+                                @Model.Descricao
+                                <br />
                                 <strong>Sport: </strong> @Model.Esporte.Descricao_Esporte
                                 <br />
                                 <strong>Time: </strong> @Model.Horario
                                 <br />
                                 <strong>Day: </strong> @Model.Data
                                 <br />
+
+                                <strong>Local Name: </strong>@Model.Local.Nome
+                                <br />
+                                <strong>Local Descripton: </strong>@Model.Local.Descricao_Local
+                                <br />
+                                <strong>Address: </strong>@Model.Local.Endereco
+                                <br />
                                 <strong>Town: </strong> @Model.Local.Cidade.Nome - @Model.Local.Cidade.Uf.Sigla
                                 <br />
-                                <strong>Description: </strong>
-                                <br />
-                                @Model.Descricao
+
                             </div>
                             <div id="feed" class="tab-pane fade">
                                 @foreach (var m in ViewBag.Noticias)
@@ -173,7 +185,7 @@
                             <div class="col-md-offset-5">
                                 <form style="display:table-cell; vertical-align:middle;height:100%">
                                     <h4>Note:</h4>
-                                    <select class="form-control" style="display:table-cell; vertical-align:middle">
+                                    <select id="note" class="form-control" style="display:table-cell; vertical-align:middle">
                                         <option value="10">10</option>
                                         <option value="9">09</option>
                                         <option value="8">08</option>
@@ -190,10 +202,22 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-primary" onclick="AvaliarEV()">Save changes</button>
                         </div>
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
+
+            <script>
+                function AvaliarEV()
+                {
+                    var nota = $("#note").val();
+                    var idEvento = @Model.Id_Evento;
+                    var idOrganizador = @Model.Organizador.Id_usuario;
+                    var link = '@Url.Action("AvaliarEvento", "Event")';
+
+                    window.location = link + "?IdEvent=" + idEvento + "&Nota=" + nota + "&idOrg=" + idOrganizador;
+                }
+            </script>
             </div><!-- /.modal -->
         </div>
     </div>

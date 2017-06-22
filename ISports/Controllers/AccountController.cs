@@ -137,6 +137,24 @@ namespace ISports.Controllers
             return View(user);
         }
 
+        [UsuarioFiltro]
+        [HttpPost]
+        public ActionResult Edit(Usuario u)
+        {
+            using (UsuarioModel model = new UsuarioModel())
+            {
+                u.Id_usuario = (Session["usuario"] as Usuario).Id_usuario;
+                model.EditUser(u);
+            }
+
+            Usuario user = new Usuario();
+            using (UsuarioModel model = new UsuarioModel())
+            {
+                  user = model.ReadId((Session["usuario"] as Usuario).Id_usuario);
+            }
+            return View(user);
+        }
+
         public ActionResult Recover()
         {
             return View();

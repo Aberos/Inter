@@ -142,6 +142,7 @@
     <Compile Include="Models\Local.cs" />
     <Compile Include="Models\Noticia.cs" />
     <Compile Include="Models\Organizador.cs" />
+    <Compile Include="Models\OrganizadorModel.cs" />
     <Compile Include="Models\Pagamento.cs" />
     <Compile Include="Models\UF.cs" />
     <Compile Include="Models\UfModel.cs" />
