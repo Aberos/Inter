@@ -82,6 +82,11 @@ namespace ISports.Controllers
                 ViewBag.Esportes = em.Esportes();
             }
 
+            using (OrganizadorModel model = new OrganizadorModel())
+            {
+                model.UpdateQualificacaoOrg((Session["usuario"] as Usuario).Id_usuario);
+            }
+
             using (EventoModel model = new EventoModel())
             {
                 if (model.isAdmin(idEvento, (Session["usuario"] as Usuario).Id_usuario))

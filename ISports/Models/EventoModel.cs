@@ -309,7 +309,7 @@ namespace ISports.Models
         {
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = connection;
-            cmd.CommandText = @"UPDATE evento_usuario set status = 0 where id_usuario = @idUsuario and id_evento = @idEvento";
+            cmd.CommandText = @"UPDATE evento_usuario set status = 0, nota_evento = 0  where id_usuario = @idUsuario and id_evento = @idEvento";
 
             cmd.Parameters.AddWithValue("@idEvento", idEvento);
             cmd.Parameters.AddWithValue("@idUsuario", idUsuario);
@@ -375,7 +375,7 @@ namespace ISports.Models
         {
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = connection;
-            cmd.CommandText = @"UPDATE evento_usuario set status = @status where id_usuario = @idUsuario and id_evento = @idEvento";
+            cmd.CommandText = @"UPDATE evento_usuario set status = @status, nota_evento = 0 where id_usuario = @idUsuario and id_evento = @idEvento";
 
             cmd.Parameters.AddWithValue("@idEvento", idEvento);
             cmd.Parameters.AddWithValue("@idUsuario", IdUser);
