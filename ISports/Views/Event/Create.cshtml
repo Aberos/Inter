@@ -9,12 +9,21 @@
     <meta name="viewport" content="width=device-width" />
     <link href="@Url.Content("~/Content/Style.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Bootstrap.css")" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.mask.js"></script>
+    <script>
+                       $(window).load(function () {
+                            $('#time').mask('00:00');
+                        });
+    </script>
 </head>
 <body>
     <div class="col-md-9">
         <div class="profile-content">
             <div class="container">
                 <div class="row">
+
                     <form class="form-horizontal" action="/Event/Create" method="post">
                         <fieldset>
                             <!-- Form Name -->
@@ -38,7 +47,7 @@
                                 @Html.ValidationMessageFor(m => m.Descricao)
                             </div>
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for="sport">Week Day</label>
+                                <label class="col-md-4 control-label" for="sport">Day</label>
                                 <div class="col-md-4">
                                     @Html.DropDownListFor(m => m.Data, new SelectListItem[]{
                                             new SelectListItem() {Text = "Sunday", Value="Sunday"},
@@ -53,10 +62,10 @@
                                 @Html.ValidationMessageFor(m => m.Data)
                             </div>
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for="requestName">Event Hour</label>
+                                <label class="col-md-4 control-label" for="requestName">Time</label>
                                 <div class="col-md-4">
                                     <!--input id="eventName" name="eventName" placeholder="Event Name" class="form-control input-md" required="" type="text"-->
-                                    @Html.TextBoxFor(m => m.Horario, new { @class = "form-control input-md", @placeholder = "22:45" })
+                                    @Html.TextBoxFor(m => m.Horario, new { @class = "form-control input-md", @placeholder = "22:45" , id = "time"})
                                 </div>
                                 @Html.ValidationMessageFor(m => m.Horario)
                             </div>
@@ -154,7 +163,7 @@
                                         }
 
                                     }
-                                    @Html.DropDownListFor(m => m.Local.Cidade.Uf.Sigla, listEstados, (string)ViewBag.UF, new { @class = "form-control", id = "estate" })
+                                    @Html.DropDownListFor(m => m.Local.Cidade.Uf.Sigla, listEstados, "-- Select State --", new { @class = "form-control", id = "estate" })
                                 </div>
                                 @Html.ValidationMessageFor(m => m.Local.Cidade.Uf.Sigla)
                             </div>

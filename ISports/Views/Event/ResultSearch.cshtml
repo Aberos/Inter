@@ -20,9 +20,11 @@
                         <button style="float:right" type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("Search", "Event")';return false;"><i class="fa fa-fw fa-search" aria-hidden="true"></i> New Search</button>
                     </div>
                 </div>
+                
                 <!-- Begin of rows -->
-                @if (ViewBag.ListEventos != null)
+                @if (Enumerable.Count(ViewBag.ListEventos) > 0)
                 {
+                   
                     foreach (var e in ViewBag.ListEventos)
                     {
                         <div class="row carousel-row">
@@ -49,6 +51,10 @@
                             </div>
                         </div>
                     }
+                }
+                else
+                {
+                    <h1 class="text-danger text-center">NO RESULTS</h1>
                 }
             </div>
         </div>

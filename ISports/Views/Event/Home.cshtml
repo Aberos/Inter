@@ -27,7 +27,7 @@
                                 $(function () {
                                     var img;
                                     var text;
-                                    if(@Model.Organizador.Qualificacao >= 8)
+                                    @*if(@Model.Organizador.Qualificacao >= 8)
                                     {
                                         text = "Gold Medal";
                                          img = "/Pictures/gold medal.png";
@@ -40,7 +40,24 @@
                                     {
                                          text = "Bronze Medal";
                                          img = "/Pictures/bronze medal.png";
+                                    }*@
+
+
+
+                                    text = "Gold Medal";
+                                    img = "/Pictures/gold medal.png";
+
+                                    if(parseInt(@Model.Organizador.Qualificacao) < 8)
+                                    {
+                                        text = "Silver Medal";
+                                        img = "/Pictures/silver medal.png";
+                                        if(parseInt(@Model.Organizador.Qualificacao)  < 5)
+                                        {
+                                            text = "Bronze Medal";
+                                            img = "/Pictures/bronze medal.png";
+                                        }
                                     }
+
                                     var image = '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<img src="' + img + '" style="width:80px; height:80px; position:absolute; top:50%; left:50%;  margin-top:-40px; margin-left:-40px;" ></br></br></br></br> <h3 style="margin-left: 10%;"> '+ text +'</h3>';
                                     $('[data-toggle="popover"]').popover({ placement: 'bottom', content: image, html: true })
                                 })

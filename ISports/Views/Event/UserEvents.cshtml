@@ -14,6 +14,20 @@
     <div class="col-md-9">
         <div class="profile-content">
             <div class="container">
+                @if (TempData["erroCriar"] != null)
+                {
+                    <div class="alert alert-danger">
+                        @TempData["erroCriar"]
+                    </div>
+                }
+
+                @if (TempData["sucessoCriar"] != null)
+                {
+                    <div class="alert alert-success">
+                        @TempData["sucessoCriar"]
+                    </div>
+                }
+
                 <div class="page-header">
                     <h2> My Events </h2>
                 </div>

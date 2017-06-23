@@ -204,16 +204,19 @@ namespace ISports.Controllers
                     {
                         e.Organizador.Id_usuario = (Session["usuario"] as Usuario).Id_usuario;
                         model.Create(e);
-                    }
+                    }                  
+                    TempData["sucessoCriar"] = "Success";
                     return RedirectToAction("UserEvents", "Event");
                 }
                 else
                 {
+                    TempData["erroCriar"] = "Error";
                     return RedirectToAction("UserEvents", "Event");
                 }
             }
             catch
             {
+                TempData["erroCriar"] = "Erro";
                 return RedirectToAction("UserEvents", "Event");
             }
 
