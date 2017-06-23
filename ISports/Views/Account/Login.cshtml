@@ -15,6 +15,15 @@
 <bodyLogin>
     <div class="navbar navbar-default navbar-fixed-top" role="navigation" style="background-color:#fff;">
         <a class="navbar-brand" href="~/Account/Login">I-SPORTS</a>
+
+            @if (TempData["Created"] != null)
+            {
+                <div class="collapse navbar-collapse" style="height:51px !important; position: relative; z-index: 10; padding-left: 40%; padding-right:40% ;font-size: 14px;">
+                    <div class="alert alert-success">
+                        <p class="text-center">@TempData["Created"]</p>
+                    </div>
+                </div>
+            }
     </div>
     <br />
     <br />

@@ -27,9 +27,19 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-12" id="logout">
-                        <div class="alert alert-success">
-                            ALTERADO
-                        </div>
+                        @if (TempData["successManager"] != null)
+                        {
+                            <div class="alert alert-success">
+                                @TempData["successManager"]
+                            </div>
+                        }
+                        
+                        @if (TempData["errorManager"] != null)
+                        {
+                            <div class="alert alert-danger">
+                                @TempData["errorManager"]
+                            </div>
+                        }
                         <div class="page-header">
                             <img src="@Model.Imagem"  class="img-thumbnail" style="width: 150px;height:auto; border: 1px solid #bfbfbf; box-shadow: 0 0 4px #cfcfcf;" />
                             <h1 style="display: inline; position: relative; top: 50px;">@Model.Nome <small>@Model.Organizador.Nome </small></h1>
@@ -247,9 +257,10 @@
                                 <table class="table table-striped">
                                     <thead>
                                     <th>Name</th>
+                                    <th>Last Name</th>
                                     <th>Email</th>
                                     <th>Telephone</th>
-                                    <th>Age</th>
+                                    <th>Birth</th>
                                     <th>Commands</th>
                                     </thead>
                                     <tbody>
@@ -257,9 +268,10 @@
                                     {
                                         <tr>
                                             <td>@p.Nome</td>
+                                            <td>@p.Sobrenome</td>
                                             <td>@p.Email</td>
                                             <td>@p.Cel</td>
-                                            <td>@p.DataNasc</td>
+                                            <td>@p.DataNasc.ToString("MM/dd/yyyy")</td>
                                             <td>
 
                                                 @if(p.InscricaoStatus == 1)

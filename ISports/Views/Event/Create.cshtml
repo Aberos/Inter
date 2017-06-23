@@ -101,7 +101,7 @@
                             </div>
                             <!-- Text input-->
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for="maxP"> Max Player</label>
+                                <label class="col-md-4 control-label" for="maxP"> Number Max Player</label>
                                 <div class="col-md-2">
                                     <!--input id="maxP" name="maxP" placeholder="max" class="form-control input-md" type="text"-->
                                     @Html.TextBoxFor(m => m.MaxJogadores, new { @class = "form-control input-md", @placeholder = "max" })
@@ -129,7 +129,7 @@
                             </div>
                             <!-- Textarea -->
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for="description">Description Local</label>
+                                <label class="col-md-4 control-label" for="description">Description Place</label>
                                 <div class="col-md-4">
                                     <!--textarea class="form-control" id="description" name="description"></textarea-->
                                     @Html.TextAreaFor(m => m.Local.Descricao_Local, new { @class = "form-control", @placeholder = "Local Description" })
@@ -139,7 +139,7 @@
 
                             <!--UF-->
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for="uf">UF</label>
+                                <label class="col-md-4 control-label" for="uf">State</label>
                                 <div class="col-md-4">
                                     <!--select id="uf" name="uf" class="form-control">
                                         <option value="SP">SP</option>

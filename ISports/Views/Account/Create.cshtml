@@ -14,6 +14,14 @@
     <title>SING UP</title>
     <link href="@Url.Content("~/Content/Style.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Bootstrap.css")" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.mask.js"></script>
+    <script>
+                       $(window).load(function () {
+                            $('#cell').mask('00 000000000');
+                        });
+    </script>
 </head>
 <body>
     <div class="navbar navbar-default navbar-fixed-top" role="navigation" style="background-color:#fff;">
@@ -34,7 +42,7 @@
                                 <div class="input-group">
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
                                     @*<input type="text" class="form-control" name="Nome" placeholder="First Name" />*@
-                                    @Html.TextBoxFor(m => m.Nome, new { @class="form-control", @placeholder = "First Name" })
+                                    @Html.TextBoxFor(m => m.Nome, new { @class="form-control", @placeholder = "First Name", @required = "required" })
                                 </div>
                                     @Html.ValidationMessageFor(m => m.Nome)
                             </div>
@@ -42,7 +50,7 @@
                             <div class="input-group">
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
                                 @*<input type="text" class="form-control" name="Sobrenome" placeholder="Second Name" />*@
-                                @Html.TextBoxFor(m => m.Sobrenome, new { @class = "form-control", @placeholder = "Last Name" })
+                                @Html.TextBoxFor(m => m.Sobrenome, new { @class = "form-control", @placeholder = "Last Name", @required = "required" })
                             </div>
                                 @Html.ValidationMessageFor(m => m.Sobrenome)
                     </div>
@@ -50,7 +58,7 @@
                         <div class="input-group">
                             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                             @*<input type="date" class="form-control" name="DataNasc" placeholder="Age" />*@
-                            @Html.TextBoxFor(m => m.DataNasc, new { @class = "form-control", @type = "date", @placeholder = "Date of Birth" })
+                            @Html.TextBoxFor(m => m.DataNasc, "{0:MM/dd/yyyy}", new { @class = "form-control date", @type = "date", @placeholder = "Date of Birth" , @required = "required" })
                         </div>
                             @Html.ValidationMessageFor(m => m.DataNasc)
                     </div>
@@ -60,7 +68,7 @@
                                 <span class="glyphicon glyphicon-envelope"></span>
                             </span>
                             @*<input type="text" class="form-control" name="Email" placeholder="Email Address" />*@
-                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @type = "email", @placeholder = "E-mail"})
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @type = "email", @placeholder = "E-mail", @required = "required" })
                         </div>
                             @Html.ValidationMessageFor(m => m.Email)
                     </div>
@@ -70,7 +78,7 @@
                                         <span class="glyphicon glyphicon-envelope"></span>
                                     </span>
                                     @*<input type="text" class="form-control" name="Cel" placeholder="Cel" />*@
-                                    @Html.TextBoxFor(m => m.Cel, new { @class = "form-control", @placeholder = "Cellphone"})
+                                    @Html.TextBoxFor(m => m.Cel, new { @class = "form-control", @placeholder = "Cellphone", id="cell", @required = "required"})
                                 </div>
                                 @Html.ValidationMessageFor(m => m.Cel)
                             </div>
@@ -78,14 +86,14 @@
                         <div class="input-group">
                             <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
                             @*<input type="password" class="form-control" name="Senha" placeholder="Password" />*@
-                            @Html.PasswordFor(m => m.Senha, new { @class = "form-control", @placeholder = "Password" })
+                            @Html.PasswordFor(m => m.Senha, new { @class = "form-control", @placeholder = "Password", @required = "required" , @pattern =".{6,}", id ="password" })
                             </div>
                             @Html.ValidationMessageFor(m => m.Senha)
                     </div>
                     <div class="form-group">
                         <div class="input-group">
                             <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-                            <input type="password" class="form-control" name="ConfSenha" placeholder="Confirm Password" />
+                            <input type="password" class="form-control" name="ConfSenha" placeholder="Confirm Password" pattern =".{6,}" id="confirm_password"/>
                         </div>
                     </div>
 
@@ -96,6 +104,22 @@
                         SUBMIT
                     </button> 
                     </form>
+
+                    <script>
+                        var password = document.getElementById("password")
+                        , confirm_password = document.getElementById("confirm_password");
+
+                        function validatePassword() {
+                            if (password.value != confirm_password.value) {
+                                confirm_password.setCustomValidity("Passwords Don't Match");
+                            } else {
+                                confirm_password.setCustomValidity('');
+                            }
+                        }
+
+                        password.onchange = validatePassword;
+                        confirm_password.onkeyup = validatePassword;
+                    </script>
                 </div>
             </div>
         </div>

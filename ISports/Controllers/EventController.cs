@@ -111,11 +111,12 @@ namespace ISports.Controllers
                     e.Id_Evento = idEvento;
                     model.AlterarEvento(e);
                 }
+                TempData["successManager"] = "Changed";
                 return RedirectToAction("Manager", "Event", new { EventoID = idEvento });
             }
             else
             {
-                ViewBag.Mensagem = "Erro";
+                TempData["errorManager"] = "Error";
                 return RedirectToAction("Manager", "Event", new { EventoID = idEvento });
             }
             
@@ -291,12 +292,12 @@ namespace ISports.Controllers
                     else*/
                     if (arquivo.ContentType != "image/png" && arquivo.ContentType != "image/jpeg" && arquivo.ContentType != "image/jpg")
                     {
-
+                        TempData["errorManager"] = "Check the photo format";
                         return RedirectToAction("Manager", "Event", new { EventoID = idEvento });
                     }
                     else if (arquivo.ContentLength > 2097152)
                     {
-
+                        TempData["errorManager"] = "Very large picture";
                         return RedirectToAction("Manager", "Event", new { EventoID = idEvento });
                     }
                 }
@@ -320,11 +321,12 @@ namespace ISports.Controllers
                     model.UpdateImage(idEvento, Foto_Perfil);
                 }
 
+                TempData["successManager"] = "Picutere Changed";
                 return RedirectToAction("Manager", "Event", new { EventoID = idEvento });
             }
             else
             {
-
+                TempData["errorManager"] = "Erro Changed Picutere";
                 return RedirectToAction("Manager", "Event", new { EventoID = idEvento });
             }
         }
@@ -335,6 +337,7 @@ namespace ISports.Controllers
             {
                 model.ChangeStatusSubscribe(IdEvent, IdUser, 1);
             }
+            TempData["successManager"] = "User Accept";
             return RedirectToAction("Manager", "Event", new { EventoID = IdEvent });
         }
 
@@ -344,6 +347,7 @@ namespace ISports.Controllers
             {
                 model.ChangeStatusSubscribe(IdEvent, IdUser, 3);
             }
+            TempData["successManager"] = "User Removed";
             return RedirectToAction("Manager", "Event", new { EventoID = IdEvent });
         }
 
@@ -354,10 +358,12 @@ namespace ISports.Controllers
                 if(model.isAdmin(IdEvent, (Session["usuario"] as Usuario).Id_usuario))
                 {
                     model.CadNoticia(IdEvent, msg);
+                    TempData["successManager"] = "News Added";
                     return RedirectToAction("Manager", "Event", new { EventoID = IdEvent });
                 }
                 else
                 {
+                    TempData["errorManager"] = "Erro added news";
                     return RedirectToAction("FeedEvents", "Event");
                 }
                 
@@ -372,10 +378,13 @@ namespace ISports.Controllers
                 {
                     model.DeleteEvento(IdEvent);
                     model.removeInscritoEvento(IdEvent);
+
+                    TempData["sucessoCriar"] = "Event Deleted";
                     return RedirectToAction("UserEvents", "Event");
                 }
                 else
                 {
+                    TempData["erroCriar"] = "Error deleted event";
                     return RedirectToAction("UserEvents", "Event");
                 }
             }

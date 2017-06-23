@@ -157,7 +157,7 @@
                             <div id="feed" class="tab-pane fade">
                                 @foreach (var m in ViewBag.Noticias)
                                 {
-                                    <div class="panel panel-default" style="margin-bottom: 5px !important; margin-top: 80px !important">
+                                    <div class="panel panel-default" @*style="margin-bottom: 5px !important; margin-top: 80px !important"*@>
                                         <div class="panel-body">
                                             <h5>@m.Descricao_Noticia <small>@m.Data_Noticia </small></h5>
                                         </div>

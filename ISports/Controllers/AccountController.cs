@@ -31,6 +31,7 @@ namespace ISports.Controllers
                 {
                     model.Create(c);
                 }
+                TempData["Created"] = "Account Created";
                 return RedirectToAction("Login");
             }
             else
@@ -85,12 +86,12 @@ namespace ISports.Controllers
                     else*/
                     if (arquivo.ContentType != "image/png" && arquivo.ContentType != "image/jpeg" && arquivo.ContentType != "image/jpg")
                     {
-
+                        TempData["errorProfile"] = "Check the photo format";
                         return RedirectToAction("Edit", "Account");
                     }
                     else if (arquivo.ContentLength > 2097152)
                     {
-
+                        TempData["errorProfile"] = "Very large picture";
                         return RedirectToAction("Edit", "Account");
                     }
                 }
@@ -113,11 +114,12 @@ namespace ISports.Controllers
                 {
                     model.UpdateImage(iduser, Foto_Perfil);
                 }
+                TempData["successProfile"] = "Picutere Changed";
                 return RedirectToAction("Edit", "Account");
             }
             else {
-            
-            return RedirectToAction("Edit", "Account");
+                TempData["errorProfile"] = "Erro Changed Picutere";
+                return RedirectToAction("Edit", "Account");
             }       
        }
 
@@ -141,16 +143,30 @@ namespace ISports.Controllers
         [HttpPost]
         public ActionResult Edit(Usuario u)
         {
-            using (UsuarioModel model = new UsuarioModel())
-            {
-                u.Id_usuario = (Session["usuario"] as Usuario).Id_usuario;
-                model.EditUser(u);
-            }
-
             Usuario user = new Usuario();
-            using (UsuarioModel model = new UsuarioModel())
+            try
             {
-                  user = model.ReadId((Session["usuario"] as Usuario).Id_usuario);
+                using (UsuarioModel model = new UsuarioModel())
+                {
+                    u.Id_usuario = (Session["usuario"] as Usuario).Id_usuario;
+                    model.EditUser(u);
+                }
+
+                using (UsuarioModel model = new UsuarioModel())
+                {
+                    user = model.ReadId((Session["usuario"] as Usuario).Id_usuario);
+                }
+
+                TempData["successProfile"] = "Profile Changed";
+
+            }
+            catch
+            {
+                using (UsuarioModel model = new UsuarioModel())
+                {
+                    user = model.ReadId((Session["usuario"] as Usuario).Id_usuario);
+                }
+                TempData["errorProfile"] = "Erro Changed Profile";
             }
             return View(user);
         }
@@ -164,13 +180,23 @@ namespace ISports.Controllers
         {
             string senha = form["password"];
             string nova = form["newpassword"];
-            using (UsuarioModel model = new UsuarioModel())
+            try
             {
-                int idUser = (Session["usuario"] as Usuario).Id_usuario;
-                model.ChangePassowrd(idUser, senha, nova);
+
+                using (UsuarioModel model = new UsuarioModel())
+                {
+                    int idUser = (Session["usuario"] as Usuario).Id_usuario;
+                    model.ChangePassowrd(idUser, senha, nova);
+                }
+                TempData["successProfile"] = "Password Changed";
+                return RedirectToAction("Edit", "Account");
+            }
+            catch
+            {
+                TempData["errorProfile"] = "Erro Changed Password";
+                return RedirectToAction("Edit", "Account");
             }
 
-           return RedirectToAction("Edit", "Account");
         }
 
         public ActionResult Logout()

@@ -49,14 +49,14 @@ namespace ISports.Models
                                     v_evento 
                                 where 
                                     Status = 1 and (
-	                                (IdEsport = @IdEsporte and SiglaEstado = @Uf and CodigoCidade = @idCidade and NomeEvento like '%@Nome%') or
+	                                (IdEsport = @IdEsporte and SiglaEstado = @Uf and CodigoCidade = @idCidade and NomeEvento like '@Nome') or
 	                                (IdEsport = @IdEsporte and SiglaEstado = @Uf and CodigoCidade = @idCidade ) or 
-	                                (NomeEvento like '%@Nome%'))";
+	                                (NomeEvento like '@Nome'))";
 
             cmd.Parameters.AddWithValue("@idCidade", idCidade);
             cmd.Parameters.AddWithValue("@Uf", Uf);
             cmd.Parameters.AddWithValue("@IdEsporte", IdEsporte);
-            cmd.Parameters.AddWithValue("@Nome", Nome);
+            cmd.Parameters.AddWithValue("@Nome", "%"+Nome+"%");
 
             SqlDataReader reader = cmd.ExecuteReader();
 

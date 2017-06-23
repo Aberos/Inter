@@ -10,12 +10,34 @@
     <meta name="viewport" content="width=device-width" />
     <link href="@Url.Content("~/Content/Style.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Bootstrap.css")" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.mask.js"></script>
+    <script>
+                       $(window).load(function () {
+                            $('#cell').mask('00 000000000');
+                        });
+    </script>
 </head>
 <body>
     <div class="col-md-9">
         <div class="profile-content">
             <div class="container">
                 <div class="row">
+                    @if (TempData["successProfile"] != null)
+                    {
+                        <div class="alert alert-success">
+                            @TempData["successProfile"]
+                        </div>
+                    }
+
+                    @if (TempData["errorProfile"] != null)
+                    {
+                        <div class="alert alert-danger">
+                            @TempData["errorProfile"]
+                        </div>
+                    }
+
                     <form class="form-horizontal" action="/Account/Edit" method="post">
                         <fieldset>
                             <!-- Form Name -->
@@ -48,7 +70,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="requestName">Cell</label>
                                 <div class="col-md-4">
-                                    @Html.TextBoxFor(m => m.Cel, new { @class = "form-control input-md", @type = "text", @placeholder = "Cell" })
+                                    @Html.TextBoxFor(m => m.Cel, new { @class = "form-control input-md", @type = "text", @placeholder = "Cell" , id="cell"})
 
                                 </div>
                             </div>
@@ -126,16 +148,16 @@
                                                     <fieldset>
                                                         <div class="control-group">
                                                             <!-- Username -->
-                                                            <label class="control-label" for="password">Password</label>
+                                                            <label class="control-label" for="password">Your Password</label>
                                                             <div class="controls">
-                                                                <input type="password" id="password" name="password" placeholder="" class="form-control input-md">
+                                                                <input type="password" id="password" name="password" placeholder="" class="form-control input-md" pattern =".{6,}">
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
                                                             <!-- Password-->
                                                             <label class="control-label" for="newpassword">New Password</label>
                                                             <div class="controls">
-                                                                <input type="password" id="newpassword" name="newpassword" placeholder="" class="form-control input-md">
+                                                                <input type="password" id="newpassword" name="newpassword" placeholder="" class="form-control input-md" pattern =".{6,}">
                                                             </div>
                                                         </div>
                                                     </fieldset>
