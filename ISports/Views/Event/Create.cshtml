@@ -11,12 +11,6 @@
     <link href="@Url.Content("~/Content/Bootstrap.css")" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/jquery-1.10.2.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
-    <script src="~/Scripts/jquery.mask.js"></script>
-    <script>
-                       $(window).load(function () {
-                            $('#time').mask('00:00');
-                        });
-    </script>
 </head>
 <body>
     <div class="col-md-9">
@@ -65,7 +59,7 @@
                                 <label class="col-md-4 control-label" for="requestName">Time</label>
                                 <div class="col-md-4">
                                     <!--input id="eventName" name="eventName" placeholder="Event Name" class="form-control input-md" required="" type="text"-->
-                                    @Html.TextBoxFor(m => m.Horario, new { @class = "form-control input-md", @placeholder = "22:45" , id = "time"})
+                                    @Html.TextBoxFor(m => m.Horario, "{0:HH:MM}", new { @class = "form-control input-md date", @placeholder = "22:45", @type= "time" })
                                 </div>
                                 @Html.ValidationMessageFor(m => m.Horario)
                             </div>
@@ -104,7 +98,7 @@
                                 <label class="col-md-4 control-label" for="maxP"> Number Max Player</label>
                                 <div class="col-md-2">
                                     <!--input id="maxP" name="maxP" placeholder="max" class="form-control input-md" type="text"-->
-                                    @Html.TextBoxFor(m => m.MaxJogadores, new { @class = "form-control input-md", @placeholder = "max" })
+                                    @Html.TextBoxFor(m => m.MaxJogadores, new { @class = "form-control input-md", @placeholder = "max", @type = "number" })
                                 </div>
                                 @Html.ValidationMessageFor(m => m.MaxJogadores)
                             </div>
