@@ -31,10 +31,18 @@ namespace ISports.Models
         public void UpdateQualificacaoOrg(int idOrg)
         {
             decimal n = 0;
-            using (OrganizadorModel model = new OrganizadorModel())
+            try
             {
-                n = model.getMediaOrganizador(idOrg);
+                using (OrganizadorModel model = new OrganizadorModel())
+                {
+                    n = model.getMediaOrganizador(idOrg);
+                }
             }
+            catch
+            {
+                n = 0;
+            }
+
 
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = connection;
