@@ -39,14 +39,16 @@
                         </h5>
                         <form class="form form-signup" role="form" action="/Account/Create" method="post">
                             <div class="form-group">
+                                @Html.LabelFor(m => m.Nome, new { @class = "form-control" })
                                 <div class="input-group">
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                                    @*<input type="text" class="form-control" name="Nome" placeholder="First Name" />*@
+                                    @*<input type="text" class="form-control" name="Nome" placeholder="First Name" />*@                                   
                                     @Html.TextBoxFor(m => m.Nome, new { @class="form-control", @placeholder = "First Name", @required = "required" })
                                 </div>
                                     @Html.ValidationMessageFor(m => m.Nome)
                             </div>
                             <div class="form-group">
+                                @Html.LabelFor(m => m.Sobrenome, new { @class = "form-control" })
                             <div class="input-group">
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
                                 @*<input type="text" class="form-control" name="Sobrenome" placeholder="Second Name" />*@
@@ -55,6 +57,7 @@
                                 @Html.ValidationMessageFor(m => m.Sobrenome)
                     </div>
                     <div class="form-group">
+                        @Html.LabelFor(m => m.DataNasc, new { @class = "form-control" })
                         <div class="input-group">
                             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                             @*<input type="date" class="form-control" name="DataNasc" placeholder="Age" />*@
@@ -63,6 +66,7 @@
                             @Html.ValidationMessageFor(m => m.DataNasc)
                     </div>
                     <div class="form-group">
+                        @Html.LabelFor(m => m.Email, new { @class = "form-control" })
                         <div class="input-group">
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-envelope"></span>
@@ -73,16 +77,18 @@
                             @Html.ValidationMessageFor(m => m.Email)
                     </div>
                             <div class="form-group">
+                                @Html.LabelFor(m => m.Cel, new { @class = "form-control" })
                                 <div class="input-group">
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-envelope"></span>
                                     </span>
                                     @*<input type="text" class="form-control" name="Cel" placeholder="Cel" />*@
-                                    @Html.TextBoxFor(m => m.Cel, new { @class = "form-control", @placeholder = "Cellphone", id="cell", @required = "required"})
+                                    @Html.TextBoxFor(m => m.Cel, new { @class = "form-control", @placeholder = "Cell phone", id="cell", @required = "required"})
                                 </div>
                                 @Html.ValidationMessageFor(m => m.Cel)
                             </div>
                     <div class="form-group">
+                        @Html.LabelFor(m => m.Senha, new { @class = "form-control" })
                         <div class="input-group">
                             <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
                             @*<input type="password" class="form-control" name="Senha" placeholder="Password" />*@
@@ -91,6 +97,7 @@
                             @Html.ValidationMessageFor(m => m.Senha)
                     </div>
                     <div class="form-group">
+                        <label for="ConfSenha" class="form-control">Confirm Password</label>
                         <div class="input-group">
                             <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
                             <input type="password" class="form-control" name="ConfSenha" placeholder="Confirm Password" pattern =".{6,}" id="confirm_password"/>

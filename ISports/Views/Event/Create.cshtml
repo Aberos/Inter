@@ -36,6 +36,7 @@
                                 <label class="col-md-4 control-label" for="description">Description</label>
                                 <div class="col-md-4">
                                     <!--textarea class="form-control" id="description" name="description"></textarea-->
+                                    
                                     @Html.TextAreaFor(m => m.Descricao, new { @class = "form-control", @placeholder = "Event Description" })
                                 </div>
                                 @Html.ValidationMessageFor(m => m.Descricao)

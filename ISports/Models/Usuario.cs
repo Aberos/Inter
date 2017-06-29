@@ -27,12 +27,12 @@ namespace ISports.Models
         public string Sobrenome { get; set; }
 
         [Required]
-        [DisplayName("Birth Date")]
+        [DisplayName("Birth")]
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DataNasc { get; set; }
 
         [Required]
-        [DisplayName("Cellphone")]
+        [DisplayName("Cell phone")]
         public string Cel { get; set; }
 
         [Required]
