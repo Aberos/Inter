@@ -437,5 +437,24 @@ namespace ISports.Models
 
             return nota;
         }
+
+        public int getNumeroInscritos(int idEvento)
+        {
+            int i = 0;
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = connection;
+            cmd.CommandText = @"select COUNT(*) qtd_inscritos from evento_usuario where id_evento = @idEvento";
+
+            cmd.Parameters.AddWithValue("@idEvento", idEvento);
+
+            SqlDataReader reader = cmd.ExecuteReader();
+            if (reader.Read())
+            {
+                i = (int)reader["qtd_inscritos"];
+            }
+
+            return i;
+        }
     }
 }

@@ -83,21 +83,44 @@
                                 }
                                 else
                                 {
+                                    if (ViewBag.Number >= Model.MaxJogadores)
+                                    {
+                                        <div class="subscribe">
+                                            <button class="btn btn-default btn-circle text-uppercase" type="button" onclick="" disabled>
+                                                <span class="glyphicon glyphicon-asterisk"></span> FULL
+                                            </button>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="subscribe">
+                                            <button class="btn btn-default btn-circle text-uppercase" type="button" onclick="location.href='@Url.Action("Subscribe", "Event", new { idEvento = Model.Id_Evento })';return false;">
+                                                <span class="glyphicon glyphicon-plus"></span> Subscribe
+                                            </button>
+                                        </div>
+                                    }
+
+                                }
+
+                            }
+                            else
+                            {
+                                if (ViewBag.Number >= Model.MaxJogadores)
+                                {
+                                    <div class="subscribe">
+                                        <button class="btn btn-default btn-circle text-uppercase" type="button" onclick="" disabled>
+                                            <span class="glyphicon glyphicon-asterisk"></span> FULL
+                                        </button>
+                                    </div>
+                                }
+                                else
+                                {
                                     <div class="subscribe">
                                         <button class="btn btn-default btn-circle text-uppercase" type="button" onclick="location.href='@Url.Action("Subscribe", "Event", new { idEvento = Model.Id_Evento })';return false;">
                                             <span class="glyphicon glyphicon-plus"></span> Subscribe
                                         </button>
                                     </div>
                                 }
-
-                            }
-                            else
-                            {
-                            <div class="subscribe">
-                                <button class="btn btn-default btn-circle text-uppercase" type="button" onclick="location.href='@Url.Action("Subscribe", "Event", new { idEvento = Model.Id_Evento })';return false;">
-                                    <span class="glyphicon glyphicon-plus"></span> Subscribe
-                                </button>
-                            </div>
                             }
                         </div>
                         <div style="float:right">

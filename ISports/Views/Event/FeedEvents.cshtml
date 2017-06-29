@@ -17,33 +17,41 @@
                 <div class="page-header">
                     <h2> Feed Events </h2>
                 </div>
-                @foreach (var p in ViewBag.Feed)
+                @if (Enumerable.Count(ViewBag.Feed) > 0)
                 {
-                <!-- Begin of rows -->
-                <div class="row carousel-row">
-                    <div class="col-xs-13 col-xs-offset-2 slide-row">
-                        <div id="carousel-1" class="carousel slide slide-carousel" data-ride="carousel">
-                            <!-- Wrapper for slides -->
-                            <div class="carousel-inner">
-                                <div class="item active">
-                                    <img src="@p.Imagem" alt="Image" class="img-thumbnail" style="height: 150px;!important">
+                    foreach (var p in ViewBag.Feed)
+                    {
+                    <!-- Begin of rows -->
+                            <div class="row carousel-row">
+                                <div class="col-xs-13 col-xs-offset-2 slide-row">
+                                    <div id="carousel-1" class="carousel slide slide-carousel" data-ride="carousel">
+                                        <!-- Wrapper for slides -->
+                                        <div class="carousel-inner">
+                                            <div class="item active">
+                                                <img src="@p.Imagem" alt="Image" class="img-thumbnail" style="height: 150px;!important">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="slide-content">
+                                        <h4>@p.Nome</h4>
+                                        <p>
+                                            @p.Descricao
+                                        </p>
+                                    </div>
+                                    <div class="slide-footer">
+                                        <span class="pull-right buttons">
+                                            <a href="~/Event/Home/?EventoID=@p.Id_Evento" class="btn btn-sm btn-primary"><i class="fa fa-fw fa-binoculars" aria-hidden="true"></i>&nbsp Access</a>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="slide-content">
-                            <h4>@p.Nome</h4>
-                            <p>
-                                @p.Descricao
-                            </p>
-                        </div>
-                        <div class="slide-footer">
-                            <span class="pull-right buttons">
-                                <a href="~/Event/Home/?EventoID=@p.Id_Evento" class="btn btn-sm btn-primary"><i class="fa fa-fw fa-binoculars" aria-hidden="true"></i>&nbsp Access</a>
-                            </span>
-                        </div>
-                    </div>
-                </div>
+                    }
                 }
+                else
+                {
+                    <h1 class="text-info text-center">NO EVENTS</h1>
+                }
+
             </div>
         </div>
     </div>

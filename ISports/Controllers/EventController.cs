@@ -29,6 +29,7 @@ namespace ISports.Controllers
                 ViewBag.Subscribed = model.UserSubscribed(idEvento, (Session["usuario"] as Usuario).Id_usuario);
                 ViewBag.Noticias = model.NoticiasEvento(idEvento);
                 ViewBag.NotaUser = model.getNotaUserEvento(idEvento, (Session["usuario"] as Usuario).Id_usuario);
+                ViewBag.Number = model.getNumeroInscritos(idEvento);
 
                 if (ViewBag.Subscribed == true)
                 {
