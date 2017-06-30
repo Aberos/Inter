@@ -185,10 +185,19 @@ namespace ISports.Controllers
 
                 using (UsuarioModel model = new UsuarioModel())
                 {
-                    int idUser = (Session["usuario"] as Usuario).Id_usuario;
-                    model.ChangePassowrd(idUser, senha, nova);
+                    if(model.verificaSenha((Session["usuario"] as Usuario).Id_usuario, senha))
+                    {
+                        int idUser = (Session["usuario"] as Usuario).Id_usuario;
+                        model.ChangePassowrd(idUser, senha, nova);
+                        TempData["successProfile"] = "Password Changed";
+                    }
+                    else
+                    {
+                        TempData["errorProfile"] = "Wrong password";
+                    }
+                    
                 }
-                TempData["successProfile"] = "Password Changed";
+                
                 return RedirectToAction("Edit", "Account");
             }
             catch

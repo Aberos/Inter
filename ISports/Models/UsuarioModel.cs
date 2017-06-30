@@ -116,5 +116,27 @@ namespace ISports.Models
 
             cmd.ExecuteNonQuery();
         }
+
+        public bool verificaSenha(int idUser, string senha)
+        {
+            bool i = false;
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = connection;
+            cmd.CommandText = @"select * from usuarios where id = @idUser and senha = @senha";
+
+            cmd.Parameters.AddWithValue("@idUser", idUser);
+            cmd.Parameters.AddWithValue("@senha", senha);
+
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            if (reader.Read())
+            {
+                i = true;
+            }
+
+            return i;
+                
+        }
     }
 }
